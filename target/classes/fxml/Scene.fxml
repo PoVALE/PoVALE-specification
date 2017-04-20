@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane depthTest="ENABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ucm.povale.specification.FXMLController">
+   <top>
+      <MenuBar minWidth="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Abrir" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOnSaveFile" text="Guardar" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOnSaveFile" text="Guardar como..." />
+                  <MenuItem mnemonicParsing="false" text="Cerrar" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Editar">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Plugins">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleOnViewPlugins" text="Ver Plugins" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOnAddPlugins" text="Añadir Plugins" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOnRemovePlugins" text="Eliminar Plugins" />
+            </items>
+          </Menu>
+        </menus>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </MenuBar>
+   </top>
+   <center>
+      <ScrollPane BorderPane.alignment="CENTER">
+         <content>
+            <GridPane prefHeight="402.0" prefWidth="528.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <GridPane fx:id="gpVariables" prefHeight="184.0" prefWidth="510.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="172.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Variables">
+                           <GridPane.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Button fx:id="btnAddVariable" mnemonicParsing="false" onAction="#handleOnAddVariable" text="+">
+                           <GridPane.margin>
+                              <Insets left="480.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <ScrollPane GridPane.rowIndex="1">
+                           <content>
+                              <VBox fx:id="variables" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </GridPane>
+                  <GridPane fx:id="gpAssertions" prefHeight="195.0" prefWidth="524.0" GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="172.0" minHeight="10.0" prefHeight="171.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Asertos">
+                           <GridPane.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Button fx:id="btnAddAssertion" mnemonicParsing="false" onAction="#handleOnAddAssertion" text="+">
+                           <GridPane.margin>
+                              <Insets left="480.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <ScrollPane prefHeight="169.0" prefWidth="528.0" GridPane.rowIndex="1">
+                           <content>
+                              <VBox fx:id="assertions" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </content>
+      </ScrollPane>
+   </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>
