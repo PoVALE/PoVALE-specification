@@ -28,6 +28,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -41,6 +43,11 @@ public class AssertTrueRep extends AssertionRep {
         this.parent = parent;
         this.assertionLbl.setText("ASSERT TRUE:");
        
+    }
+
+    @Override
+    public Element exportAssertion(Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

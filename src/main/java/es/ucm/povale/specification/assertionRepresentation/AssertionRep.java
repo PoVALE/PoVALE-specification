@@ -23,6 +23,8 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import java.util.LinkedList;
+import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -48,13 +50,11 @@ public abstract class AssertionRep {
     protected GridPane pane;
     protected Label assertionLbl;
     protected final Label termLbl;
-    protected final Label assertLbl;
-    private final Label mensajeLbl;
-    protected TextField mensajeTxt;
+    private final Label messageLbl;
+    protected TextField messageTxt;
     protected ComboBox termCombo;
-    protected ComboBox assertionCombo;
     protected ObservableList<String> terms;
-    protected ObservableList<String> assertions;
+    protected List<BaseAssertionRep> assertions;
 
     public AssertionRep(VBox parent) {
         this.parent = parent;
@@ -67,16 +67,14 @@ public abstract class AssertionRep {
         this.pane.add(assertionLbl, 0, 0);
         this.pane.add(line, 0, 1);
         
-        this.mensajeLbl = new Label("Mensaje: ");
-        this.mensajeTxt = new TextField();
-        this.mensajeTxt.setPromptText("Inserta aquí tu mensaje");
+        this.messageLbl = new Label("Mensaje: ");
+        this.messageTxt = new TextField();
+        this.messageTxt.setPromptText("Inserta aquí tu mensaje");
         
-        this.pane.add(mensajeLbl, 0, 2);
-        this.pane.add(mensajeTxt, 1, 2);
-        
+        this.pane.add(messageLbl, 0, 2);
+        this.pane.add(messageTxt, 1, 2);
         
         this.termLbl = new Label("Término: ");
-        this.assertLbl = new Label("Aserto: ");
         
         this.terms = FXCollections.observableArrayList(
             "Function Application",
@@ -86,39 +84,30 @@ public abstract class AssertionRep {
             "Variable"
         );
         
-        this.assertions = FXCollections.observableArrayList(
-            "And",
-            "Assert False",
-            "Assert True",
-            "Entails",
-            "Equals",
-            "Exist One",
-            "Exist",
-            "For All",
-            "Not",
-            "Or",
-            "Predicate Application"
-        );
-        
         this.termCombo = new ComboBox(terms);
         
-        this.assertionCombo = new ComboBox(assertions);
-        
-        assertionCombo.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
-                createAssertionRep(newValue);
-            }    
-        });
+        this.assertions = new LinkedList<>();
         
         VBox root = new VBox();
         root.getChildren().add(this.pane);
+        
         parent.getChildren().add(root);
     }
     
-    private void createAssertionRep(String assertion){
-        VBox root = new VBox();
-        root.getChildren().add(this.pane);
-        AssertionRepFactory.createAssertionRep(assertion,root);
+    protected BaseAssertionRep addAssertion(){
+        BaseAssertionRep assertion = new BaseAssertionRep();
+        this.assertions.add(assertion);
+        int index = this.assertions.indexOf(assertion);
+        
+        assertion.getAssertionCombo().valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
+                VBox root = new VBox();
+                root.getChildren().add(pane);
+                assertions.get(index).setAssertion(AssertionRepFactory.createAssertionRep(newValue,root));
+            }    
+        });
+        
+        return assertion;
     }
     
     public abstract Element exportAssertion(Document document);

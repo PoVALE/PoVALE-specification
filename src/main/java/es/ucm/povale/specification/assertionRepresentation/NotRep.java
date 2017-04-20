@@ -23,11 +23,9 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
-import java.util.Optional;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -36,14 +34,23 @@ import javafx.scene.layout.VBox;
  * @author PoVALE Team
  */
 public class NotRep extends AssertionRep {
+    
+    private BaseAssertionRep assertion;
 
     public NotRep(VBox parent) {
         super(parent);
         this.parent = parent;
         this.assertionLbl.setText("NOT:");
         
-        this.pane.add(this.assertLbl, 0, 3);
-        this.pane.add(this.assertionCombo, 1, 3);
+        this.assertion = this.addAssertion();
+        
+        this.pane.add(this.assertion.getAssertLbl(), 0, 3);
+        this.pane.add(this.assertion.getAssertionCombo(), 1, 3);
+    }
+
+    @Override
+    public Element exportAssertion(Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -23,9 +23,12 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import java.util.LinkedList;
 import java.util.List;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -33,15 +36,29 @@ import javafx.scene.layout.VBox;
  */
 public class AndRep extends AssertionRep {
 
-    //Lista de asertos como en OR
+    private List<BaseAssertionRep> assertion;
     
     public AndRep(VBox parent) {
         super(parent);
         this.parent = parent;
         this.assertionLbl.setText("AND:");
         
-        this.pane.add(this.assertLbl, 0, 3);
-        this.pane.add(this.assertionCombo, 1, 3);
+        this.assertion = new LinkedList<>();
+        
+        this.assertion.add(this.addAssertion());
+        this.assertion.add(this.addAssertion());
+        
+        this.pane.add(this.assertions.get(0).getAssertLbl(), 0, 3);
+        this.pane.add(this.assertions.get(0).getAssertionCombo(), 1, 3);
+        
+        this.pane.add(this.assertions.get(1).getAssertLbl(), 0, 4);
+        this.pane.add(this.assertions.get(1).getAssertionCombo(), 1, 4);
+        
+    }
+
+    @Override
+    public Element exportAssertion(Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

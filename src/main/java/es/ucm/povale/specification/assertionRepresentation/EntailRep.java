@@ -26,25 +26,35 @@ package es.ucm.povale.specification.assertionRepresentation;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
  * @author PoVALE Team
  */
 public class EntailRep extends AssertionRep {
+    
+    private BaseAssertionRep assertion1;
+    private BaseAssertionRep assertion2;
 
     public EntailRep(VBox parent) {
         super(parent);
         this.parent = parent;
         this.assertionLbl.setText("ENTAILS:");
         
-        Label lhsLbl = new Label("Aserto : ");
-        ComboBox lhsCombo = new ComboBox();
-        lhsCombo.setItems(this.assertions);
+        this.assertion1 = this.addAssertion();
+        this.assertion2 = this.addAssertion();
         
-        this.pane.add(this.assertLbl, 0, 3);
-        this.pane.add(this.assertionCombo, 1, 3);
-        this.pane.add(this.assertLbl, 0, 4);
-        this.pane.add(this.assertionCombo, 1, 4);
+        this.pane.add(this.assertion1.getAssertLbl(), 0, 3);
+        this.pane.add(this.assertion1.getAssertionCombo(), 1, 3);
+        
+        this.pane.add(this.assertion2.getAssertLbl(), 0, 4);
+        this.pane.add(this.assertion2.getAssertionCombo(), 1, 4);
+    }
+
+    @Override
+    public Element exportAssertion(Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

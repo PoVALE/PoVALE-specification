@@ -3,6 +3,7 @@ es/ucm/povale/specification/assertionRepresentation/AssertionRep$1.class
 es/ucm/povale/specification/assertionRepresentation/AssertionRepFactory.class
 es/ucm/povale/specification/assertionRepresentation/EntailRep.class
 es/ucm/povale/specification/termRepresentation/FunctionApplicationRep.class
+es/ucm/povale/specification/assertionRepresentation/BaseAssertionRep.class
 es/ucm/povale/specification/plugins/BasePluginDialog.class
 es/ucm/povale/specification/termRepresentation/VariableRep.class
 es/ucm/povale/specification/FXMLController.class

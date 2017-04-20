@@ -21,7 +21,7 @@ public class AssertionRepFactory {
             case "Assert False":
                 return new AssertFalseRep(parent);
             case "Assert True":
-                return new ExistOneRep(parent);
+                return new AssertTrueRep(parent);
             case "Entails":
                 return new EntailRep(parent);
             case "Equals":

@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 public class ExistOneRep extends AssertionRep {
 
     private TextField variableTxt;
+    private BaseAssertionRep assertion;
 
     public ExistOneRep(VBox parent) {
         super(parent);
@@ -46,35 +47,37 @@ public class ExistOneRep extends AssertionRep {
         this.pane.add(variableTxt, 1, 3);
         this.pane.add(this.termLbl, 0, 4);
         this.pane.add(this.termCombo, 1, 4);
-        this.pane.add(this.assertLbl, 0, 5);
-        this.pane.add(this.assertionCombo, 1, 5);
         
+        this.assertion = this.addAssertion();
+        
+        this.pane.add(this.assertion.getAssertLbl(), 0, 5);
+        this.pane.add(this.assertion.getAssertionCombo(), 1, 5);
     }
 
     @Override
     public Element exportAssertion(Document document) {
         if (this.isValid()){
             
-            Element variable = document.createElement("existOne");
+            Element assertionElement = document.createElement("existOne");
+            if(!this.messageTxt.getText().isEmpty()){
+                assertionElement.setAttribute("msg", this.messageTxt.getText());
+            }
             
-            Element label = document.createElement("variable");
-            label.appendChild(document.createTextNode(this.idTxt.getText()));
-                
-            Element name = document.createElement("name");
-            name.appendChild(document.createTextNode(this.nameTxt.getText()));
-                
-            Element desc = document.createElement("desc");
-            desc.appendChild(document.createTextNode(this.descTxt.getText()));
+            Element variable = document.createElement("variable");
+            variable.appendChild(document.createTextNode(this.variableTxt.getText()));
             
-            Element type = document.createElement("type");
-            type.appendChild(document.createTextNode(this.typeCombo.getValue().toString()));
+            Element term = document.createElement(this.termCombo.getValue().toString());
+            //term.appendChild(document.createTextNode(this.variableTxt.getText())); FALTA que el term devuelva su element
             
-            variable.appendChild(label);
-            variable.appendChild(name);
-            variable.appendChild(desc);
-            variable.appendChild(type);
+            Element inAssertion = document.createElement(this.assertion.getAssertionCombo().getValue().toString());
+            inAssertion.appendChild(this.assertion.getAssertion().exportAssertion(document));
             
-            return variable;
+            
+            assertionElement.appendChild(variable);
+            assertionElement.appendChild(term);
+            assertionElement.appendChild(inAssertion);
+            
+            return assertionElement;
             
         } else {
             return null;
@@ -82,9 +85,8 @@ public class ExistOneRep extends AssertionRep {
     }
     
     public boolean isValid() {
-        return !this.idTxt.getText().isEmpty() &&
-            !this.nameTxt.getText().isEmpty() &&
-            !this.descTxt.getText().isEmpty() &&
-            !this.typeCombo.getSelectionModel().isEmpty();
+        return !this.variableTxt.getText().isEmpty() &&
+               !this.termCombo.getValue().toString().isEmpty() &&
+               !this.assertion.getAssertionCombo().getValue().toString().isEmpty();
     }
 }

@@ -23,15 +23,12 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import javafx.scene.layout.Pane;
-import es.ucm.povale.specification.termRepresentation.TermRep;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * This class represents the predicate application operation.
@@ -41,22 +38,29 @@ import javafx.scene.layout.VBox;
 
 public class PredicateApplicationRep extends AssertionRep {
 
-    protected ComboBox predicateCombo;
-    protected ObservableList<String> predicates;
+    private Label predicate;
+    private ComboBox predicateCombo;
+    private ObservableList<String> predicates;
     
     public PredicateApplicationRep(VBox parent) {
         super(parent);
         this.parent = parent;
         this.assertionLbl.setText("PREDICATE APPLICATION:");
         
-        Label lhsLbl = new Label("Predicate : ");
-        ComboBox predicatesCombo = new ComboBox();
-        predicatesCombo.setItems(this.assertions);
+        predicate = new Label("Predicate : ");
+        this.predicateCombo = new ComboBox();
+        predicateCombo.setItems(predicates);
         
-        this.pane.add(this.assertLbl, 0, 3);
-        this.pane.add(this.assertionCombo, 1, 3);
-        this.pane.add(this.assertLbl, 0, 4);
-        this.pane.add(this.assertionCombo, 1, 4);
+        this.pane.add(this.predicate, 0, 3);
+        this.pane.add(this.predicateCombo, 1, 3);
+        this.pane.add(this.termLbl, 0, 4);
+        this.pane.add(this.termCombo, 1, 4);
+        
+    }
+
+    @Override
+    public Element exportAssertion(Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

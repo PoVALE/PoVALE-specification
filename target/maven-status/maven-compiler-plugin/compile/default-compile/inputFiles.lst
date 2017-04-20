@@ -1,4 +1,5 @@
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/AssertionRepFactory.java
+/Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/BaseAssertionRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/AssertTrueRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/LiteralIntegerRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/FunctionApplicationRep.java

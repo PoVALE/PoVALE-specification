@@ -26,6 +26,8 @@ package es.ucm.povale.specification.assertionRepresentation;
 import java.util.Optional;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * This class represents the logical false
@@ -37,6 +39,11 @@ public class AssertFalseRep extends AssertionRep {
         super(parent);
         this.parent = parent;
         this.assertionLbl.setText("ASSERT FALSE:");
+    }
+
+    @Override
+    public Element exportAssertion(Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

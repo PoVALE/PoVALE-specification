@@ -23,12 +23,11 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
-import es.ucm.povale.specification.termRepresentation.TermRep;
-import java.util.Optional;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -39,6 +38,7 @@ import javafx.scene.layout.VBox;
 public class ForAllRep extends AssertionRep {
 
     private TextField variableTxt;
+    private BaseAssertionRep assertion;
 
     public ForAllRep(VBox parent) {
         super(parent);
@@ -52,9 +52,17 @@ public class ForAllRep extends AssertionRep {
         this.pane.add(variableTxt, 1, 3);
         this.pane.add(this.termLbl, 0, 4);
         this.pane.add(this.termCombo, 1, 4);
-        this.pane.add(this.assertLbl, 0, 5);
-        this.pane.add(this.assertionCombo, 1, 5);
         
+        this.assertion = this.addAssertion();
+        
+        this.pane.add(this.assertion.getAssertLbl(), 0, 5);
+        this.pane.add(this.assertion.getAssertionCombo(), 1, 5);
+        
+    }
+
+    @Override
+    public Element exportAssertion(Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
