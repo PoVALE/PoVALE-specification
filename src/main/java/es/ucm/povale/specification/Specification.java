@@ -6,7 +6,6 @@
 package es.ucm.povale.specification;
 
 import es.ucm.povale.specification.variables.VarRep;
-import es.ucm.povale.entity.Entity;
 import java.util.List;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
 import es.ucm.povale.function.Function;
@@ -17,13 +16,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Set;
 
 /**
  *
  * @author PoVALE Team
  */
-public class Specification {
+public class Specification extends Observable{
     
     private List<AssertionRep> assertions;
     private List<VarRep> variables;

@@ -6,6 +6,8 @@
 package es.ucm.povale.specification.variables;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -21,7 +23,7 @@ import org.w3c.dom.Element;
  *
  * @author PoVALE Team
  */
-public class VarRep {
+public class VarRep implements Observer {
     
     private TextField idTxt;
     private TextField nameTxt;
@@ -98,5 +100,10 @@ public class VarRep {
             !this.nameTxt.getText().isEmpty() &&
             !this.descTxt.getText().isEmpty() &&
             !this.typeCombo.getSelectionModel().isEmpty();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

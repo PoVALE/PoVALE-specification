@@ -4,13 +4,9 @@ import es.ucm.povale.specification.assertionRepresentation.AssertionRepFactory;
 import es.ucm.povale.specification.variables.VarRep;
 import es.ucm.povale.specification.plugins.PluginActions;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -24,6 +20,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,7 +38,7 @@ public class FXMLController implements Initializable {
     
     private Specification specification;
     private Boolean incomplete;
-    private Path path;
+    private String path;
     private PluginActions pluginActions;
     
     @FXML
@@ -48,11 +46,16 @@ public class FXMLController implements Initializable {
     @FXML
     private VBox assertions;
     
+    private Stage stage;
+    
+    //private String path;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.specification = new Specification();
         this.incomplete = false;
         this.pluginActions = new PluginActions(this.specification);
+        this.path = null;
     }    
     
     @FXML
@@ -118,30 +121,76 @@ public class FXMLController implements Initializable {
     }
     
     @FXML
-    private void handleOnSaveFile(ActionEvent event) throws TransformerConfigurationException, TransformerException {
+    private void handleOnSaveFile(ActionEvent event) throws TransformerException {
+        if(this.path == null){
+            this.path = getPath();
+        }
+        saveFile(this.path);
+    }
+    
+    
+    @FXML
+    private void handleOnSaveAsFile(ActionEvent event) throws TransformerException{
+        
+            this.path = getPath();
+            saveFile(this.path);
+        
+    }
+    private void saveFile(String path)  throws TransformerConfigurationException, TransformerException{
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document document = dBuilder.newDocument();
-            
-            Element rootElement = document.createElement("spec");
-            document.appendChild(rootElement);
-            
-            this.savePlugins(document, rootElement);
-            this.saveVariables(document, rootElement);
-            
-            
-            //cambiar o por fichero actual save si ya existe
-            //o por nuevo save as?
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(document);
-            StreamResult result =  new StreamResult(new File("/Users/laurahernandoserrano/Desktop/spec8.xml"));
-            transformer.transform(source, result);
-            
+            if(this.path == null){
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("¡Se debe seleccionar donde guardar el fichero!");
+                alert.showAndWait();
+            }
+            else{
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                Document document = dBuilder.newDocument();
+
+                Element rootElement = document.createElement("spec");
+                document.appendChild(rootElement);
+
+                this.savePlugins(document, rootElement);
+                this.saveVariables(document, rootElement);
+
+
+                //cambiar o por fichero actual save si ya existe
+                //o por nuevo save as?
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource source = new DOMSource(document);
+                StreamResult result =  new StreamResult(new File(path+".xml"));
+                transformer.transform(source, result);
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Operacion realizada con exito");
+                alert.setHeaderText(null);
+                alert.setContentText("¡Fichero guardado!");
+                alert.showAndWait();
+            }
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public String getPath(){
+        String path=null;
+        FileChooser fileChooser = new FileChooser();
+        File selectedDirectory = 
+            fileChooser.showSaveDialog(stage);
+
+        if(selectedDirectory == null){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Directorio no existente, la entrega no fue enviada");
+            alert.showAndWait();
+        }
+        else{
+                path = selectedDirectory.getPath();
+        }
+        return path;
     }
     
     
@@ -173,6 +222,10 @@ public class FXMLController implements Initializable {
                     rootElement.appendChild(e);
                 }
             }
+    }
+
+    void setStage(Stage mainStage) {
+        this.stage = mainStage;
     }
     
 }
