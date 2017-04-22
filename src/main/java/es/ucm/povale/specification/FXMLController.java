@@ -1,5 +1,6 @@
 package es.ucm.povale.specification;
 
+import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRepFactory;
 import es.ucm.povale.specification.variables.VarRep;
 import es.ucm.povale.specification.plugins.PluginActions;
@@ -62,6 +63,7 @@ public class FXMLController implements Initializable {
     private void handleOnAddVariable(ActionEvent event) {
         VarRep variable = new VarRep(this.specification.getEntities());
         this.specification.addVariable(variable);
+        this.specification.addObserver(variable);
         this.variables.getChildren().add(variable.getPane());
     }
     
@@ -86,7 +88,7 @@ public class FXMLController implements Initializable {
         
         assertionscb.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
-                AssertionRepFactory.createAssertionRep(assertionscb.getValue().toString(), assertions);
+                specification.addAssertion(AssertionRepFactory.createAssertionRep(assertionscb.getValue().toString(), assertions));
             }    
         });
         
@@ -155,6 +157,7 @@ public class FXMLController implements Initializable {
 
                 this.savePlugins(document, rootElement);
                 this.saveVariables(document, rootElement);
+                this.saveAssertions(document, rootElement);
 
 
                 //cambiar o por fichero actual save si ya existe
@@ -222,6 +225,34 @@ public class FXMLController implements Initializable {
                     rootElement.appendChild(e);
                 }
             }
+    }
+    
+    private void saveAssertions(Document document, Element rootElement){
+        for(AssertionRep assertion: this.specification.getAssertions()){
+                if(!assertion.isValid()){
+                    this.incomplete = true;
+                }
+            }
+            if(incomplete){
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("¡Se deben rellenar todos los campos de los asertos!");
+                alert.showAndWait();
+            }
+            else{
+                if(!this.specification.getAssertions().isEmpty()){
+                    Element assertionElement = document.createElement("assertion");
+                    rootElement.appendChild(assertionElement);
+
+                    for(AssertionRep assertion: this.specification.getAssertions()){
+                        Element assertElem = document.createElement("assert");
+                        assertElem.appendChild(assertion.exportAssertion(document));
+                        assertionElement.appendChild(assertElem);
+                    }
+                }
+            }
+            this.incomplete = false;
     }
 
     void setStage(Stage mainStage) {

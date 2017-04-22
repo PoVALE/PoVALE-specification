@@ -63,4 +63,11 @@ public class PredicateApplicationRep extends AssertionRep {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Boolean isValid() {
+        return !this.termCombo.getValue().toString().isEmpty() &&
+                !this.predicateCombo.getValue().toString().isEmpty();
+                
+    }
+
 }

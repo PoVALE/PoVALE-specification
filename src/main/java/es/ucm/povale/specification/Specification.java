@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 /**
@@ -31,8 +32,8 @@ public class Specification extends Observable{
     private Map<String, Function> functions;
     private Map<String, Predicate> predicates;
     private Set<String> entities;
+    private List<VarRep> observers;
     
-
     public Specification() {
         assertions = new LinkedList();
         variables = new LinkedList();
@@ -40,6 +41,7 @@ public class Specification extends Observable{
         functions = new HashMap<>();
         predicates = new HashMap<>();
         entities = new HashSet<>();
+        observers = new LinkedList<>();
         
     }
     
@@ -62,6 +64,9 @@ public class Specification extends Observable{
     public void addEntities(List<Class<?>> ents) {
         for(Class<?> e: ents){
             this.entities.add(e.getSimpleName());
+        }
+        for(VarRep vr: observers){
+            vr.update(this, getEntities());
         }
     }
      
@@ -105,7 +110,7 @@ public class Specification extends Observable{
         }
     }
     
-    public Map<String,String> getCurrentPlugins(){
+    public final Map<String,String> getCurrentPlugins(){
         Map<String,String> currentPlugins = new HashMap<>();
         
         for(PluginInfo p: plugins.values()){
@@ -114,6 +119,20 @@ public class Specification extends Observable{
             currentPlugins.put(key, p.getIdPlugin());
         }
         return currentPlugins;
+        
+    }
+    
+    @Override
+    public void addObserver(Observer o){
+        this.observers.add((VarRep)o);
+    }
+    
+    public void addAssertion(AssertionRep assertion) {
+        this.assertions.add(assertion);
+    }
+
+    public List<AssertionRep> getAssertions() {
+        return assertions;
     }
      
 }

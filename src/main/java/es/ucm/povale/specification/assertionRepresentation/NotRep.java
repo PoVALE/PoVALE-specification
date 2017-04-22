@@ -50,7 +50,25 @@ public class NotRep extends AssertionRep {
 
     @Override
     public Element exportAssertion(Document document) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.isValid()){
+            
+            Element assertionElement = document.createElement("not");
+            if(!this.messageTxt.getText().isEmpty()){
+                assertionElement.setAttribute("msg", this.messageTxt.getText());
+            }
+            
+            assertionElement.appendChild(this.assertion.getAssertion().exportAssertion(document));
+            
+            return assertionElement;
+            
+        } else {
+            return null;
+        }    
+    }
+
+    @Override
+    public Boolean isValid() {
+        return this.assertion.getAssertionCombo().getValue().toString().isEmpty();
     }
     
 }

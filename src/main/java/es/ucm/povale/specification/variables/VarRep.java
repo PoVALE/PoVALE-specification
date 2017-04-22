@@ -6,6 +6,7 @@
 package es.ucm.povale.specification.variables;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.collections.FXCollections;
@@ -104,6 +105,16 @@ public class VarRep implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        List<String> newEntities = (List<String>) arg;
+        
+        for(String s: newEntities){
+            if(!this.entities.contains(s)){
+               // this.entities.add(s);
+                this.typeCombo.getItems().add(s);
+            }
+        }
+        
+       // this.options = FXCollections.observableArrayList(entities);
+        //this.typeCombo = new ComboBox(options);
     }
 }

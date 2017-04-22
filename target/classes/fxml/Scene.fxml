@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -13,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane depthTest="ENABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ucm.povale.specification.FXMLController">
+<BorderPane depthTest="ENABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ucm.povale.specification.FXMLController">
    <top>
       <MenuBar minWidth="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <menus>
@@ -21,13 +25,8 @@
             <items>
               <MenuItem mnemonicParsing="false" text="Abrir" />
                   <MenuItem mnemonicParsing="false" onAction="#handleOnSaveFile" text="Guardar" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleOnSaveFile" text="Guardar como..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOnSaveAsFile" text="Guardar como..." />
                   <MenuItem mnemonicParsing="false" text="Cerrar" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Editar">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Plugins">

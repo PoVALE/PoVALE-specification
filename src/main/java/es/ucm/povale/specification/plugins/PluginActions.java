@@ -35,7 +35,7 @@ public class PluginActions {
         this.availablePlugins = new HashMap<>();
         this.currentPlugins = new HashMap<>();
         
-        //esto debería cargarse con los plugins disponibles DUDA y metodorecargar
+        //esto debería cargarse con los plugins disponibles DUDA y metodo recargar
         availablePlugins.put("CorePlugin", "es.ucm.povale.plugin.CorePlugin");
         availablePlugins.put("FilesPlugin", "es.ucm.povaleFiles.FilesPlugin");
         

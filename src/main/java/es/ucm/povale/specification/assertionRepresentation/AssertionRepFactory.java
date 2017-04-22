@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
  */
 public class AssertionRepFactory {
     
-    public static AssertionRep createAssertionRep(String assertionRep, VBox parent) {
+    public static AssertionRep createAssertionRep(String assertionRep, VBox parent) {//predicados
         
         switch (assertionRep) {
             case "And":

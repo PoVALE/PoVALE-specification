@@ -23,11 +23,6 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
-import java.util.Optional;
-import javafx.scene.layout.Pane;
-import es.ucm.povale.specification.termRepresentation.TermRep;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -58,7 +53,34 @@ public class EqualsRep extends AssertionRep {
 
     @Override
     public Element exportAssertion(Document document) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.isValid()){
+            
+            Element assertionElement = document.createElement("equals");
+            if(!this.messageTxt.getText().isEmpty()){
+                assertionElement.setAttribute("msg", this.messageTxt.getText());
+            }
+            
+            Element lhs = document.createElement("lhs");
+            lhs.appendChild(this.assertion1.getAssertion().exportAssertion(document));
+             
+            Element rhs = document.createElement("rhs");
+            rhs.appendChild(this.assertion2.getAssertion().exportAssertion(document));
+            
+            
+            assertionElement.appendChild(lhs);
+            assertionElement.appendChild(rhs);
+            
+            return assertionElement;
+            
+        } else {
+            return null;
+        }    
+    }
+
+    @Override
+    public Boolean isValid() {
+        return this.assertion1.getAssertionCombo().getValue().toString().isEmpty() &&
+                this.assertion2.getAssertionCombo().getValue().toString().isEmpty();
     }
     
 }

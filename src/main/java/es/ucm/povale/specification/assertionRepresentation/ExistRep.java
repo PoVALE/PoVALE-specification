@@ -61,6 +61,33 @@ public class ExistRep extends AssertionRep {
 
     @Override
     public Element exportAssertion(Document document) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.isValid()){
+            
+            Element assertionElement = document.createElement("exist");
+            if(!this.messageTxt.getText().isEmpty()){
+                assertionElement.setAttribute("msg", this.messageTxt.getText());
+            }
+            
+            Element variable = document.createElement("variable");
+            variable.appendChild(document.createTextNode(this.variableTxt.getText()));
+            assertionElement.appendChild(variable);
+             
+            Element term = document.createElement(this.termCombo.getValue().toString());
+            assertionElement.appendChild(term);
+           
+            assertionElement.appendChild(this.assertion.getAssertion().exportAssertion(document));
+            
+            return assertionElement;
+            
+        } else {
+            return null;
+        }    
+    }
+    
+    @Override
+    public Boolean isValid() {
+        return !this.variableTxt.getText().isEmpty() &&
+               !this.termCombo.getValue().toString().isEmpty() &&
+               !this.assertion.getAssertionCombo().getValue().toString().isEmpty();
     }
 }

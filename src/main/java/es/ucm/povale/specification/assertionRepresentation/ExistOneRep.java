@@ -65,17 +65,12 @@ public class ExistOneRep extends AssertionRep {
             
             Element variable = document.createElement("variable");
             variable.appendChild(document.createTextNode(this.variableTxt.getText()));
-            
-            Element term = document.createElement(this.termCombo.getValue().toString());
-            //term.appendChild(document.createTextNode(this.variableTxt.getText())); FALTA que el term devuelva su element
-            
-            Element inAssertion = document.createElement(this.assertion.getAssertionCombo().getValue().toString());
-            inAssertion.appendChild(this.assertion.getAssertion().exportAssertion(document));
-            
-            
             assertionElement.appendChild(variable);
+             
+            Element term = document.createElement(this.termCombo.getValue().toString());
             assertionElement.appendChild(term);
-            assertionElement.appendChild(inAssertion);
+           
+            assertionElement.appendChild(this.assertion.getAssertion().exportAssertion(document));
             
             return assertionElement;
             
@@ -84,7 +79,8 @@ public class ExistOneRep extends AssertionRep {
         }    
     }
     
-    public boolean isValid() {
+    @Override
+    public Boolean isValid() {
         return !this.variableTxt.getText().isEmpty() &&
                !this.termCombo.getValue().toString().isEmpty() &&
                !this.assertion.getAssertionCombo().getValue().toString().isEmpty();

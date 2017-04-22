@@ -111,5 +111,6 @@ public abstract class AssertionRep {
     }
     
     public abstract Element exportAssertion(Document document);
-
+    
+    public abstract Boolean isValid();
 }

@@ -36,17 +36,13 @@ import org.w3c.dom.Element;
  */
 public class AndRep extends AssertionRep {
 
-    private List<BaseAssertionRep> assertion;
-    
     public AndRep(VBox parent) {
         super(parent);
         this.parent = parent;
         this.assertionLbl.setText("AND:");
         
-        this.assertion = new LinkedList<>();
-        
-        this.assertion.add(this.addAssertion());
-        this.assertion.add(this.addAssertion());
+        this.assertions.add(this.addAssertion());
+        this.assertions.add(this.addAssertion());
         
         this.pane.add(this.assertions.get(0).getAssertLbl(), 0, 3);
         this.pane.add(this.assertions.get(0).getAssertionCombo(), 1, 3);
@@ -58,7 +54,33 @@ public class AndRep extends AssertionRep {
 
     @Override
     public Element exportAssertion(Document document) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       if (this.isValid()){
+            
+            Element assertionElement = document.createElement("and");
+            if(!this.messageTxt.getText().isEmpty()){
+                assertionElement.setAttribute("msg", this.messageTxt.getText());
+            }
+            
+            for(BaseAssertionRep a : this.assertions){
+                assertionElement.appendChild(a.getAssertion().exportAssertion(document));
+            }
+            
+            return assertionElement;
+            
+        } else {
+            return null;
+        }    
+    }
+
+    @Override
+    public Boolean isValid() {
+        Boolean valid = true;
+        for(BaseAssertionRep a : this.assertions){
+            if(a.getAssertionCombo().getValue().toString().isEmpty()){
+                valid = false;
+            }
+        }
+       return valid;
     }
 
 }
