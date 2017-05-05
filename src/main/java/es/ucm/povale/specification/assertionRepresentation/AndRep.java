@@ -35,20 +35,23 @@ import org.w3c.dom.Element;
  * @author PoVALE Team
  */
 public class AndRep extends AssertionRep {
+    
+    private BaseAssertionRep assertion1;
+    private BaseAssertionRep assertion2;
 
     public AndRep(VBox parent) {
         super(parent);
         this.parent = parent;
         this.assertionLbl.setText("AND:");
         
-        this.assertions.add(this.addAssertion());
-        //this.assertions.add(this.addAssertion());
+        this.assertion1 = this.addAssertion();
+        this.assertion2 = this.addAssertion();
         
-        this.pane.add(this.assertions.get(0).getAssertLbl(), 0, 3);
-        this.pane.add(this.assertions.get(0).getAssertionCombo(), 1, 3);
+        this.pane.add(this.assertion1.getAssertLbl(), 0, 3);
+        this.pane.add(this.assertion1.getAssertionCombo(), 1, 3);
         
-        //this.pane.add(this.assertions.get(1).getAssertLbl(), 0, 4);
-        //this.pane.add(this.assertions.get(1).getAssertionCombo(), 1, 4);
+        this.pane.add(this.assertion2.getAssertLbl(), 0, 4);
+        this.pane.add(this.assertion2.getAssertionCombo(), 1, 4);
         
     }
 
