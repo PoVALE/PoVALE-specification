@@ -23,21 +23,47 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
-import es.ucm.povale.entity.IntegerEntity;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-public class LiteralIntegerRep implements TermRep {
-    
-    private IntegerEntity integer;
+/**
+ *
+ * @author PoVALE Team
+ */
 
-    public LiteralIntegerRep(IntegerEntity integer) {
-        this.integer = integer;
+public class LiteralIntegerRep extends TermRep {
+	
+    private Label literalIntegerLbl;
+    private TextField literalIntegerTxt;
+    public LiteralIntegerRep(VBox parent) {
+        super(parent);
+        
+        this.termLbl.setText("LITERAL INTEGER");
+        
+        literalIntegerLbl = new Label("Literal integer variable:");
+        this.literalIntegerTxt = new TextField();
+        this.pane.add(literalIntegerLbl, 0, 3);
+        this.pane.add(literalIntegerTxt, 1, 3);
+
     }
-    
 
     @Override
-    public String toString() {
-        return Integer.toString(integer.getValue());
+    public Element exportTerm(Document document) {
+        if (this.isValid()){
+             Element variableElement = document.createElement("literalInteger");
+             variableElement.appendChild(document.createTextNode(this.literalIntegerTxt.getText()));
+             return variableElement;
+        } else {
+            return null;
+        } 
     }
-    
-    
+
+    @Override
+    public Boolean isValid() {
+        return !this.literalIntegerTxt.getText().isEmpty();
+    }
+   
 }

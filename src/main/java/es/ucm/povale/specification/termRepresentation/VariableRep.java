@@ -23,18 +23,45 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
-public class VariableRep implements TermRep {
-	
-    private String name;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-    public VariableRep(String name) {
-        this.name = name;
+/**
+ *
+ * @author PoVALE Team
+ */
+
+public class VariableRep extends TermRep {
+	
+    private Label variableLbl;
+    private TextField variableTxt;
+    public VariableRep(VBox parent) {
+        super(parent);
+        this.termLbl.setText("VARIABLE");
+        
+        variableLbl = new Label("Variable:");
+        this.variableTxt = new TextField();
+        this.pane.add(variableLbl, 0, 3);
+        this.pane.add(variableTxt, 1, 3);
     }
-    
+
     @Override
-    public String toString() {
-        return name;
+    public Element exportTerm(Document document) {
+        if (this.isValid()){
+             Element variableElement = document.createElement("variable");
+             variableElement.appendChild(document.createTextNode(this.variableTxt.getText()));
+             return variableElement;
+        } else {
+            return null;
+        } 
     }
-    
-    
+
+    @Override
+    public Boolean isValid() {
+        return !this.variableTxt.getText().isEmpty();
+    }
+   
 }

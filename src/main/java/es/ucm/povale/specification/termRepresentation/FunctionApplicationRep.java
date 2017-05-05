@@ -24,16 +24,28 @@
 package es.ucm.povale.specification.termRepresentation;
 
 import java.util.List;
+import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
-public class FunctionApplicationRep implements TermRep {
+public class FunctionApplicationRep extends TermRep {
 
     private String function;
     private List<TermRep> args;
 
-    public FunctionApplicationRep(String function, List<TermRep> args) {
-        this.function = function;
-        this.args = args;
+    public FunctionApplicationRep(VBox parent) {
+        super(parent);
+    }
+
+    @Override
+    public Element exportTerm(Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean isValid() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

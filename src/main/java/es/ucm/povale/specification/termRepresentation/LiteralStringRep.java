@@ -23,15 +23,48 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
-import es.ucm.povale.entity.StringEntity;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
-public class LiteralStringRep implements TermRep {
+/**
+ *
+ * @author PoVALE Team
+ */
+
+public class LiteralStringRep extends TermRep {
 	
-    private StringEntity string;
+    private Label literalStringLbl;
+    private TextField literalStringTxt;
+    public LiteralStringRep(VBox parent) {
+        super(parent);
+        
+        this.termLbl.setText("LITERAL STRING");
+        
+        literalStringLbl = new Label("Literal string variable:");
+        this.literalStringTxt = new TextField();
+        this.pane.add(literalStringLbl, 0, 3);
+        this.pane.add(literalStringTxt, 1, 3);
 
-    public LiteralStringRep(StringEntity string) {
-        this.string = string;
+    }
+
+    @Override
+    public Element exportTerm(Document document) {
+        if (this.isValid()){
+             Element variableElement = document.createElement("literalString");
+             variableElement.appendChild(document.createTextNode(this.literalStringTxt.getText()));
+             return variableElement;
+        } else {
+            return null;
+        } 
+    }
+
+    @Override
+    public Boolean isValid() {
+        return !this.literalStringTxt.getText().isEmpty();
     }
    
 }
