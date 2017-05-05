@@ -24,19 +24,17 @@ import org.w3c.dom.Element;
  *
  * @author PoVALE Team
  */
-public class VarRep implements Observer {
+public class VarRep {
     
     private TextField idTxt;
     private TextField nameTxt;
     private TextField descTxt;
     private GridPane pane;
     private ComboBox typeCombo;
-    private List<String> entities;
-    private ObservableList<String> options;
+    private ObservableList<String> possibleEntities;
 
-    public VarRep(List<String> entities) {
+    public VarRep() {
         this.pane = new GridPane();
-        this.entities = entities;
 
         pane.setPadding(new Insets(0, 10, 10, 10));
         
@@ -57,9 +55,13 @@ public class VarRep implements Observer {
         
         Label typeLbl = new Label("Tipo:");
         pane.add(typeLbl, 0, 4);
-        options = FXCollections.observableArrayList(entities);
-        this.typeCombo = new ComboBox(options);
+        possibleEntities = FXCollections.observableArrayList();
+        this.typeCombo = new ComboBox(possibleEntities);
         pane.add(typeCombo, 1, 4);
+    }
+
+    public ObservableList<String> getPossibleEntities() {
+        return possibleEntities;
     }
     
     public Pane getPane() {
@@ -103,18 +105,4 @@ public class VarRep implements Observer {
             !this.typeCombo.getSelectionModel().isEmpty();
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        List<String> newEntities = (List<String>) arg;
-        
-        for(String s: newEntities){
-            if(!this.entities.contains(s)){
-               // this.entities.add(s);
-                this.typeCombo.getItems().add(s);
-            }
-        }
-        
-       // this.options = FXCollections.observableArrayList(entities);
-        //this.typeCombo = new ComboBox(options);
-    }
 }

@@ -54,6 +54,8 @@ public abstract class AssertionRep {
     protected TextField messageTxt;
     protected ComboBox termCombo;
     protected ObservableList<String> terms;
+    protected ObservableList<String> observableFunctions;
+    protected ObservableList<String> observablePredicates;
     protected List<BaseAssertionRep> assertions;
 
     public AssertionRep(VBox parent) {
@@ -88,10 +90,21 @@ public abstract class AssertionRep {
         
         this.assertions = new LinkedList<>();
         
+        observableFunctions = FXCollections.observableArrayList();
+        observablePredicates = FXCollections.observableArrayList();
+        
         VBox root = new VBox();
         root.getChildren().add(this.pane);
         
         parent.getChildren().add(root);
+    }
+
+    public ObservableList<String> getObservableFunctions() {
+        return observableFunctions;
+    }
+
+    public ObservableList<String> getObservablePredicates() {
+        return observablePredicates;
     }
     
     protected BaseAssertionRep addAssertion(){

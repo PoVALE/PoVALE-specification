@@ -40,7 +40,6 @@ public class PredicateApplicationRep extends AssertionRep {
 
     private Label predicate;
     private ComboBox predicateCombo;
-    private ObservableList<String> predicates;
     
     public PredicateApplicationRep(VBox parent) {
         super(parent);
@@ -49,7 +48,7 @@ public class PredicateApplicationRep extends AssertionRep {
         
         predicate = new Label("Predicate : ");
         this.predicateCombo = new ComboBox();
-        predicateCombo.setItems(predicates);
+        predicateCombo.setItems(this.observablePredicates);
         
         this.pane.add(this.predicate, 0, 3);
         this.pane.add(this.predicateCombo, 1, 3);

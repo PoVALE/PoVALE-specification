@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -61,9 +62,10 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void handleOnAddVariable(ActionEvent event) {
-        VarRep variable = new VarRep(this.specification.getEntities());
+        VarRep variable = new VarRep();
+        Bindings.bindContentBidirectional(variable.getPossibleEntities(),this.specification.getObservableEntities());
+        
         this.specification.addVariable(variable);
-        this.specification.addObserver(variable);
         this.variables.getChildren().add(variable.getPane());
     }
     
@@ -88,11 +90,12 @@ public class FXMLController implements Initializable {
         
         assertionscb.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
-                specification.addAssertion(AssertionRepFactory.createAssertionRep(assertionscb.getValue().toString(), assertions));
+                AssertionRep assertion = AssertionRepFactory.createAssertionRep(assertionscb.getValue().toString(), assertions);
+                Bindings.bindContentBidirectional(assertion.getObservableFunctions(),specification.getObservableFunctions());
+                Bindings.bindContentBidirectional(assertion.getObservablePredicates(),specification.getObservablePredicates());
+                specification.addAssertion(assertion);
             }    
         });
-        
-        
     }
     
     @FXML
@@ -102,6 +105,7 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void handleOnAddPlugins(ActionEvent event) {
+        
         if(this.pluginActions.showAddPluginsDialog(specification)){
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Confirmación");
@@ -130,7 +134,6 @@ public class FXMLController implements Initializable {
         saveFile(this.path);
     }
     
-    
     @FXML
     private void handleOnSaveAsFile(ActionEvent event) throws TransformerException{
         
@@ -138,6 +141,7 @@ public class FXMLController implements Initializable {
             saveFile(this.path);
         
     }
+    
     private void saveFile(String path)  throws TransformerConfigurationException, TransformerException{
         try {
             if(this.path == null){
@@ -177,6 +181,7 @@ public class FXMLController implements Initializable {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+  
     public String getPath(){
         String path=null;
         FileChooser fileChooser = new FileChooser();

@@ -43,7 +43,7 @@ public class ForAllRep extends AssertionRep {
     public ForAllRep(VBox parent) {
         super(parent);
         this.parent = parent;
-        this.assertionLbl.setText("EXIST:");
+        this.assertionLbl.setText("FOR ALL:");
         
         Label variableLbl = new Label("Variable:");
         this.variableTxt = new TextField();

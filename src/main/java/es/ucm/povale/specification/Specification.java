@@ -19,12 +19,14 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author PoVALE Team
  */
-public class Specification extends Observable{
+public class Specification{
     
     private List<AssertionRep> assertions;
     private List<VarRep> variables;
@@ -32,7 +34,9 @@ public class Specification extends Observable{
     private Map<String, Function> functions;
     private Map<String, Predicate> predicates;
     private Set<String> entities;
-    private List<VarRep> observers;
+    private ObservableList<String> observableEntities;
+    private ObservableList<String> observablePredicates;
+    private ObservableList<String> observableFunctions;
     
     public Specification() {
         assertions = new LinkedList();
@@ -41,8 +45,21 @@ public class Specification extends Observable{
         functions = new HashMap<>();
         predicates = new HashMap<>();
         entities = new HashSet<>();
-        observers = new LinkedList<>();
-        
+        observableEntities = FXCollections.observableArrayList(entities);
+        observablePredicates = FXCollections.observableArrayList(predicates.keySet());
+        observableFunctions = FXCollections.observableArrayList(functions.keySet());
+    }
+
+    public ObservableList<String> getObservableEntities() {
+        return observableEntities;
+    }
+
+    public ObservableList<String> getObservablePredicates() {
+        return observablePredicates;
+    }
+
+    public ObservableList<String> getObservableFunctions() {
+        return observableFunctions;
     }
     
     public List<String> getEntities(){
@@ -55,6 +72,7 @@ public class Specification extends Observable{
     
     public void addVariable(VarRep variable) {
         this.variables.add(variable);
+        
     }
     
     public void deleteVariable(VarRep variable){
@@ -64,16 +82,16 @@ public class Specification extends Observable{
     public void addEntities(List<Class<?>> ents) {
         for(Class<?> e: ents){
             this.entities.add(e.getSimpleName());
+            observableEntities.add(e.getSimpleName());
         }
-        for(VarRep vr: observers){
-            vr.update(this, getEntities());
-        }
+       
     }
      
     public void addFunctions(List<Function> functions) {
 
         functions.stream().forEach((f) -> {
             this.functions.put(f.getName(), f);
+            observableFunctions.add(f.getName());
         });
     }
     
@@ -81,6 +99,7 @@ public class Specification extends Observable{
 
         predicates.stream().forEach((p) -> {
             this.predicates.put(p.getName(), p);
+            observablePredicates.add(p.getName());
         });
     }
     
@@ -120,11 +139,6 @@ public class Specification extends Observable{
         }
         return currentPlugins;
         
-    }
-    
-    @Override
-    public void addObserver(Observer o){
-        this.observers.add((VarRep)o);
     }
     
     public void addAssertion(AssertionRep assertion) {
