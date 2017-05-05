@@ -10,9 +10,12 @@ es/ucm/povale/specification/FXMLController.class
 es/ucm/povale/specification/assertionRepresentation/EqualsRep.class
 es/ucm/povale/specification/termRepresentation/LiteralStringRep.class
 es/ucm/povale/specification/plugins/BasePluginDialog$1.class
+es/ucm/povale/specification/termRepresentation/TermRepFactory.class
 es/ucm/povale/specification/plugins/PluginActions.class
 es/ucm/povale/specification/termRepresentation/ListTermRep.class
+es/ucm/povale/specification/assertionRepresentation/AssertionRep$2.class
 es/ucm/povale/specification/assertionRepresentation/AssertionRep.class
+es/ucm/povale/specification/termRepresentation/BaseTermRep.class
 es/ucm/povale/specification/MainApp.class
 es/ucm/povale/specification/Specification.class
 es/ucm/povale/specification/assertionRepresentation/NotRep.class
@@ -22,6 +25,7 @@ es/ucm/povale/specification/assertionRepresentation/ExistOneRep.class
 es/ucm/povale/specification/assertionRepresentation/AssertTrueRep.class
 es/ucm/povale/specification/assertionRepresentation/PredicateApplicationRep.class
 es/ucm/povale/specification/FXMLController$1.class
+es/ucm/povale/specification/termRepresentation/BaseTermRep$1.class
 es/ucm/povale/specification/assertionRepresentation/AndRep.class
 es/ucm/povale/specification/assertionRepresentation/ExistRep.class
 es/ucm/povale/specification/termRepresentation/LiteralIntegerRep.class
@@ -31,3 +35,4 @@ es/ucm/povale/specification/assertionRepresentation/ForAllRep.class
 es/ucm/povale/specification/variables/VarRep.class
 es/ucm/povale/specification/assertionRepresentation/OrRep.class
 es/ucm/povale/specification/variables/VarRep$1.class
+es/ucm/povale/specification/termRepresentation/ListTermRep$1.class

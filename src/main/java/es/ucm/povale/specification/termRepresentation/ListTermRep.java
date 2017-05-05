@@ -23,11 +23,15 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
-import es.ucm.povale.specification.assertionRepresentation.BaseAssertionRep;
+import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -35,19 +39,24 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class ListTermRep extends TermRep {
-
-   
+    
+    private List<TermRep> termReps;
+    private int index;
 
     public ListTermRep(VBox parent) {
         super(parent);
         this.termLbl.setText("LIST OF TERMS:");
+        termReps = new ArrayList<>();
+        index = 2;
+        
         ImageView imgAdd = new ImageView(new Image("file:src/main/resources/correct.png"));
         Button add = new Button();
         imgAdd.setFitHeight(16);
         imgAdd.setFitWidth(16);
         imgAdd.setPreserveRatio(true);
         add.setGraphic(imgAdd);
-        pane.add(add, 2, 1);
+        
+        pane.add(add, 2, 0);
         
         add.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
@@ -55,27 +64,38 @@ public class ListTermRep extends TermRep {
             }
         });
         
-        this.terms.add(this.addTerm());
-        this.terms.add(this.addTerm());
         
+        /*
         this.pane.add(this.terms.get(0).getTermLbl(), 0, 3);
         this.pane.add(this.terms.get(0).getTermCombo(), 1, 3);
         
         this.pane.add(this.terms.get(1).getTermLbl(), 0, 4);
-        this.pane.add(this.terms.get(1).getTermCombo(), 1, 4);            
+        this.pane.add(this.terms.get(1).getTermCombo(), 1, 4);    
+        */
 
     }
 
     public void deleteTerm(int position){
         this.terms.remove(position);
-        //this.pane.r
     }
     
-    public void AddTerm(){
+    public void addTerm(){
+        this.pane.add(new Label("Termino: "), 0, index);
+        ObservableList<String> termObsList = FXCollections.observableArrayList(
+            "Function Application",
+            "List Term",
+            "Integer",
+            "String",
+            "Variable"
+        );
+        this.pane.add(new ComboBox(termObsList), 0, index);
+        
+        
+
         int position = this.terms.size();
-        this.terms.add(this.addTerm());
-        this.pane.add(this.terms.get(position).getTermLbl(), 0, position+3);
-        this.pane.add(this.terms.get(position).getTermCombo(), 1, position+3);
+        //this.terms.add(this.addTerm());
+        //this.pane.add(this.terms.get(position).getTermLbl(), 0, position+3);
+        //this.pane.add(this.terms.get(position).getTermCombo(), 1, position+3);
         //this.pane.r
     }
     
@@ -85,7 +105,7 @@ public class ListTermRep extends TermRep {
         if (this.isValid()){
             Element termElement = document.createElement("listTerm");
             for(BaseTermRep a : this.terms){
-                termElement.appendChild(a.getTerm().exportTerm(document));
+               // termElement.appendChild(a.getTerm().exportTerm(document));
             }
             return termElement;
         } else {
@@ -97,9 +117,9 @@ public class ListTermRep extends TermRep {
     public Boolean isValid() {
        Boolean valid = true;
         for(BaseTermRep a : this.terms){
-            if(a.getTermCombo().getValue().toString().isEmpty()){
-                valid = false;
-            }
+           // if(a.getTermCombo().getValue().toString().isEmpty()){
+           //     valid = false;
+            //}
         }
        return valid;
     }

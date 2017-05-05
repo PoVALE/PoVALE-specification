@@ -23,8 +23,10 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,9 +47,8 @@ public class ExistOneRep extends AssertionRep {
         
         this.pane.add(variableLbl, 0, 3);
         this.pane.add(variableTxt, 1, 3);
-        this.pane.add(this.termLbl, 0, 4);
-        this.pane.add(this.termCombo, 1, 4);
-        
+        this.pane.add(this.termBox,0, 4);
+        GridPane.setColumnSpan(termBox, 2);
         this.assertion = this.addAssertion();
         
         this.pane.add(this.assertion.getAssertLbl(), 0, 5);

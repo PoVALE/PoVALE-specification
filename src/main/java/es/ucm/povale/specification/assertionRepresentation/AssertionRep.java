@@ -23,6 +23,8 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import es.ucm.povale.specification.termRepresentation.TermRep;
+import es.ucm.povale.specification.termRepresentation.TermRepFactory;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.beans.binding.Bindings;
@@ -36,6 +38,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -47,6 +50,7 @@ import org.w3c.dom.Element;
  */
 public abstract class AssertionRep {
     
+    protected VBox termBox;
     protected VBox parent;
     protected VBox child;
     protected GridPane pane;
@@ -59,6 +63,7 @@ public abstract class AssertionRep {
     protected ObservableList<String> observableFunctions;
     protected ObservableList<String> observablePredicates;
     protected List<BaseAssertionRep> assertions;
+    protected List<TermRep> termReps;
 
     public AssertionRep(VBox parent) {
         this.parent = parent;
@@ -78,8 +83,9 @@ public abstract class AssertionRep {
         this.pane.add(messageLbl, 0, 2);
         this.pane.add(messageTxt, 1, 2);
         
+        HBox termChooser = new HBox();
+        termChooser.setSpacing(10);
         this.termLbl = new Label("Término: ");
-        
         this.terms = FXCollections.observableArrayList(
             "Function Application",
             "List Term",
@@ -89,6 +95,20 @@ public abstract class AssertionRep {
         );
         
         this.termCombo = new ComboBox(terms);
+        
+        termChooser.getChildren().add(termLbl);
+        termChooser.getChildren().add(termCombo);
+        
+        this.termBox = new VBox();
+        this.termBox.getChildren().add(termChooser);
+        
+        this.termCombo.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
+                TermRep term = TermRepFactory.createTermRep(newValue,termBox);
+                Bindings.bindContentBidirectional(term.getObservableFunctions(),observableFunctions);
+            }    
+        });
+        
         
         this.assertions = new LinkedList<>();
         

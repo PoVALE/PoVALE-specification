@@ -5,6 +5,7 @@
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/FunctionApplicationRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/plugins/RemovePluginDialog.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/ForAllRep.java
+/Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/BaseTermRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/variables/VarRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/EqualsRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/OrRep.java
@@ -16,6 +17,7 @@
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/EntailRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/FXMLController.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/MainApp.java
+/Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/TermRepFactory.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/plugins/PluginActions.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/ListTermRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/ExistRep.java

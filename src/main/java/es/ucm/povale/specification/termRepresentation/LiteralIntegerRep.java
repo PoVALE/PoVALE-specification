@@ -38,13 +38,15 @@ public class LiteralIntegerRep extends TermRep {
 	
     private Label literalIntegerLbl;
     private TextField literalIntegerTxt;
+    
     public LiteralIntegerRep(VBox parent) {
         super(parent);
         
         this.termLbl.setText("LITERAL INTEGER");
         
-        literalIntegerLbl = new Label("Literal integer variable:");
+        literalIntegerLbl = new Label("Integer:");
         this.literalIntegerTxt = new TextField();
+        
         this.pane.add(literalIntegerLbl, 0, 3);
         this.pane.add(literalIntegerTxt, 1, 3);
 

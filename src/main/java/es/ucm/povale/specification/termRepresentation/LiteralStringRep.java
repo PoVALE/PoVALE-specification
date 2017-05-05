@@ -44,7 +44,7 @@ public class LiteralStringRep extends TermRep {
         
         this.termLbl.setText("LITERAL STRING");
         
-        literalStringLbl = new Label("Literal string variable:");
+        literalStringLbl = new Label("String:");
         this.literalStringTxt = new TextField();
         this.pane.add(literalStringLbl, 0, 3);
         this.pane.add(literalStringTxt, 1, 3);

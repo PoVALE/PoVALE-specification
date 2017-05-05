@@ -49,8 +49,7 @@ public class ExistRep extends AssertionRep {
         
         this.pane.add(variableLbl, 0, 3);
         this.pane.add(variableTxt, 1, 3);
-        this.pane.add(this.termLbl, 0, 4);
-        this.pane.add(this.termCombo, 1, 4);
+        this.pane.add(this.termBox, 0, 4);
         
         this.assertion = this.addAssertion();
         

@@ -23,17 +23,14 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
-import java.util.LinkedList;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
@@ -49,56 +46,30 @@ public abstract class TermRep {
     protected VBox parent;
     protected GridPane pane;
     protected Label termLbl;
-    protected ComboBox termCombo;
-    protected ObservableList<String> termsObs;
     protected List<BaseTermRep> terms;
+    protected ObservableList<String> observableFunctions;
 
     public TermRep(VBox parent) {
         this.parent = parent;
         this.pane = new GridPane();
         this.pane.setPadding(new Insets(0, 10, 10, 10));
         
+        observableFunctions = FXCollections.observableArrayList();
+        
         this.termLbl = new Label();
         Separator line = new Separator();
         
         this.pane.add(termLbl, 0, 0);
         this.pane.add(line, 0, 1);
-        
-        
-        this.termLbl = new Label("Término: ");
-        
-        this.termsObs = FXCollections.observableArrayList(
-            "Function Application",
-            "List Term",
-            "Integer",
-            "String",
-            "Variable"
-        );
-        
-        this.termCombo = new ComboBox(termsObs);
-        
-        this.terms = new LinkedList<>();
-        
+
         VBox root = new VBox();
         root.getChildren().add(this.pane);
         
         parent.getChildren().add(root);
     }
-    
-    protected BaseTermRep addTerm(){
-        BaseTermRep term = new BaseTermRep();
-        this.terms.add(term);
-        int index = this.terms.indexOf(term);
-        
-        term.getTermCombo().valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
-                VBox root = new VBox();
-                root.getChildren().add(pane);
-                terms.get(index).setTerm(TermRepFactory.createTermRep(newValue,root));
-            }    
-        });
-        
-        return term;
+
+    public ObservableList<String> getObservableFunctions() {
+        return observableFunctions;
     }
     
     public abstract Element exportTerm(Document document);
