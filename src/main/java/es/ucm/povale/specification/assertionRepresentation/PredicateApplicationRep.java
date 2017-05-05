@@ -23,7 +23,6 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -59,7 +58,26 @@ public class PredicateApplicationRep extends AssertionRep {
 
     @Override
     public Element exportAssertion(Document document) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.isValid()){
+            
+            Element assertionElement = document.createElement("predicateApplication");
+            if(!this.messageTxt.getText().isEmpty()){
+                assertionElement.setAttribute("msg", this.messageTxt.getText());
+            }
+            
+           Element predicate = document.createElement("predicate");
+           predicate.appendChild(document.createTextNode(this.predicateCombo.getValue().toString()));
+           assertionElement.appendChild(predicate);
+           
+           Element term = document.createElement(this.termCombo.getValue().toString());
+           assertionElement.appendChild(term);
+            
+           return assertionElement;
+            
+        } else {
+            return null;
+        }    
+
     }
 
     @Override

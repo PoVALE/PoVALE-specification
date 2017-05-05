@@ -60,11 +60,15 @@ public class FXMLController implements Initializable {
         this.path = null;
     }    
     
+    public void handleRemoveVariable(VarRep variable){
+        this.specification.removeVariable(variable);
+        this.variables.getChildren().removeAll(variable.getPane());
+    }
+    
     @FXML
     private void handleOnAddVariable(ActionEvent event) {
-        VarRep variable = new VarRep();
+        VarRep variable = new VarRep(this);
         Bindings.bindContentBidirectional(variable.getPossibleEntities(),this.specification.getObservableEntities());
-        
         this.specification.addVariable(variable);
         this.variables.getChildren().add(variable.getPane());
     }

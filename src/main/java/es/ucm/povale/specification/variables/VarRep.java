@@ -5,16 +5,22 @@
  */
 package es.ucm.povale.specification.variables;
 
+import es.ucm.povale.specification.FXMLController;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.Document;
@@ -32,9 +38,13 @@ public class VarRep {
     private GridPane pane;
     private ComboBox typeCombo;
     private ObservableList<String> possibleEntities;
+    private FXMLController controller;
+    private VarRep that;
 
-    public VarRep() {
+    public VarRep(FXMLController controller) {
         this.pane = new GridPane();
+        this.controller = controller;
+        that = this;
 
         pane.setPadding(new Insets(0, 10, 10, 10));
         
@@ -58,6 +68,20 @@ public class VarRep {
         possibleEntities = FXCollections.observableArrayList();
         this.typeCombo = new ComboBox(possibleEntities);
         pane.add(typeCombo, 1, 4);
+        
+        ImageView imgRemove = new ImageView(new Image("file:src/main/resources/incorrect.png"));
+        Button remove = new Button();
+        imgRemove.setFitHeight(16);
+        imgRemove.setFitWidth(16);
+        imgRemove.setPreserveRatio(true);
+        remove.setGraphic(imgRemove);
+        pane.add(remove, 2, 1);
+        
+        remove.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                controller.handleRemoveVariable(that);
+            }
+        });
     }
 
     public ObservableList<String> getPossibleEntities() {

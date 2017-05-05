@@ -75,7 +75,7 @@ public class Specification{
         
     }
     
-    public void deleteVariable(VarRep variable){
+    public void removeVariable(VarRep variable){
         this.variables.remove(variable);
     }
     

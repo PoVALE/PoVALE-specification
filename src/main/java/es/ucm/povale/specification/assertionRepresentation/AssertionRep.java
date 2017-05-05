@@ -25,6 +25,7 @@ package es.ucm.povale.specification.assertionRepresentation;
 
 import java.util.LinkedList;
 import java.util.List;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -47,6 +48,7 @@ import org.w3c.dom.Element;
 public abstract class AssertionRep {
     
     protected VBox parent;
+    protected VBox child;
     protected GridPane pane;
     protected Label assertionLbl;
     protected final Label termLbl;
@@ -93,10 +95,10 @@ public abstract class AssertionRep {
         observableFunctions = FXCollections.observableArrayList();
         observablePredicates = FXCollections.observableArrayList();
         
-        VBox root = new VBox();
-        root.getChildren().add(this.pane);
+        child = new VBox();
+        child.getChildren().add(this.pane);
         
-        parent.getChildren().add(root);
+        parent.getChildren().add(child);
     }
 
     public ObservableList<String> getObservableFunctions() {
@@ -114,9 +116,10 @@ public abstract class AssertionRep {
         
         assertion.getAssertionCombo().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
-                VBox root = new VBox();
-                root.getChildren().add(pane);
-                assertions.get(index).setAssertion(AssertionRepFactory.createAssertionRep(newValue,root));
+                AssertionRep assertion = AssertionRepFactory.createAssertionRep(newValue,child);
+                Bindings.bindContentBidirectional(assertion.getObservableFunctions(),observableFunctions);
+                Bindings.bindContentBidirectional(assertion.getObservablePredicates(),observablePredicates);
+                assertions.get(index).setAssertion(assertion);
             }    
         });
         

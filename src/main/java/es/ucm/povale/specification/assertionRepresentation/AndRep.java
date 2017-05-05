@@ -42,13 +42,13 @@ public class AndRep extends AssertionRep {
         this.assertionLbl.setText("AND:");
         
         this.assertions.add(this.addAssertion());
-        this.assertions.add(this.addAssertion());
+        //this.assertions.add(this.addAssertion());
         
         this.pane.add(this.assertions.get(0).getAssertLbl(), 0, 3);
         this.pane.add(this.assertions.get(0).getAssertionCombo(), 1, 3);
         
-        this.pane.add(this.assertions.get(1).getAssertLbl(), 0, 4);
-        this.pane.add(this.assertions.get(1).getAssertionCombo(), 1, 4);
+        //this.pane.add(this.assertions.get(1).getAssertLbl(), 0, 4);
+        //this.pane.add(this.assertions.get(1).getAssertionCombo(), 1, 4);
         
     }
 

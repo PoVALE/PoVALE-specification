@@ -30,3 +30,4 @@ es/ucm/povale/specification/termRepresentation/TermRep.class
 es/ucm/povale/specification/assertionRepresentation/ForAllRep.class
 es/ucm/povale/specification/variables/VarRep.class
 es/ucm/povale/specification/assertionRepresentation/OrRep.class
+es/ucm/povale/specification/variables/VarRep$1.class
