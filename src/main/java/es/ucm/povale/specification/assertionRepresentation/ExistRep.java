@@ -23,8 +23,10 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import es.ucm.povale.specification.termRepresentation.BaseTermRep;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,9 +40,10 @@ public class ExistRep extends AssertionRep {
 
     private TextField variableTxt;
     private BaseAssertionRep assertion;
+      private BaseTermRep baseTerm;
 
-    public ExistRep(VBox parent) {
-        super(parent);
+    public ExistRep(VBox parent, int index) {
+        super(parent, index);
         this.parent = parent;
         this.assertionLbl.setText("EXIST:");
         
@@ -49,12 +52,18 @@ public class ExistRep extends AssertionRep {
         
         this.pane.add(variableLbl, 0, 3);
         this.pane.add(variableTxt, 1, 3);
-        this.pane.add(this.termBox, 0, 4);
         
-        this.assertion = this.addAssertion();
+        this.baseTerm = new BaseTermRep(this.observableFunctions);
+        this.pane.add(baseTerm.getTermBox(),0, 4);
+        GridPane.setColumnSpan(baseTerm.getTermBox(), 2);
+        
+        VBox a1 = new VBox();
+        this.assertion = this.addAssertion(a1);
         
         this.pane.add(this.assertion.getAssertLbl(), 0, 5);
         this.pane.add(this.assertion.getAssertionCombo(), 1, 5);
+        
+        this.pane.add(a1, 1, 6);
         
     }
 
@@ -71,7 +80,8 @@ public class ExistRep extends AssertionRep {
             variable.appendChild(document.createTextNode(this.variableTxt.getText()));
             assertionElement.appendChild(variable);
              
-            Element term = document.createElement(this.termCombo.getValue().toString());
+            Element term = document.createElement("term");
+            term.appendChild(this.baseTerm.getTerm().exportTerm(document));
             assertionElement.appendChild(term);
            
             assertionElement.appendChild(this.assertion.getAssertion().exportAssertion(document));
@@ -86,7 +96,7 @@ public class ExistRep extends AssertionRep {
     @Override
     public Boolean isValid() {
         return !this.variableTxt.getText().isEmpty() &&
-               !this.termCombo.getValue().toString().isEmpty() &&
+               !this.baseTerm.isValid() &&
                !this.assertion.getAssertionCombo().getValue().toString().isEmpty();
     }
 }

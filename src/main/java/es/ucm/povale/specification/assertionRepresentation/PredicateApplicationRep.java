@@ -23,8 +23,10 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import es.ucm.povale.specification.termRepresentation.BaseTermRep;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,10 +41,10 @@ public class PredicateApplicationRep extends AssertionRep {
 
     private Label predicate;
     private ComboBox predicateCombo;
+    private BaseTermRep baseTerm;
     
-    public PredicateApplicationRep(VBox parent) {
-        super(parent);
-        this.parent = parent;
+    public PredicateApplicationRep(VBox parent, int index) {
+        super(parent, index);
         this.assertionLbl.setText("PREDICATE APPLICATION:");
         
         predicate = new Label("Predicate : ");
@@ -50,9 +52,16 @@ public class PredicateApplicationRep extends AssertionRep {
         predicateCombo.setItems(this.observablePredicates);
         
         this.pane.add(this.predicate, 0, 3);
+        GridPane.setColumnSpan(this.assertionLbl,2);
+        GridPane.setColumnSpan(this.line,2);
+        
         this.pane.add(this.predicateCombo, 1, 3);
-        this.pane.add(this.termLbl, 0, 4);
-        this.pane.add(this.termCombo, 1, 4);
+        
+        this.baseTerm = new BaseTermRep(this.observableFunctions);
+        
+        this.pane.add(this.baseTerm.getTermLbl(), 0, 4);
+        this.pane.add(this.baseTerm.getTermCombo(), 1, 4);
+        this.pane.add(this.baseTerm.getTermBox(), 1, 5);
         
     }
 
@@ -65,11 +74,12 @@ public class PredicateApplicationRep extends AssertionRep {
                 assertionElement.setAttribute("msg", this.messageTxt.getText());
             }
             
-           Element predicate = document.createElement("predicate");
-           predicate.appendChild(document.createTextNode(this.predicateCombo.getValue().toString()));
-           assertionElement.appendChild(predicate);
+           Element pred = document.createElement("predicate");
+           pred.appendChild(document.createTextNode(this.predicateCombo.getValue().toString()));
+           assertionElement.appendChild(pred);
            
-           Element term = document.createElement(this.termCombo.getValue().toString());
+           Element term = document.createElement("term");
+           term.appendChild(this.baseTerm.getTerm().exportTerm(document));
            assertionElement.appendChild(term);
             
            return assertionElement;
@@ -82,7 +92,7 @@ public class PredicateApplicationRep extends AssertionRep {
 
     @Override
     public Boolean isValid() {
-        return !this.termCombo.getValue().toString().isEmpty() &&
+        return  !this.baseTerm.isValid() &&
                 !this.predicateCombo.getValue().toString().isEmpty();
                 
     }

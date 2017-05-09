@@ -2,6 +2,7 @@ package es.ucm.povale.specification;
 
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRepFactory;
+import es.ucm.povale.specification.assertionRepresentation.BaseAssertionRep;
 import es.ucm.povale.specification.variables.VarRep;
 import es.ucm.povale.specification.plugins.PluginActions;
 import java.io.File;
@@ -16,6 +17,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -50,8 +52,6 @@ public class FXMLController implements Initializable {
     
     private Stage stage;
     
-    //private String path;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.specification = new Specification();
@@ -73,6 +73,7 @@ public class FXMLController implements Initializable {
         this.variables.getChildren().add(variable.getPane());
     }
     
+    /*
     @FXML
     private void handleOnAddAssertion(ActionEvent event) {
         ObservableList<String> options = 
@@ -90,16 +91,59 @@ public class FXMLController implements Initializable {
             "Predicate Application"
         );
         ComboBox assertionscb = new ComboBox(options);
+        
         this.assertions.getChildren().add(assertionscb);
         
         assertionscb.valueProperty().addListener(new ChangeListener<String>() {
+            
             @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
-                AssertionRep assertion = AssertionRepFactory.createAssertionRep(assertionscb.getValue().toString(), assertions);
+                int index = assertions.getChildren().indexOf(assertionscb);
+                if(oldValue != null){
+                    assertions.getChildren().remove(index+1);
+                }
+                AssertionRep assertion = AssertionRepFactory.createAssertionRep(assertionscb.getValue().toString(), assertions, index+1);
                 Bindings.bindContentBidirectional(assertion.getObservableFunctions(),specification.getObservableFunctions());
                 Bindings.bindContentBidirectional(assertion.getObservablePredicates(),specification.getObservablePredicates());
                 specification.addAssertion(assertion);
+                
+                
+                
             }    
         });
+    }*/
+    
+    @FXML
+    private void handleOnAddAssertion(ActionEvent event) {
+        BaseAssertionRep baseAssertion = new BaseAssertionRep();
+        
+        this.assertions.getChildren().add(baseAssertion.getHPane());
+        
+        baseAssertion.getAssertionCombo().valueProperty().addListener(new ChangeListener<String>() {
+            
+            @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
+                int index = assertions.getChildren().indexOf(baseAssertion.getHPane());
+                if(oldValue != null){
+                    assertions.getChildren().remove(index+1);
+                }
+                AssertionRep assertion = AssertionRepFactory.createAssertionRep( baseAssertion.getAssertionCombo().getValue().toString(), assertions, index+1);
+                Bindings.bindContentBidirectional(assertion.getObservableFunctions(),specification.getObservableFunctions());
+                Bindings.bindContentBidirectional(assertion.getObservablePredicates(),specification.getObservablePredicates());
+                specification.addAssertion(assertion);
+                baseAssertion.setAssertion(assertion);
+            }    
+        });
+        
+        baseAssertion.getRemoveBtn().setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                int index = assertions.getChildren().indexOf(baseAssertion.getHPane());
+                assertions.getChildren().remove(index);
+                if(baseAssertion.getAssertionCombo().getValue()!=null){
+                    assertions.getChildren().remove(index);
+                }
+                specification.removeAssertion(baseAssertion.getAssertion());
+            }
+        });
+        
     }
     
     @FXML

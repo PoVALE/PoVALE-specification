@@ -33,8 +33,8 @@ import org.w3c.dom.Element;
  */
 public class AssertFalseRep extends AssertionRep {
 
-    public AssertFalseRep(VBox parent) {
-        super(parent);
+     public AssertFalseRep(VBox parent, int index) {
+        super(parent, index);
         this.parent = parent;
         this.assertionLbl.setText("ASSERT FALSE:");
     }

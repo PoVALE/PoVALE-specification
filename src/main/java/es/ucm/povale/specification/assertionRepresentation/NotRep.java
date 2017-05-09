@@ -37,15 +37,17 @@ public class NotRep extends AssertionRep {
     
     private BaseAssertionRep assertion;
 
-    public NotRep(VBox parent) {
-        super(parent);
-        this.parent = parent;
+    public NotRep(VBox parent, int index) {
+        super(parent, index);
         this.assertionLbl.setText("NOT:");
         
-        this.assertion = this.addAssertion();
+        VBox a1 = new VBox();
+        this.assertion = this.addAssertion(a1);
         
         this.pane.add(this.assertion.getAssertLbl(), 0, 3);
         this.pane.add(this.assertion.getAssertionCombo(), 1, 3);
+        
+        this.pane.add(a1, 1, 4);
     }
 
     @Override

@@ -7,8 +7,12 @@ package es.ucm.povale.specification.assertionRepresentation;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 /**
  *
@@ -20,6 +24,8 @@ public class BaseAssertionRep {
     protected ComboBox assertionCombo;
     protected ObservableList<String> assertionObsList;
     protected AssertionRep assertion;
+    protected Button removeBtn;
+    protected HBox box;
 
     public BaseAssertionRep() {
         this.assertLbl = new Label("Aserto: ");
@@ -39,6 +45,21 @@ public class BaseAssertionRep {
         );
         
         this.assertionCombo = new ComboBox(assertionObsList);
+        
+        ImageView imgRemove = new ImageView(new Image("file:src/main/resources/incorrect.png"));
+        this.removeBtn = new Button();
+        imgRemove.setFitHeight(16);
+        imgRemove.setFitWidth(16);
+        imgRemove.setPreserveRatio(true);
+        removeBtn.setGraphic(imgRemove);
+        
+        this.box = new HBox();
+        this.box.getChildren().add(assertionCombo);
+        box.getChildren().add(removeBtn);
+    }
+    
+    public HBox getHPane(){
+        return this.box;
     }
 
     public Label getAssertLbl() {
@@ -57,4 +78,7 @@ public class BaseAssertionRep {
         this.assertion = assertion;
     }
     
+    public Button getRemoveBtn() {
+        return removeBtn;
+    }
 }

@@ -34,8 +34,8 @@ import org.w3c.dom.Element;
  */
 public class AssertTrueRep extends AssertionRep {
 
-    public AssertTrueRep(VBox parent) {
-        super(parent);
+    public AssertTrueRep(VBox parent, int index) {
+        super(parent, index);
         this.parent = parent;
         this.assertionLbl.setText("ASSERT TRUE:");
        

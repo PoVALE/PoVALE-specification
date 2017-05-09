@@ -148,5 +148,9 @@ public class Specification{
     public List<AssertionRep> getAssertions() {
         return assertions;
     }
+
+    void removeAssertion(AssertionRep assertion) {
+        this.assertions.remove(assertion);
+    }
      
 }

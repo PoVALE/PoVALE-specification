@@ -23,6 +23,7 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.scene.layout.Pane;
@@ -36,22 +37,27 @@ import org.w3c.dom.Element;
  */
 public class AndRep extends AssertionRep {
     
-    private BaseAssertionRep assertion1;
-    private BaseAssertionRep assertion2;
+    private ArrayList<BaseAssertionRep> assertions;
+    private ArrayList<VBox> boxes;
 
-    public AndRep(VBox parent) {
-        super(parent);
+    public AndRep(VBox parent, int index) {
+        super(parent, index);
         this.parent = parent;
         this.assertionLbl.setText("AND:");
         
-        this.assertion1 = this.addAssertion();
-        this.assertion2 = this.addAssertion();
+        VBox a1 = new VBox();
+        BaseAssertionRep assertion1 = this.addAssertion(a1);
+        VBox a2 = new VBox();
+        BaseAssertionRep assertion2 = this.addAssertion(a2);
         
-        this.pane.add(this.assertion1.getAssertLbl(), 0, 3);
-        this.pane.add(this.assertion1.getAssertionCombo(), 1, 3);
+        this.pane.add(assertion1.getAssertLbl(), 0, 3);
+        this.pane.add(assertion1.getAssertionCombo(), 1, 3);
+        this.pane.add(a1, 1, 4);
         
-        this.pane.add(this.assertion2.getAssertLbl(), 0, 4);
-        this.pane.add(this.assertion2.getAssertionCombo(), 1, 4);
+        
+        this.pane.add(assertion2.getAssertLbl(), 0, 5);
+        this.pane.add(assertion2.getAssertionCombo(), 1, 5);
+        this.pane.add(a2, 1, 6);
         
     }
 

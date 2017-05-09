@@ -25,6 +25,7 @@ package es.ucm.povale.specification.termRepresentation;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,17 +39,21 @@ public class LiteralIntegerRep extends TermRep {
 	
     private Label literalIntegerLbl;
     private TextField literalIntegerTxt;
-    
     public LiteralIntegerRep(VBox parent) {
         super(parent);
         
         this.termLbl.setText("LITERAL INTEGER");
+        GridPane.setColumnSpan(this.termLbl,2);
+        GridPane.setColumnSpan(this.line,2);
         
         literalIntegerLbl = new Label("Integer:");
         this.literalIntegerTxt = new TextField();
+        this.literalIntegerTxt.setMaxWidth(115);
+        this.literalIntegerTxt.setMinWidth(115);
         
         this.pane.add(literalIntegerLbl, 0, 3);
         this.pane.add(literalIntegerTxt, 1, 3);
+        
 
     }
 

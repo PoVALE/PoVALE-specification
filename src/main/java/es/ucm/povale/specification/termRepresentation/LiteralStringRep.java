@@ -25,6 +25,7 @@ package es.ucm.povale.specification.termRepresentation;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,15 +40,22 @@ public class LiteralStringRep extends TermRep {
 	
     private Label literalStringLbl;
     private TextField literalStringTxt;
+    
     public LiteralStringRep(VBox parent) {
         super(parent);
         
         this.termLbl.setText("LITERAL STRING");
+        GridPane.setColumnSpan(this.termLbl,2);
+        GridPane.setColumnSpan(this.line,2);
         
         literalStringLbl = new Label("String:");
         this.literalStringTxt = new TextField();
+        this.literalStringTxt.setMaxWidth(115);
+        this.literalStringTxt.setMinWidth(115);
+        
         this.pane.add(literalStringLbl, 0, 3);
         this.pane.add(literalStringTxt, 1, 3);
+        
 
     }
 

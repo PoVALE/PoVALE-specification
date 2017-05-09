@@ -23,6 +23,9 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,20 +38,27 @@ public class EntailRep extends AssertionRep {
     
     private BaseAssertionRep assertion1;
     private BaseAssertionRep assertion2;
+    private VBox a1;
+    private VBox a2;
 
-    public EntailRep(VBox parent) {
-        super(parent);
+    public EntailRep(VBox parent, int index) {
+        super(parent, index);
         this.parent = parent;
         this.assertionLbl.setText("ENTAILS:");
         
-        this.assertion1 = this.addAssertion();
-        this.assertion2 = this.addAssertion();
+        VBox a1 = new VBox();
+        this.assertion1 = this.addAssertion(a1);
+        VBox a2 = new VBox();
+        this.assertion2 = this.addAssertion(a2);
         
         this.pane.add(this.assertion1.getAssertLbl(), 0, 3);
         this.pane.add(this.assertion1.getAssertionCombo(), 1, 3);
+        this.pane.add(a1, 1, 4);
         
-        this.pane.add(this.assertion2.getAssertLbl(), 0, 4);
-        this.pane.add(this.assertion2.getAssertionCombo(), 1, 4);
+        
+        this.pane.add(this.assertion2.getAssertLbl(), 0, 5);
+        this.pane.add(this.assertion2.getAssertionCombo(), 1, 5);
+        this.pane.add(a2, 1, 6);
     }
 
     @Override
@@ -82,4 +92,5 @@ public class EntailRep extends AssertionRep {
         return this.assertion1.getAssertionCombo().getValue().toString().isEmpty() &&
                 this.assertion2.getAssertionCombo().getValue().toString().isEmpty();
     }
+    
 }

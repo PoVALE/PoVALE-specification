@@ -48,6 +48,7 @@ public abstract class TermRep {
     protected Label termLbl;
     protected List<BaseTermRep> terms;
     protected ObservableList<String> observableFunctions;
+    protected Separator line;
 
     public TermRep(VBox parent) {
         this.parent = parent;
@@ -57,7 +58,7 @@ public abstract class TermRep {
         observableFunctions = FXCollections.observableArrayList();
         
         this.termLbl = new Label();
-        Separator line = new Separator();
+        line = new Separator();
         
         this.pane.add(termLbl, 0, 0);
         this.pane.add(line, 0, 1);

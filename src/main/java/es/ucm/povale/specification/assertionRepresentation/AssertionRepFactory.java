@@ -13,33 +13,33 @@ import javafx.scene.layout.VBox;
  */
 public class AssertionRepFactory {
     
-    public static AssertionRep createAssertionRep(String assertionRep, VBox parent) {//predicados
+    public static AssertionRep createAssertionRep(String assertionRep, VBox parent, int index) {//predicados
         
         switch (assertionRep) {
             case "And":
-                return new AndRep(parent);
+                return new AndRep(parent, index);
             case "Assert False":
-                return new AssertFalseRep(parent);
+                return new AssertFalseRep(parent, index);
             case "Assert True":
-                return new AssertTrueRep(parent);
+                return new AssertTrueRep(parent, index);
             case "Entails":
-                return new EntailRep(parent);
+                return new EntailRep(parent, index);
             case "Equals":
-                return new EqualsRep(parent);
+                return new EqualsRep(parent, index);
             case "Exist One":
-                return new ExistOneRep(parent);
+                return new ExistOneRep(parent, index);
             case "Exist":
-                return new ExistRep(parent);
+                return new ExistRep(parent, index);
             case "For All":
-                return new ForAllRep(parent);
+                return new ForAllRep(parent, index);
             case "Not":
-                return new NotRep(parent);
+                return new NotRep(parent, index);
             case "Or":
-                return new OrRep(parent);
+                return new OrRep(parent, index);
             case "Predicate Application":
-                return new PredicateApplicationRep(parent);    
+                return new PredicateApplicationRep(parent, index);    
             default:
-                return new AndRep(parent);
+                return new AndRep(parent, index);
         }
     }
     

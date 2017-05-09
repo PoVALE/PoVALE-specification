@@ -40,13 +40,13 @@ public class OrRep extends AssertionRep {
     private BaseAssertionRep assertion1;
     private BaseAssertionRep assertion2;
     
-    public OrRep(VBox parent) {
-        super(parent);
+    public OrRep(VBox parent, int index) {
+        super(parent, index);
         this.parent = parent;
         this.assertionLbl.setText("OR:");
         
-        this.assertion1 = this.addAssertion();
-        this.assertion2 = this.addAssertion();
+        //this.assertion1 = this.addAssertion();
+        //this.assertion2 = this.addAssertion();
         
         this.pane.add(this.assertion1.getAssertLbl(), 0, 3);
         this.pane.add(this.assertion1.getAssertionCombo(), 1, 3);

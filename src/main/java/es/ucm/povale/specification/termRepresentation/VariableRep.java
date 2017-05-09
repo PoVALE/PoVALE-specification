@@ -46,6 +46,9 @@ public class VariableRep extends TermRep {
         this.variableTxt = new TextField();
         this.pane.add(variableLbl, 0, 3);
         this.pane.add(variableTxt, 1, 3);
+        
+        this.variableTxt.setMaxWidth(115);
+        this.variableTxt.setMinWidth(115);
     }
 
     @Override
