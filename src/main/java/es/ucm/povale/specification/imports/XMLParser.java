@@ -5,7 +5,6 @@
  */
 package es.ucm.povale.specification.imports;
 
-import es.ucm.povale.specification.imports.assertions.AssertImport;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,10 +24,10 @@ import org.w3c.dom.NodeList;
 
 import org.xml.sax.SAXException;
 
-import es.ucm.povale.assertion.Assertion;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.plugin.Import;
-import es.ucm.povale.specification.imports.terms.TermImport;
+import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
+import es.ucm.povale.specification.termRepresentation.TermRep;
 import es.ucm.povale.specification.variables.VarRep;
 import java.io.InputStream;
 
@@ -41,11 +40,9 @@ public class XMLParser {
     private List<VarRep> myVars;
     private List<String> myPlugins;
     private String rootFile;
-    private List<AssertImport> myAsserts;
-    private Map<String, Function<Element, TermImport>> termsMap;
-    private Map<String, Function<Element, AssertImport>> assertsMap;
-    private AssertImport myRequirements;
-    private Map<String, String> defaultMessages;
+    private List<AssertionRep> myAsserts;
+    private Map<String, Function<Element, TermRep>> termsMap;
+    private Map<String, Function<Element, AssertionRep>> assertsMap;
     private String mySpecName;
     
     public XMLParser() {
@@ -56,7 +53,7 @@ public class XMLParser {
         this.rootFile = "";
         this.mySpecName="";
         this.termsMap = new HashMap<>();
-       /* TermParser termParser = new TermParser();
+        TermParser termParser = new TermParser();
         termsMap.put("variable", termParser::createVariable);
         termsMap.put("literalString", termParser::createLiteralString);
         termsMap.put("literalInteger", termParser::createLiteralInteger);
@@ -64,7 +61,7 @@ public class XMLParser {
         termsMap.put("functionApplication", termParser::createFunctionApplication);
 
         this.assertsMap = new HashMap<>();
-        /*AssertParser assertParser = new AssertParser();
+        AssertParser assertParser = new AssertParser();
         assertsMap.put("assertFalse", assertParser::createAssertFalse);
         assertsMap.put("assertTrue", assertParser::createAssertTrue);
         assertsMap.put("not", assertParser::createNotAssert);
@@ -75,7 +72,7 @@ public class XMLParser {
         assertsMap.put("exist", assertParser::createExistAssert);
         assertsMap.put("existOne", assertParser::createExistOneAssert);
         assertsMap.put("forAll", assertParser::createForAllAssert);
-        assertsMap.put("predicateApplication", assertParser::createPredicateApplication);*/
+        assertsMap.put("predicateApplication", assertParser::createPredicateApplication);
     }
 
     public void parseXMLFile(InputStream is) {
@@ -86,28 +83,28 @@ public class XMLParser {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document dom = db.parse(is);
             Element document = dom.getDocumentElement();
-           // readPlugins(document);
-            //readRootFile(document);
-            //readSpecName(document);
+            readPlugins(document);
+            readRootFile(document);
+            readSpecName(document);
             readVars(document);
-            //readRootAssertion(document);
+            readRootAssertion(document);
         } catch (ParserConfigurationException | SAXException | IOException pce) {
             pce.printStackTrace();
         }
     }
 
-   /* protected TermImport getTerm(Element element) {
+    protected TermRep getTerm(Element element) {
         String term = element.getTagName();
-        Function<Element, TermImport> termParserFunction = this.termsMap.get(term);
-        TermImport t = termParserFunction.apply(element);
+        Function<Element, TermRep> termParserFunction = this.termsMap.get(term);
+        TermRep t = termParserFunction.apply(element);
         return t;
     }
 
     
-    protected AssertImport getAssertion(Element element) {
+    protected AssertionRep getAssertion(Element element) {
         String assertion = element.getTagName();
-        Function<Element, AssertImport> assertParserFunction = this.assertsMap.get(assertion);
-        AssertImport a = assertParserFunction.apply(element);
+        Function<Element, AssertionRep> assertParserFunction = this.assertsMap.get(assertion);
+        AssertionRep a = assertParserFunction.apply(element);
         return a;
     }
 
@@ -123,7 +120,7 @@ public class XMLParser {
                 for (int j = 0; j < nol.getLength(); j++) {
                     if (!nol.item(j).getNodeName().equalsIgnoreCase("#text")) {
                         Element el = (Element) nol.item(j);       
-                        AssertImport assertNode = getAssertion(el);
+                        AssertionRep assertNode = getAssertion(el);
                         myAsserts.add(assertNode);
                     }
                 }
@@ -139,7 +136,7 @@ public class XMLParser {
             }
         }
     }
-*/
+
     private void readVars(Element document) {
         NodeList nl = document.getElementsByTagName("var");
         ArrayList<Integer> var = new ArrayList<>();
@@ -159,7 +156,7 @@ public class XMLParser {
             }
         }
     }
-/*
+
     private void readRootFile(Element document) {
         NodeList nl = document.getElementsByTagName("rootFile");
         if (nl != null && nl.getLength() > 0) {
@@ -173,21 +170,17 @@ public class XMLParser {
             this.mySpecName = nl.item(0).getTextContent();
         }
     }
-*/
+
     public List<VarRep> getMyVars() {
         return myVars;
     }
-/*
+
     public List<String> getMyPlugins() {
         return myPlugins;
     }
 
-    public List<AssertImport> getMyAsserts() {
+    public List<AssertionRep> getMyAsserts() {
         return myAsserts;
-    }
-    
-    public AssertImport getMyRequirements() {
-        return myRequirements;
     }
     
     public String getMySpecName(){
@@ -197,5 +190,5 @@ public class XMLParser {
     public String getRootFile(){
         return this.rootFile;
     }
-*/
+
 }

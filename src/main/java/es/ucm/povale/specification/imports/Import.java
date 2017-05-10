@@ -23,6 +23,7 @@ public class Import {
     public void importFile(InputStream is){
         parser.parseXMLFile(is);
         controller.importVariables(parser.getMyVars());
+        controller.importPlugins(parser.getMyPlugins());
         
     }
         
