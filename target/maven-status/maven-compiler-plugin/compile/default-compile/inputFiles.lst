@@ -2,6 +2,7 @@
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/BaseAssertionRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/AssertTrueRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/LiteralIntegerRep.java
+/Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/imports/XMLParser.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/FunctionApplicationRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/plugins/RemovePluginDialog.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/ForAllRep.java
@@ -21,6 +22,7 @@
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/plugins/PluginActions.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/ListTermRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/ExistRep.java
+/Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/imports/Import.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/plugins/AddPluginDialog.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/TermRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/plugins/ViewPluginDialog.java

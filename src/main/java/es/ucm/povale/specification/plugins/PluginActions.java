@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -116,7 +117,10 @@ public class PluginActions {
             specification.addEntities(pi.getEntities());
           
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(Import.class.getName()).log(Level.SEVERE, null, ex);
+             Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning ");
+            alert.setHeaderText("Could not import plugin");
+            alert.showAndWait();
         }
         
     }

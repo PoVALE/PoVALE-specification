@@ -5,7 +5,11 @@ import es.ucm.povale.specification.assertionRepresentation.AssertionRepFactory;
 import es.ucm.povale.specification.assertionRepresentation.BaseAssertionRep;
 import es.ucm.povale.specification.variables.VarRep;
 import es.ucm.povale.specification.plugins.PluginActions;
+import es.ucm.povale.specification.imports.Import;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -14,15 +18,12 @@ import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -40,6 +41,7 @@ import org.w3c.dom.Element;
 
 public class FXMLController implements Initializable {
     
+    private Import imp;
     private Specification specification;
     private Boolean incomplete;
     private String path;
@@ -58,6 +60,7 @@ public class FXMLController implements Initializable {
         this.incomplete = false;
         this.pluginActions = new PluginActions(this.specification);
         this.path = null;
+        this.imp = new Import(this);
     }    
     
     public void handleRemoveVariable(VarRep variable){
@@ -71,6 +74,12 @@ public class FXMLController implements Initializable {
         Bindings.bindContentBidirectional(variable.getPossibleEntities(),this.specification.getObservableEntities());
         this.specification.addVariable(variable);
         this.variables.getChildren().add(variable.getPane());
+    }
+    
+    public void importPlugins(List<String> plugins){
+        for(String s: plugins){
+            pluginActions.addPlugin(path);
+        }
     }
     
     public void importVariables(List<VarRep> variables){
@@ -120,6 +129,28 @@ public class FXMLController implements Initializable {
     private void handleOnViewPlugins(ActionEvent event) {
         this.pluginActions.showViewPluginsDialog(specification);
     }
+    
+    @FXML
+    private void  handleOnAbrir(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            path = selectedFile.getAbsolutePath();
+        }
+        InputStream targetStream;
+        try {
+            targetStream = new FileInputStream(selectedFile);
+            imp.importFile(targetStream);
+        } catch (FileNotFoundException ex) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning ");
+            alert.setHeaderText("File does not exist");
+            alert.showAndWait();
+        }
+       
+    }
+   
     
     @FXML
     private void handleOnAddPlugins(ActionEvent event) {
