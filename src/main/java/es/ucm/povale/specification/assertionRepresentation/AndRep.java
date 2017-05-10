@@ -26,6 +26,9 @@ package es.ucm.povale.specification.assertionRepresentation;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
@@ -37,29 +40,54 @@ import org.w3c.dom.Element;
  */
 public class AndRep extends AssertionRep {
     
-    private ArrayList<BaseAssertionRep> assertions;
     private ArrayList<VBox> boxes;
+    private Button addButton;
+    private int index;
 
     public AndRep(VBox parent, int index) {
         super(parent, index);
+        this.boxes = new ArrayList<>();
         this.parent = parent;
         this.assertionLbl.setText("AND:");
         
-        VBox a1 = new VBox();
-        BaseAssertionRep assertion1 = this.addAssertion(a1);
-        VBox a2 = new VBox();
-        BaseAssertionRep assertion2 = this.addAssertion(a2);
+        this.addButton = new Button("+");
+        this.pane.add(addButton, 1, 0);
         
-        this.pane.add(assertion1.getAssertLbl(), 0, 3);
-        this.pane.add(assertion1.getAssertionCombo(), 1, 3);
-        this.pane.add(a1, 1, 4);
+        this.addButton.setOnAction((ActionEvent event) -> {
+            addAssertion();
+        });
         
-        
-        this.pane.add(assertion2.getAssertLbl(), 0, 5);
-        this.pane.add(assertion2.getAssertionCombo(), 1, 5);
-        this.pane.add(a2, 1, 6);
-        
+       this.index = 3;
+       addAssertion();
+       addAssertion();
     }
+    
+    private void addAssertion(){
+        VBox a = new VBox();
+        boxes.add(a);
+        BaseAssertionRep assertion = this.addAssertion(a);
+        assertions.add(assertion);
+        
+        this.pane.add(assertion.getAssertLbl(), 0, index);
+        this.pane.add(assertion.getAssertionCombo(), 1, index);
+        this.pane.add(assertion.getRemoveBtn(), 2, index);
+        this.pane.add(a, 1, index+1);
+        
+        index+=2;
+        
+        assertion.getRemoveBtn().setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+               int indexOfAssertion = pane.getChildren().indexOf(assertion.getAssertLbl());
+               pane.getChildren().remove(indexOfAssertion);
+               pane.getChildren().remove(indexOfAssertion);
+               pane.getChildren().remove(indexOfAssertion);
+               pane.getChildren().remove(indexOfAssertion);
+               //index--; 
+               assertions.remove(assertion);
+            }
+        });
+    }
+    
 
     @Override
     public Element exportAssertion(Document document) {
@@ -86,7 +114,10 @@ public class AndRep extends AssertionRep {
         Boolean valid = true;
         for(BaseAssertionRep a : this.assertions){
             if(a.getAssertionCombo().getValue().toString().isEmpty()){
-                valid = false;
+                return false;
+            }
+            if(!a.getAssertion().isValid()){
+                return false;
             }
         }
        return valid;

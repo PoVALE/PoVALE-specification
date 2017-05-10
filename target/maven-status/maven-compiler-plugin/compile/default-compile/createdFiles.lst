@@ -13,6 +13,7 @@ es/ucm/povale/specification/termRepresentation/ListTermRep$2.class
 es/ucm/povale/specification/termRepresentation/LiteralStringRep.class
 es/ucm/povale/specification/plugins/BasePluginDialog$1.class
 es/ucm/povale/specification/termRepresentation/TermRepFactory.class
+es/ucm/povale/specification/assertionRepresentation/AndRep$1.class
 es/ucm/povale/specification/plugins/PluginActions.class
 es/ucm/povale/specification/termRepresentation/ListTermRep.class
 es/ucm/povale/specification/assertionRepresentation/AssertionRep.class
@@ -34,6 +35,7 @@ es/ucm/povale/specification/assertionRepresentation/AssertFalseRep.class
 es/ucm/povale/specification/termRepresentation/TermRep.class
 es/ucm/povale/specification/assertionRepresentation/ForAllRep.class
 es/ucm/povale/specification/variables/VarRep.class
+es/ucm/povale/specification/assertionRepresentation/OrRep$1.class
 es/ucm/povale/specification/assertionRepresentation/OrRep.class
 es/ucm/povale/specification/variables/VarRep$1.class
 es/ucm/povale/specification/termRepresentation/ListTermRep$1.class

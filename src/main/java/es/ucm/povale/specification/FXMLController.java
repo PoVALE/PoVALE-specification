@@ -73,45 +73,6 @@ public class FXMLController implements Initializable {
         this.variables.getChildren().add(variable.getPane());
     }
     
-    /*
-    @FXML
-    private void handleOnAddAssertion(ActionEvent event) {
-        ObservableList<String> options = 
-        FXCollections.observableArrayList(
-            "And",
-            "Assert False",
-            "Assert True",
-            "Entails",
-            "Equals",
-            "Exist One",
-            "Exist",
-            "For All",
-            "Not",
-            "Or",
-            "Predicate Application"
-        );
-        ComboBox assertionscb = new ComboBox(options);
-        
-        this.assertions.getChildren().add(assertionscb);
-        
-        assertionscb.valueProperty().addListener(new ChangeListener<String>() {
-            
-            @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
-                int index = assertions.getChildren().indexOf(assertionscb);
-                if(oldValue != null){
-                    assertions.getChildren().remove(index+1);
-                }
-                AssertionRep assertion = AssertionRepFactory.createAssertionRep(assertionscb.getValue().toString(), assertions, index+1);
-                Bindings.bindContentBidirectional(assertion.getObservableFunctions(),specification.getObservableFunctions());
-                Bindings.bindContentBidirectional(assertion.getObservablePredicates(),specification.getObservablePredicates());
-                specification.addAssertion(assertion);
-                
-                
-                
-            }    
-        });
-    }*/
-    
     @FXML
     private void handleOnAddAssertion(ActionEvent event) {
         BaseAssertionRep baseAssertion = new BaseAssertionRep();
