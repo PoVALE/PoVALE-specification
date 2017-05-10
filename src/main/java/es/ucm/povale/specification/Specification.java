@@ -5,6 +5,7 @@
  */
 package es.ucm.povale.specification;
 
+import es.ucm.povale.entity.Entity;
 import es.ucm.povale.specification.variables.VarRep;
 import java.util.List;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
@@ -82,9 +83,19 @@ public class Specification{
     public void addEntities(List<Class<?>> ents) {
         for(Class<?> e: ents){
             this.entities.add(e.getSimpleName());
-            observableEntities.add(e.getSimpleName());
+            if(!observableEntities.contains(e.getSimpleName())){
+                observableEntities.add(e.getSimpleName());
+            }
         }
-       
+    }
+    
+    public void removeEntities(List<Class<?>> ents) {
+        for(Class<?> e: ents){
+            if(this.entities.contains(e.getSimpleName())){
+                this.entities.remove(e.getSimpleName());
+                observableEntities.remove(e.getSimpleName());
+            }
+        }
     }
      
     public void addFunctions(List<Function> functions) {
@@ -152,5 +163,7 @@ public class Specification{
     void removeAssertion(AssertionRep assertion) {
         this.assertions.remove(assertion);
     }
+
+    
      
 }

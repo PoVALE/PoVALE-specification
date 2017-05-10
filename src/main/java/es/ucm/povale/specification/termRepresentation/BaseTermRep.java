@@ -47,7 +47,7 @@ public class BaseTermRep{
         termChooser = new HBox();
         //termChooser.setSpacing(14);
         
-        this.termLbl = new Label("Término:   ");
+        this.termLbl = new Label("Término:     ");
         this.terms = FXCollections.observableArrayList(
             "Function Application",
             "List Term",

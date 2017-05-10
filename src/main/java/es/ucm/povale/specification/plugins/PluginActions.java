@@ -38,6 +38,7 @@ public class PluginActions {
         //esto debería cargarse con los plugins disponibles DUDA y metodo recargar
         availablePlugins.put("CorePlugin", "es.ucm.povale.plugin.CorePlugin");
         availablePlugins.put("FilesPlugin", "es.ucm.povaleFiles.FilesPlugin");
+        availablePlugins.put("LinesPlugin", "es.ucm.povaleLines.LinesPlugin");
         
         this.reloadCurrentPlugins();
     }
@@ -129,7 +130,7 @@ public class PluginActions {
             specification.removePlugin(plugin, pi);
             specification.removeFunctions(pi.getFunctions());
             specification.removePredicates(pi.getPredicates());
-            //specification.removeEntities(pi.getEntities());
+            specification.removeEntities(pi.getEntities());
           
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Import.class.getName()).log(Level.SEVERE, null, ex);

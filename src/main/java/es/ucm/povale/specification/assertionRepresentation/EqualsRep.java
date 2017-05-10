@@ -23,6 +23,7 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import es.ucm.povale.specification.termRepresentation.BaseTermRep;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,22 +34,22 @@ import org.w3c.dom.Element;
  */
 public class EqualsRep extends AssertionRep {
     
-    private BaseAssertionRep assertion1;
-    private BaseAssertionRep assertion2;
+    private BaseTermRep term1;
+    private BaseTermRep term2;
 
     public EqualsRep(VBox parent, int index) {
         super(parent, index);
         this.parent = parent;
         this.assertionLbl.setText("EQUALS:");
         
-        //this.assertion1 = this.addAssertion();
-        //this.assertion2 = this.addAssertion();
+        this.term1 = new BaseTermRep(this.observableFunctions);
+        this.term2 = new BaseTermRep(this.observableFunctions);
         
-        this.pane.add(this.assertion1.getAssertLbl(), 0, 3);
-        this.pane.add(this.assertion1.getAssertionCombo(), 1, 3);
+        this.pane.add(this.term1.getTermLbl(), 0, 3);
+        this.pane.add(this.term1.getTermCombo(), 1, 3);
         
-        this.pane.add(this.assertion2.getAssertLbl(), 0, 4);
-        this.pane.add(this.assertion2.getAssertionCombo(), 1, 4);
+        this.pane.add(this.term2.getTermLbl(), 0, 4);
+        this.pane.add(this.term2.getTermCombo(), 1, 4);
     }
 
     @Override
@@ -61,11 +62,10 @@ public class EqualsRep extends AssertionRep {
             }
             
             Element lhs = document.createElement("lhs");
-            lhs.appendChild(this.assertion1.getAssertion().exportAssertion(document));
+            lhs.appendChild(this.term1.getTerm().exportTerm(document));
              
             Element rhs = document.createElement("rhs");
-            rhs.appendChild(this.assertion2.getAssertion().exportAssertion(document));
-            
+            lhs.appendChild(this.term2.getTerm().exportTerm(document));
             
             assertionElement.appendChild(lhs);
             assertionElement.appendChild(rhs);
@@ -79,8 +79,8 @@ public class EqualsRep extends AssertionRep {
 
     @Override
     public Boolean isValid() {
-        return this.assertion1.getAssertionCombo().getValue().toString().isEmpty() &&
-                this.assertion2.getAssertionCombo().getValue().toString().isEmpty();
+        return this.term1.isValid() && this.term1.getTerm().isValid()
+                && this.term2.isValid() && this.term2.getTerm().isValid();
     }
     
 }

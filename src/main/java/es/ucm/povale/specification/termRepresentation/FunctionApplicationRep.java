@@ -23,7 +23,9 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
-import java.util.List;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,21 +33,59 @@ import org.w3c.dom.Element;
 
 public class FunctionApplicationRep extends TermRep {
 
-    private String function;
-    private List<TermRep> args;
-
+    private Label functionLbl;
+    private ComboBox functionCombo;
+    private BaseTermRep baseTerm;
+    
     public FunctionApplicationRep(VBox parent) {
         super(parent);
+        
+        this.termLbl.setText("FUNCTION APPLICATION");
+        GridPane.setColumnSpan(this.termLbl,2);
+        GridPane.setColumnSpan(this.line,2);
+        
+        
+        this.functionLbl = new Label("Función:      ");
+        
+        this.functionCombo = new ComboBox();
+        functionCombo.setItems(this.observableFunctions);
+        
+        this.pane.add(this.functionLbl, 0, 3);
+        this.pane.add(this.functionCombo, 1, 3);
+        
+        this.baseTerm = new BaseTermRep(this.observableFunctions);
+        
+        this.pane.add(baseTerm.getTermBox(),0, 4);
+        GridPane.setColumnSpan(baseTerm.getTermBox(), 2);
+        
     }
 
     @Override
     public Element exportTerm(Document document) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.isValid()){
+            
+           Element termElement = document.createElement("functionApplication");
+            
+           Element function = document.createElement("function");
+           function.appendChild(document.createTextNode(this.functionCombo.getValue().toString()));
+           termElement.appendChild(function);
+           
+           Element term = document.createElement("term");
+           term.appendChild(this.baseTerm.getTerm().exportTerm(document));
+           
+           termElement.appendChild(term);
+            
+           return termElement;
+            
+        } else {
+            return null;
+        } 
     }
 
     @Override
     public Boolean isValid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.functionCombo.getValue().toString().isEmpty()
+                    && this.baseTerm.isValid() && this.baseTerm.getTerm().isValid();
     }
 
 }
