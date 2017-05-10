@@ -40,6 +40,7 @@ public class VarRep {
     private ObservableList<String> possibleEntities;
     private FXMLController controller;
     private VarRep that;
+    private Button remove;
 
     public VarRep(FXMLController controller) {
         this.pane = new GridPane();
@@ -70,7 +71,7 @@ public class VarRep {
         pane.add(typeCombo, 1, 4);
         
         ImageView imgRemove = new ImageView(new Image("file:src/main/resources/incorrect.png"));
-        Button remove = new Button();
+        this.remove = new Button();
         imgRemove.setFitHeight(16);
         imgRemove.setFitWidth(16);
         imgRemove.setPreserveRatio(true);
@@ -83,6 +84,44 @@ public class VarRep {
             }
         });
     }
+    
+    public VarRep(String id, String name, String desc, String type) {
+        this.pane = new GridPane();
+        //this.controller = controller;
+        that = this;
+
+        pane.setPadding(new Insets(0, 10, 10, 10));
+        
+        Label idLbl = new Label("Identificador:");
+        pane.add(idLbl, 0, 1);
+        this.idTxt = new TextField(id);
+        pane.add(idTxt, 1, 1);
+
+        Label nameLbl = new Label("Nombre:");
+        pane.add(nameLbl, 0, 2);
+        this.nameTxt = new TextField(name);
+        pane.add(nameTxt, 1, 2);
+        
+        Label descLbl = new Label("Descripción:");
+        pane.add(descLbl, 0, 3);
+        this.descTxt = new TextField(desc);
+        pane.add(descTxt, 1, 3);
+        
+        Label typeLbl = new Label("Tipo:");
+        pane.add(typeLbl, 0, 4);
+        possibleEntities = FXCollections.observableArrayList();
+        this.typeCombo = new ComboBox(possibleEntities);
+        pane.add(typeCombo, 1, 4);
+        this.typeCombo.setValue(type);
+        
+        ImageView imgRemove = new ImageView(new Image("file:src/main/resources/incorrect.png"));
+        this.remove = new Button();
+        imgRemove.setFitHeight(16);
+        imgRemove.setFitWidth(16);
+        imgRemove.setPreserveRatio(true);
+        remove.setGraphic(imgRemove);
+        pane.add(remove, 2, 1);
+    }
 
     public ObservableList<String> getPossibleEntities() {
         return possibleEntities;
@@ -90,6 +129,17 @@ public class VarRep {
     
     public Pane getPane() {
         return this.pane;
+    }
+    
+    public void setController(FXMLController controller){
+        
+        this.controller = controller;
+        
+        remove.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                controller.handleRemoveVariable(that);
+            }
+        });
     }
     
     public Element exportVariable(Document document){

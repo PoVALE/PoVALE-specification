@@ -122,7 +122,6 @@ public class PluginActions {
     }
     
     public void removePlugin(String plugin){
-        
         try {
             Class<?> cl = Class.forName(plugin);
             PluginInfo pi = (PluginInfo) cl.newInstance();

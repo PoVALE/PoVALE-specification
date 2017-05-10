@@ -73,6 +73,15 @@ public class FXMLController implements Initializable {
         this.variables.getChildren().add(variable.getPane());
     }
     
+    public void importVariables(List<VarRep> variables){
+        for(VarRep variable: variables){
+            variable.setController(this);
+            Bindings.bindContentBidirectional(variable.getPossibleEntities(),this.specification.getObservableEntities());
+            this.specification.addVariable(variable);
+            this.variables.getChildren().add(variable.getPane());
+        }
+    }
+    
     @FXML
     private void handleOnAddAssertion(ActionEvent event) {
         BaseAssertionRep baseAssertion = new BaseAssertionRep();
