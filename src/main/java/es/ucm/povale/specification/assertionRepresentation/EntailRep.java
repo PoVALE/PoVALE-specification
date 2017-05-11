@@ -46,9 +46,9 @@ public class EntailRep extends AssertionRep {
         this.parent = parent;
         this.assertionLbl.setText("ENTAILS:");
         
-        VBox a1 = new VBox();
+        this.a1 = new VBox();
         this.assertion1 = this.addAssertion(a1);
-        VBox a2 = new VBox();
+        this.a2 = new VBox();
         this.assertion2 = this.addAssertion(a2);
         
         this.pane.add(this.assertion1.getAssertLbl(), 0, 3);
@@ -96,6 +96,14 @@ public class EntailRep extends AssertionRep {
     @Override
     public String getName() {
         return "Entails";
+    }
+
+    public VBox getABox1() {
+        return a1;
+    }
+
+    public VBox getABox2() {
+        return a2;
     }
 
 }

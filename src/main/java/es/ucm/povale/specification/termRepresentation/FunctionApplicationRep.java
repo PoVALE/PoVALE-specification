@@ -88,4 +88,9 @@ public class FunctionApplicationRep extends TermRep {
                     && this.baseTerm.isValid() && this.baseTerm.getTerm().isValid();
     }
 
+    @Override
+    public void setTermValue(String value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

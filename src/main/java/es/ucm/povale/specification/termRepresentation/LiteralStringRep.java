@@ -75,4 +75,8 @@ public class LiteralStringRep extends TermRep {
         return !this.literalStringTxt.getText().isEmpty();
     }
    
+    @Override
+    public void setTermValue(String value) {
+        this.literalStringTxt.setText(value);
+    }
 }

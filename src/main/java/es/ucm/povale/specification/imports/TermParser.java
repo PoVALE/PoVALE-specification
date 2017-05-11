@@ -5,6 +5,8 @@
  */
 package es.ucm.povale.specification.imports;
 
+import es.ucm.povale.specification.termRepresentation.LiteralIntegerRep;
+import es.ucm.povale.specification.termRepresentation.LiteralStringRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
 import es.ucm.povale.specification.termRepresentation.VariableRep;
 import java.util.LinkedList;
@@ -21,18 +23,18 @@ import org.w3c.dom.NodeList;
 
 public class TermParser {
     
-    public TermRep createVariable(Element el){
+    public VariableRep createVariable(Element el){
         return null;
         //return new VariableRep(el.getTextContent());
     }
     
-    public TermRep createLiteralString(Element el){
+    public LiteralStringRep createLiteralString(Element el){
         String s = el.getTextContent();
         return null;
         //return new LiteralStringRep(s);
     }
     
-    public TermRep createLiteralInteger(Element el){
+    public LiteralIntegerRep createLiteralInteger(Element el){
         String integer = el.getTextContent();
         return null;
         //return new LiteralIntegerRep(integer);

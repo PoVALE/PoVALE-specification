@@ -24,6 +24,7 @@
 package es.ucm.povale.specification.assertionRepresentation;
 
 import es.ucm.povale.specification.termRepresentation.BaseTermRep;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,11 +46,11 @@ public class EqualsRep extends AssertionRep {
         this.term1 = new BaseTermRep(this.observableFunctions);
         this.term2 = new BaseTermRep(this.observableFunctions);
         
-        this.pane.add(this.term1.getTermLbl(), 0, 3);
-        this.pane.add(this.term1.getTermCombo(), 1, 3);
+        this.pane.add(term1.getTermBox(),0, 3);
+        GridPane.setColumnSpan(term1.getTermBox(), 2);
         
-        this.pane.add(this.term2.getTermLbl(), 0, 4);
-        this.pane.add(this.term2.getTermCombo(), 1, 4);
+        this.pane.add(term2.getTermBox(),0, 4);
+        GridPane.setColumnSpan(term2.getTermBox(), 2);
     }
 
     @Override

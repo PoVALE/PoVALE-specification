@@ -72,5 +72,10 @@ public class LiteralIntegerRep extends TermRep {
     public Boolean isValid() {
         return !this.literalIntegerTxt.getText().isEmpty();
     }
+    
+    @Override
+    public void setTermValue(String value) {
+        this.literalIntegerTxt.setText(value);
+    }
    
 }

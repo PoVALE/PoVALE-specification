@@ -76,4 +76,6 @@ public abstract class TermRep {
     public abstract Element exportTerm(Document document);
     
     public abstract Boolean isValid();
+    
+    public abstract void setTermValue(String value);
 }

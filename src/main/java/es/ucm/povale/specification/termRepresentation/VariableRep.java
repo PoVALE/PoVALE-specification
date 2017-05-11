@@ -68,5 +68,10 @@ public class VariableRep extends TermRep {
     public Boolean isValid() {
         return !this.variableTxt.getText().isEmpty();
     }
+
+    @Override
+    public void setTermValue(String value) {
+        this.variableTxt.setText(value);
+    }
    
 }
