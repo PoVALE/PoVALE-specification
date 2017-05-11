@@ -64,7 +64,6 @@ public class AndRep extends AssertionRep {
         VBox a = new VBox();
         boxes.add(a);
         BaseAssertionRep assertion = this.addAssertion(a);
-        assertions.add(assertion);
         
         this.pane.add(assertion.getAssertLbl(), 0, index);
         this.pane.add(assertion.getAssertionCombo(), 1, index);
@@ -95,11 +94,9 @@ public class AndRep extends AssertionRep {
             if(!this.messageTxt.getText().isEmpty()){
                 assertionElement.setAttribute("msg", this.messageTxt.getText());
             }
-            
             for(BaseAssertionRep a : this.assertions){
                 assertionElement.appendChild(a.getAssertion().exportAssertion(document));
             }
-            
             return assertionElement;
             
         } else {
