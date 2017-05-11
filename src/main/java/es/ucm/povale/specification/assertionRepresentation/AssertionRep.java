@@ -57,7 +57,7 @@ public abstract class AssertionRep {
     protected VBox child;
     protected GridPane pane;
     protected Label assertionLbl;
-    private final Label messageLbl;
+    private   Label messageLbl;
     protected TextField messageTxt;
     protected ObservableList<String> terms;
     protected ObservableList<String> observableFunctions;
@@ -67,12 +67,40 @@ public abstract class AssertionRep {
     protected int index;
     protected Separator line;
    
-
     public AssertionRep(VBox parent, int index) {
         this.parent = parent;
+        this.index = index;
+        
+        this.initialize();
+        
+        if(index == -1){
+            parent.getChildren().add(child);
+        }
+        else{
+            parent.getChildren().add(index, child);
+        }
+    }
+    
+    public AssertionRep() {
+        this.initialize();
+    }
+    
+    public void setParentIndex(VBox parent, int index){
+        this.parent = parent;
+        this.index = index;
+        
+        if(index == -1){
+            parent.getChildren().add(child);
+        }
+        else{
+            parent.getChildren().add(index, child);
+        }
+    }
+    
+    private void initialize(){
         this.pane = new GridPane();
         this.pane.setPadding(new Insets(0, 10, 10, 10));
-        this.index = index;
+        
         
         this.assertionLbl = new Label();
         line = new Separator();
@@ -95,16 +123,6 @@ public abstract class AssertionRep {
         
         child = new VBox();
         child.getChildren().add(this.pane);
-        
-        if(index == -1){
-            parent.getChildren().add(child);
-        }
-        else{
-            parent.getChildren().add(index, child);
-        }
-        
-        
-        
     }
 
     public ObservableList<String> getObservableFunctions() {
@@ -151,5 +169,13 @@ public abstract class AssertionRep {
     
     public abstract Boolean isValid();
     
+    public abstract String getName();
     
+    public void setMessage(String msg){
+        this.messageTxt.setText(msg);
+    }
+
+    public List<BaseAssertionRep> getAssertions() {
+        return assertions;
+    }
 }

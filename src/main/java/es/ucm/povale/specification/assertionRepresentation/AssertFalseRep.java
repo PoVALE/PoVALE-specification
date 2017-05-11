@@ -33,9 +33,8 @@ import org.w3c.dom.Element;
  */
 public class AssertFalseRep extends AssertionRep {
 
-     public AssertFalseRep(VBox parent, int index) {
+    public AssertFalseRep(VBox parent, int index) {
         super(parent, index);
-        this.parent = parent;
         this.assertionLbl.setText("ASSERT FALSE:");
     }
 
@@ -49,4 +48,8 @@ public class AssertFalseRep extends AssertionRep {
        return true;
     }
 
+    @Override
+    public String getName() {
+        return "Assert False";
+    }
 }

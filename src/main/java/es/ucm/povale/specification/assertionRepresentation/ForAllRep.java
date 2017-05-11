@@ -102,4 +102,8 @@ public class ForAllRep extends AssertionRep {
                !this.assertion.getAssertionCombo().getValue().toString().isEmpty();
     }
     
+    @Override
+    public String getName() {
+        return "For All";
+    }
 }

@@ -77,9 +77,7 @@ public class FXMLController implements Initializable {
     }
     
     public void importPlugins(List<String> plugins){
-        for(String s: plugins){
-            pluginActions.addPlugin(path);
-        }
+        pluginActions.importPlugins(plugins);
     }
     
     public void importVariables(List<VarRep> variables){
@@ -98,7 +96,6 @@ public class FXMLController implements Initializable {
         this.assertions.getChildren().add(baseAssertion.getHPane());
         
         baseAssertion.getAssertionCombo().valueProperty().addListener(new ChangeListener<String>() {
-            
             @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
                 int index = assertions.getChildren().indexOf(baseAssertion.getHPane());
                 if(oldValue != null){
@@ -120,10 +117,47 @@ public class FXMLController implements Initializable {
                     assertions.getChildren().remove(index);
                 }
                 specification.removeAssertion(baseAssertion.getAssertion());
+                
+                
             }
         });
-        
     }
+    
+    private void importMainAssertions(List<AssertionRep> reps){
+        
+        for(AssertionRep a: reps){
+            BaseAssertionRep baseAssertion = new BaseAssertionRep();
+            baseAssertion.setAssertionComboValue(a.getName());
+            this.assertions.getChildren().add(baseAssertion.getHPane());
+            
+            //set
+            //set
+            //set
+            Bindings.bindContentBidirectional(a.getObservableFunctions(),specification.getObservableFunctions());
+            Bindings.bindContentBidirectional(a.getObservablePredicates(),specification.getObservablePredicates());
+            specification.addAssertion(a);
+            
+            
+            baseAssertion.setAssertion(a);
+            
+            //para futuros cambios del usuario
+            baseAssertion.getAssertionCombo().valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
+                int index = assertions.getChildren().indexOf(baseAssertion.getHPane());
+                if(oldValue != null){
+                    assertions.getChildren().remove(index+1);
+                }
+                AssertionRep assertion = AssertionRepFactory.createAssertionRep( baseAssertion.getAssertionCombo().getValue().toString(), assertions, index+1);
+                Bindings.bindContentBidirectional(assertion.getObservableFunctions(),specification.getObservableFunctions());
+                Bindings.bindContentBidirectional(assertion.getObservablePredicates(),specification.getObservablePredicates());
+                specification.addAssertion(assertion);
+                baseAssertion.setAssertion(assertion);
+                }    
+            });
+        }
+    }
+    
+    //private void updateAssertionFields(AssertionRep)
     
     @FXML
     private void handleOnViewPlugins(ActionEvent event) {
@@ -141,7 +175,7 @@ public class FXMLController implements Initializable {
         InputStream targetStream;
         try {
             targetStream = new FileInputStream(selectedFile);
-            imp.importFile(targetStream);
+            imp.importFile(targetStream, assertions);
         } catch (FileNotFoundException ex) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning ");

@@ -7,6 +7,7 @@ package es.ucm.povale.specification.imports;
 
 import es.ucm.povale.specification.FXMLController;
 import java.io.InputStream;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -20,11 +21,10 @@ public class Import {
         parser = new XMLParser();
     }
     
-    public void importFile(InputStream is){
-        parser.parseXMLFile(is);
+    public void importFile(InputStream is, VBox parent){
+        parser.parseXMLFile(is, parent);
         controller.importVariables(parser.getMyVars());
         controller.importPlugins(parser.getMyPlugins());
-        
     }
         
     

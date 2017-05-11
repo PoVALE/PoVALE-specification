@@ -124,4 +124,8 @@ public class OrRep extends AssertionRep {
        return valid;
     }
 
+    @Override
+    public String getName() {
+        return "Or";
+    }
 }

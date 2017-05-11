@@ -96,4 +96,9 @@ public class ExistOneRep extends AssertionRep {
                !this.baseTerm.isValid() &&
                !this.assertion.getAssertionCombo().getValue().toString().isEmpty();
     }
+    
+    @Override
+    public String getName() {
+        return "Exist One";
+    }
 }

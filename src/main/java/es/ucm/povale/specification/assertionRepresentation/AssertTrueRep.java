@@ -38,7 +38,12 @@ public class AssertTrueRep extends AssertionRep {
         super(parent, index);
         this.parent = parent;
         this.assertionLbl.setText("ASSERT TRUE:");
-       
+    }
+
+    public AssertTrueRep(String message) {
+        super();
+        this.assertionLbl.setText("ASSERT TRUE:");
+        this.messageTxt.setText(message);
     }
 
     @Override
@@ -51,4 +56,8 @@ public class AssertTrueRep extends AssertionRep {
        return true;
     }
     
+    @Override
+    public String getName() {
+        return "Assert True";
+    }
 }

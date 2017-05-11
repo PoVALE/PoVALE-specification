@@ -104,9 +104,7 @@ public class PluginActions {
         
     }
     
-
     public void addPlugin(String plugin){
-        
         try {
             Class<?> cl = Class.forName(plugin);
             PluginInfo pi = (PluginInfo) cl.newInstance();
@@ -117,12 +115,26 @@ public class PluginActions {
             specification.addEntities(pi.getEntities());
           
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-             Alert alert = new Alert(Alert.AlertType.WARNING);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning ");
             alert.setHeaderText("Could not import plugin");
             alert.showAndWait();
         }
-        
+    }
+    
+    public void importPlugins(List<String> plugins){
+       this.reloadAvailablePlugins();
+       for(String s: plugins){
+            if(availablePlugins.containsValue(s)){
+                this.addPlugin(s);
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning ");
+                alert.setHeaderText("Could not find plugin");
+                alert.showAndWait();
+            }
+        }
     }
     
     public void removePlugin(String plugin){

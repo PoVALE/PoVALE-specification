@@ -93,4 +93,8 @@ public class EntailRep extends AssertionRep {
                 this.assertion2.getAssertionCombo().getValue().toString().isEmpty();
     }
     
+    @Override
+    public String getName() {
+        return "Entails";
+    }
 }

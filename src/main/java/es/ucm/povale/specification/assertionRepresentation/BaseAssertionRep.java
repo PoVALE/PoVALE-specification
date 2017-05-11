@@ -26,8 +26,11 @@ public class BaseAssertionRep {
     protected AssertionRep assertion;
     protected Button removeBtn;
     protected HBox box;
+    //protected HashMap<String,String> assertionMap;
 
     public BaseAssertionRep() {
+        
+        
         this.assertLbl = new Label("Aserto: ");
         
         this.assertionObsList = FXCollections.observableArrayList(
@@ -56,6 +59,10 @@ public class BaseAssertionRep {
         this.box = new HBox();
         this.box.getChildren().add(assertionCombo);
         box.getChildren().add(removeBtn);
+    }
+    
+    public void setAssertionComboValue(String assertion){
+        this.assertionCombo.setValue(assertion);
     }
     
     public HBox getHPane(){

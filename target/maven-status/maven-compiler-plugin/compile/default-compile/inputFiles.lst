@@ -28,6 +28,8 @@
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/plugins/ViewPluginDialog.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/Specification.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/AssertionRep.java
+/Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/imports/TermParser.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/AndRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/assertionRepresentation/PredicateApplicationRep.java
 /Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/termRepresentation/LiteralStringRep.java
+/Users/laurahernandoserrano/NetBeansProjects/PoVALE-specification/src/main/java/es/ucm/povale/specification/imports/AssertParser.java

@@ -123,4 +123,9 @@ public class AndRep extends AssertionRep {
        return valid;
     }
 
+    @Override
+    public String getName() {
+        return "And";
+    }
+
 }

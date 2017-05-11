@@ -83,4 +83,8 @@ public class EqualsRep extends AssertionRep {
                 && this.term2.isValid() && this.term2.getTerm().isValid();
     }
     
+    @Override
+    public String getName() {
+        return "Equals";
+    }
 }

@@ -96,5 +96,10 @@ public class PredicateApplicationRep extends AssertionRep {
                 !this.predicateCombo.getValue().toString().isEmpty();
                 
     }
+    
+    @Override
+    public String getName() {
+        return "Predicate Application";
+    }
 
 }

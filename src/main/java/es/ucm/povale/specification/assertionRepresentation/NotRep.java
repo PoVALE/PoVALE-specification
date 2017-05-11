@@ -36,12 +36,13 @@ import org.w3c.dom.Element;
 public class NotRep extends AssertionRep {
     
     private BaseAssertionRep assertion;
+    private VBox a1;
 
     public NotRep(VBox parent, int index) {
         super(parent, index);
         this.assertionLbl.setText("NOT:");
         
-        VBox a1 = new VBox();
+       a1 = new VBox();
         this.assertion = this.addAssertion(a1);
         
         this.pane.add(this.assertion.getAssertLbl(), 0, 3);
@@ -49,7 +50,7 @@ public class NotRep extends AssertionRep {
         
         this.pane.add(a1, 1, 4);
     }
-
+    
     @Override
     public Element exportAssertion(Document document) {
         if (this.isValid()){
@@ -73,4 +74,8 @@ public class NotRep extends AssertionRep {
         return this.assertion.getAssertionCombo().getValue().toString().isEmpty();
     }
     
+    @Override
+    public String getName() {
+        return "Not";
+    }
 }
