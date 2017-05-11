@@ -5,11 +5,16 @@
  */
 package es.ucm.povale.specification.imports;
 
+import es.ucm.povale.specification.assertionRepresentation.AssertFalseRep;
+import es.ucm.povale.specification.assertionRepresentation.AssertTrueRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
+import es.ucm.povale.specification.assertionRepresentation.BaseAssertionRep;
+import es.ucm.povale.specification.assertionRepresentation.NotRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -24,43 +29,53 @@ public class AssertParser {
         return el.getAttribute("msg");
     }
     
-    public AssertionRep createAssertFalse(Element el) {
+    public AssertFalseRep createAssertFalse(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
         String message = getMessage(el);
-        return null;
-        //return new AssertFalseImport(message);
+        AssertFalseRep af = new AssertFalseRep(parent, index);
+        af.setMessage(message);
+        return af;
     }
 
-    public AssertionRep createAssertTrue(Element el) {
+    public AssertTrueRep createAssertTrue(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
         String message = getMessage(el);
-
-        return null;
-        //return new AssertTrueImport(message);
+        AssertTrueRep at = new AssertTrueRep(parent, index);
+        at.setMessage(message);
+        return at;
     }
 
-    public AssertionRep createNotAssert(Element el) {
+    public NotRep createNotAssert(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
         XMLParser parser = new XMLParser();
         NodeList nl = el.getChildNodes();
         String message = getMessage(el);
-/*
-        AssertImport child; 
-        AssertImport notNode = null;
+        NotRep nr = new NotRep(parent, index);
+        nr.setMessage(message);
+        
+        BaseAssertionRep base = nr.getAssertions().get(0);
+        AssertionRep child;
+        
         if (nl != null && nl.getLength() > 0) {
             for (int i = 0; i < nl.getLength(); i++) {
                 if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
-                    child = parser.getAssertion((Element) nl.item(i));
-                    notNode = new NotImport(child ,message);
+                    child = parser.getAssertion((Element) nl.item(i), nr.getABox1(), 0);
+                    base.setAssertion(child);
                     
                 }
             }
         }
         
-        return notNode;
-*/
-return null;
-        //
+        return nr;
     }
 
-    public AssertionRep createAndAssert(Element el) {
+ /*   public AssertionRep createAndAssert(Element el) {
         /*XMLParser parser = new XMLParser();
         NodeList nl = el.getChildNodes();
         String message = getMessage(el);
@@ -77,7 +92,7 @@ return null;
             }
         }
         return andNode;
-        */
+        
         return null;
         //
     }
@@ -99,7 +114,7 @@ return null;
                 }
             }
         }
-        return orNode;*/
+        return orNode;
       return null;
         //
     }
@@ -133,7 +148,7 @@ return null;
         
         EntailImport entailNode = new EntailImport(leftAssert, rightAssert ,message);
         return entailNode;
-*/
+
         return null;
         //
     }
@@ -170,7 +185,7 @@ return null;
         
         EqualsImport equalsNode = new EqualsImport(leftTerm, rightTerm, message); 
         return equalsNode;
-*/
+
         return null;
         //
     }
@@ -209,7 +224,7 @@ return null;
                 " tal que cumple: ");
         }
         return existNode;
-*/
+
         return null;
         //
     }
@@ -248,7 +263,7 @@ return null;
                 " tal que cumple: ");
         }
         return existOneNode;
-*/
+
         return null;
         //
     }
@@ -288,7 +303,7 @@ return null;
                 " cumple: ");
         }
         return forAllNode;
-*/
+
         return null;
         //
     }
@@ -342,8 +357,9 @@ return null;
         }
         predicateApplicationNode.setMessage(message);
         return predicateApplicationNode;
-*/
+
 return null;
         //
     }
+*/
 }

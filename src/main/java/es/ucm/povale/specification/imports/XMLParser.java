@@ -30,6 +30,7 @@ import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
 import es.ucm.povale.specification.variables.VarRep;
 import java.io.InputStream;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -41,8 +42,12 @@ public class XMLParser {
     private List<String> myPlugins;
     private String rootFile;
     private List<AssertionRep> myAsserts;
+    
+    //estos maps van a ir en vez de element a su rep, de una lista de objetos
+    //formada por: VBox parent, int index y Element el;
+    
     private Map<String, Function<Element, TermRep>> termsMap;
-    private Map<String, Function<Element, AssertionRep>> assertsMap;
+    private Map<String, Function<List<Object>, AssertionRep>> assertsMap;
     private String mySpecName;
     
     public XMLParser() {
@@ -65,17 +70,17 @@ public class XMLParser {
         assertsMap.put("assertFalse", assertParser::createAssertFalse);
         assertsMap.put("assertTrue", assertParser::createAssertTrue);
         assertsMap.put("not", assertParser::createNotAssert);
-        assertsMap.put("and", assertParser::createAndAssert);
-        assertsMap.put("or", assertParser::createOrAssert);
-        assertsMap.put("entail", assertParser::createEntailAssert);
-        assertsMap.put("equals", assertParser::createEqualsAssert);
-        assertsMap.put("exist", assertParser::createExistAssert);
-        assertsMap.put("existOne", assertParser::createExistOneAssert);
-        assertsMap.put("forAll", assertParser::createForAllAssert);
-        assertsMap.put("predicateApplication", assertParser::createPredicateApplication);
+        //assertsMap.put("and", assertParser::createAndAssert);
+        //assertsMap.put("or", assertParser::createOrAssert);
+        //assertsMap.put("entail", assertParser::createEntailAssert);
+        //assertsMap.put("equals", assertParser::createEqualsAssert);
+        //assertsMap.put("exist", assertParser::createExistAssert);
+        //assertsMap.put("existOne", assertParser::createExistOneAssert);
+        //assertsMap.put("forAll", assertParser::createForAllAssert);
+        //assertsMap.put("predicateApplication", assertParser::createPredicateApplication);
     }
 
-    public void parseXMLFile(InputStream is) {
+    public void parseXMLFile(InputStream is, VBox parent) {
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
@@ -87,7 +92,7 @@ public class XMLParser {
             readRootFile(document);
             readSpecName(document);
             readVars(document);
-            readRootAssertion(document);
+            readRootAssertion(document, parent);
         } catch (ParserConfigurationException | SAXException | IOException pce) {
             pce.printStackTrace();
         }
@@ -101,18 +106,20 @@ public class XMLParser {
     }
 
     
-    protected AssertionRep getAssertion(Element element) {
+    protected AssertionRep getAssertion(Element element, VBox parent, int index) {
         String assertion = element.getTagName();
-        Function<Element, AssertionRep> assertParserFunction = this.assertsMap.get(assertion);
-        AssertionRep a = assertParserFunction.apply(element);
+        Function<List<Object>, AssertionRep> assertParserFunction = this.assertsMap.get(assertion);
+        List<Object> list = new LinkedList();
+        list.add(0, element);
+        list.add(1, parent);
+        list.add(2, index);
+        
+        AssertionRep a = assertParserFunction.apply(list);
         return a;
     }
 
-    private void readRootAssertion(Element document) {
-        Environment envAux = new Environment();
-        for (String a : myPlugins) {
-            Import plugin = new Import(a, envAux);
-        }
+    private void readRootAssertion(Element document, VBox parent) {
+        int index = 1;
         NodeList nl = document.getElementsByTagName("assert");
         if (nl != null && nl.getLength() > 0) {
             for (int i = 0; i < nl.getLength(); i++) {
@@ -120,7 +127,8 @@ public class XMLParser {
                 for (int j = 0; j < nol.getLength(); j++) {
                     if (!nol.item(j).getNodeName().equalsIgnoreCase("#text")) {
                         Element el = (Element) nol.item(j);       
-                        AssertionRep assertNode = getAssertion(el);
+                        AssertionRep assertNode = getAssertion(el, parent, index);
+                        index +=2;
                         myAsserts.add(assertNode);
                     }
                 }
