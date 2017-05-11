@@ -24,12 +24,9 @@
 package es.ucm.povale.specification.assertionRepresentation;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -41,6 +38,7 @@ import org.w3c.dom.Element;
 public class AndRep extends AssertionRep {
     
     private ArrayList<VBox> boxes;
+
     private Button addButton;
     private int index;
 
@@ -62,7 +60,7 @@ public class AndRep extends AssertionRep {
        addAssertion();
     }
     
-    private void addAssertion(){
+    public void addAssertion(){
         VBox a = new VBox();
         boxes.add(a);
         BaseAssertionRep assertion = this.addAssertion(a);
@@ -128,5 +126,9 @@ public class AndRep extends AssertionRep {
         return "And";
     }
 
+    
+    public ArrayList<VBox> getBoxes() {
+        return boxes;
+    }
 
 }

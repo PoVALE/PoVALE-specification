@@ -5,6 +5,7 @@
  */
 package es.ucm.povale.specification.imports;
 
+import es.ucm.povale.specification.assertionRepresentation.AndRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertFalseRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertTrueRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
@@ -114,28 +115,34 @@ public class AssertParser {
         return er;
     }
 
- /*   public AssertionRep createAndAssert(Element el) {
-        /*XMLParser parser = new XMLParser();
+    public AndRep createAndAssert(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
+        XMLParser parser = new XMLParser();
         NodeList nl = el.getChildNodes();
         String message = getMessage(el);
-        AndImport andNode = new AndImport(message);
-        AssertionRep child; 
-        
+        AndRep ar = new AndRep(parent, index);
+        ar.setMessage(message);
+        int andIndex = 0;
         if (nl != null && nl.getLength() > 0) {
             for (int i = 0; i < nl.getLength(); i++) {
                 if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
                     Element e = (Element) nl.item(i);
-                    child = parser.getAssertion(e);
-                    andNode.addChild(child);
+                    if(andIndex > 1){
+                        ar.addAssertion();
+                    }
+                    AssertionRep child = parser.getAssertion(e, ar.getBoxes().get(andIndex), 0);
+                    ar.getAssertions().get(andIndex).setAssertion(child);
+                    ar.getAssertions().get(andIndex).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                    ar.getBoxes().get(andIndex).getChildren().remove(0);
+                    andIndex++;
                 }
             }
         }
-        return andNode;
-        
-        return null;
-        //
+        return ar;
     }
-
+/*
     public AssertionRep createOrAssert(Element el) {
 
       /*  XMLParser parser = new XMLParser();
