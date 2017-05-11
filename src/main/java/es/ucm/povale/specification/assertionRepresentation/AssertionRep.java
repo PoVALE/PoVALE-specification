@@ -23,6 +23,7 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
+import es.ucm.povale.specification.termRepresentation.BaseTermRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
 import es.ucm.povale.specification.termRepresentation.TermRepFactory;
 import java.util.LinkedList;
@@ -63,7 +64,7 @@ public abstract class AssertionRep {
     protected ObservableList<String> observableFunctions;
     protected ObservableList<String> observablePredicates;
     protected List<BaseAssertionRep> assertions;
-    protected List<TermRep> termReps;
+    protected List<BaseTermRep> termReps;
     protected int index;
     protected Separator line;
     protected int baseIndex;
@@ -187,4 +188,10 @@ public abstract class AssertionRep {
     public int getBaseIndex(){
         return this.baseIndex;
     }
+
+    public List<BaseTermRep> getTermReps() {
+        return termReps;
+    }
+    
+    
 }
