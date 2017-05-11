@@ -40,7 +40,11 @@ public class AssertFalseRep extends AssertionRep {
 
     @Override
     public Element exportAssertion(Document document) {
-        return document.createElement("assertFalse");
+        Element assertionElement = document.createElement("assertFalse");
+            if(!this.messageTxt.getText().isEmpty()){
+                assertionElement.setAttribute("msg", this.messageTxt.getText());
+            }
+        return assertionElement;
     }
 
     @Override

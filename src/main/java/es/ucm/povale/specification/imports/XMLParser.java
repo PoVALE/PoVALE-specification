@@ -73,7 +73,7 @@ public class XMLParser {
         assertsMap.put("not", assertParser::createNotAssert);
         //assertsMap.put("and", assertParser::createAndAssert);
         //assertsMap.put("or", assertParser::createOrAssert);
-        //assertsMap.put("entail", assertParser::createEntailAssert);
+        assertsMap.put("entail", assertParser::createEntailAssert);
         //assertsMap.put("equals", assertParser::createEqualsAssert);
         //assertsMap.put("exist", assertParser::createExistAssert);
         //assertsMap.put("existOne", assertParser::createExistOneAssert);

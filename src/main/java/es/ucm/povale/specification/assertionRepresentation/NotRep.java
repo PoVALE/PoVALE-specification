@@ -71,7 +71,8 @@ public class NotRep extends AssertionRep {
 
     @Override
     public Boolean isValid() {
-        return this.assertion.getAssertionCombo().getValue().toString().isEmpty();
+        return !this.assertion.getAssertionCombo().getValue().toString().isEmpty()
+                && this.assertion.getAssertion().isValid();
     }
     
     @Override

@@ -89,8 +89,10 @@ public class EntailRep extends AssertionRep {
 
     @Override
     public Boolean isValid() {
-        return this.assertion1.getAssertionCombo().getValue().toString().isEmpty() &&
-                this.assertion2.getAssertionCombo().getValue().toString().isEmpty();
+        return !this.assertion1.getAssertionCombo().getValue().toString().isEmpty() &&
+                !this.assertion2.getAssertionCombo().getValue().toString().isEmpty()
+                && this.assertion1.getAssertion().isValid() 
+                && this.assertion2.getAssertion().isValid();
     }
     
     @Override

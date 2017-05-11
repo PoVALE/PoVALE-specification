@@ -100,8 +100,8 @@ public class AssertParser {
                                     er.getABox1().getChildren().remove(0);
                                 } else {
                                     rightAssert = parser.getAssertion(e, er.getABox2(), 0);
-                                    er.getAssertions().get(0).setAssertion(rightAssert);
-                                    er.getAssertions().get(0).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                                    er.getAssertions().get(1).setAssertion(rightAssert);
+                                    er.getAssertions().get(1).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
                                     er.getABox2().getChildren().remove(0);
                                 }
                             }
