@@ -11,6 +11,7 @@ import es.ucm.povale.specification.assertionRepresentation.AssertTrueRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
 import es.ucm.povale.specification.assertionRepresentation.EntailRep;
 import es.ucm.povale.specification.assertionRepresentation.NotRep;
+import es.ucm.povale.specification.assertionRepresentation.OrRep;
 import java.util.List;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
@@ -142,31 +143,37 @@ public class AssertParser {
         }
         return ar;
     }
-/*
-    public AssertionRep createOrAssert(Element el) {
 
-      /*  XMLParser parser = new XMLParser();
+    public OrRep createOrAssert(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
+        XMLParser parser = new XMLParser();
         NodeList nl = el.getChildNodes();
         String message = getMessage(el);
-        OrRep orNode = new OrImport(message);
-        AssertionRep child; 
-        
+        OrRep or = new OrRep(parent, index);
+        or.setMessage(message);
+        int andIndex = 0;
         if (nl != null && nl.getLength() > 0) {
             for (int i = 0; i < nl.getLength(); i++) {
                 if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
                     Element e = (Element) nl.item(i);
-                    child = parser.getAssertion(e);
-                    orNode.addChild(child);
+                    if(andIndex > 1){
+                        or.addAssertion();
+                    }
+                    AssertionRep child = parser.getAssertion(e, or.getBoxes().get(andIndex), 0);
+                    or.getAssertions().get(andIndex).setAssertion(child);
+                    or.getAssertions().get(andIndex).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                    or.getBoxes().get(andIndex).getChildren().remove(0);
+                    andIndex++;
                 }
             }
         }
-        return orNode;
-      return null;
-        //
+        return or;
     }
 
 
-
+/*
     public AssertionRep createEqualsAssert(Element el) {
         /*
         XMLParser parser = new XMLParser();

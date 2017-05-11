@@ -64,11 +64,10 @@ public class OrRep extends AssertionRep {
         
     }
     
-     private void addAssertion(){
+     public void addAssertion(){
         VBox a = new VBox();
         boxes.add(a);
         BaseAssertionRep assertion = this.addAssertion(a);
-        assertions.add(assertion);
         
         this.pane.add(assertion.getAssertLbl(), 0, index);
         this.pane.add(assertion.getAssertionCombo(), 1, index);
@@ -127,6 +126,10 @@ public class OrRep extends AssertionRep {
     @Override
     public String getName() {
         return "Or";
+    }
+    
+    public ArrayList<VBox> getBoxes() {
+        return boxes;
     }
 
 }
