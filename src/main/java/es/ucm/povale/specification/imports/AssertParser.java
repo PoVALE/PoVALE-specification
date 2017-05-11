@@ -8,11 +8,8 @@ package es.ucm.povale.specification.imports;
 import es.ucm.povale.specification.assertionRepresentation.AssertFalseRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertTrueRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
-import es.ucm.povale.specification.assertionRepresentation.BaseAssertionRep;
+import es.ucm.povale.specification.assertionRepresentation.EntailRep;
 import es.ucm.povale.specification.assertionRepresentation.NotRep;
-import es.ucm.povale.specification.termRepresentation.TermRep;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
@@ -64,7 +61,7 @@ public class AssertParser {
             for (int i = 0; i < nl.getLength(); i++) {
                 if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
                     Element e = (Element)nl.item(i);
-                    child = parser.getAssertion((Element) nl.item(i), nr.getABox1(), 0);
+                    child = parser.getAssertion(e, nr.getABox1(), 0);
                     nr.getAssertions().get(0).setAssertion(child);
                     nr.getAssertions().get(0).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
                     nr.getABox1().getChildren().remove(0);
@@ -73,6 +70,48 @@ public class AssertParser {
         }
         
         return nr;
+    }
+    
+    public EntailRep createEntailAssert(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
+        XMLParser parser = new XMLParser();
+        NodeList nodeList = el.getChildNodes();
+        String message = getMessage(el);
+        EntailRep er = new EntailRep(parent, index);
+        er.setMessage(message);
+        AssertionRep child;
+        AssertionRep leftAssert = null, rightAssert = null; 
+        
+        if (nodeList != null && nodeList.getLength() > 0) {
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                if (!nodeList.item(i).getNodeName().equalsIgnoreCase("#text")) {
+                    Element element = (Element) nodeList.item(i);
+                    NodeList asserts = element.getChildNodes();
+                    if (asserts != null && asserts.getLength() > 0) {
+                        for (int j = 0; j < asserts.getLength(); j++) {
+                            if (!asserts.item(j).getNodeName().equalsIgnoreCase("#text")) {
+                                Element e = (Element) asserts.item(j);
+                                if (leftAssert == null) {
+                                    leftAssert = parser.getAssertion(e, er.getABox1(), 0);
+                                    er.getAssertions().get(0).setAssertion(leftAssert);
+                                    er.getAssertions().get(0).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                                    er.getABox1().getChildren().remove(0);
+                                } else {
+                                    rightAssert = parser.getAssertion(e, er.getABox2(), 0);
+                                    er.getAssertions().get(0).setAssertion(rightAssert);
+                                    er.getAssertions().get(0).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                                    er.getABox2().getChildren().remove(0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return er;
     }
 
  /*   public AssertionRep createAndAssert(Element el) {
@@ -119,39 +158,7 @@ public class AssertParser {
         //
     }
 
-    public AssertionRep createEntailAssert(Element el) {
-        /*XMLParser parser = new XMLParser();
-        NodeList nodeList = el.getChildNodes();
-        Element element = null;
-        String message = getMessage(el);
-        AssertionRep leftAssert = null, rightAssert = null; 
-        
-        if (nodeList != null && nodeList.getLength() > 0) {
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                if (!nodeList.item(i).getNodeName().equalsIgnoreCase("#text")) {
-                    element = (Element) nodeList.item(i);
-                    NodeList asserts = element.getChildNodes();
-                    if (asserts != null && asserts.getLength() > 0) {
-                        for (int j = 0; j < asserts.getLength(); j++) {
-                            if (!asserts.item(j).getNodeName().equalsIgnoreCase("#text")) {
-                                if (leftAssert == null) {
-                                    leftAssert = parser.getAssertion((Element) asserts.item(j));
-                                } else {
-                                    rightAssert = parser.getAssertion((Element) asserts.item(j));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        EntailImport entailNode = new EntailImport(leftAssert, rightAssert ,message);
-        return entailNode;
 
-        return null;
-        //
-    }
 
     public AssertionRep createEqualsAssert(Element el) {
         /*
