@@ -25,6 +25,7 @@ public class Import {
         parser.parseXMLFile(is, parent);
         controller.importVariables(parser.getMyVars());
         controller.importPlugins(parser.getMyPlugins());
+        controller.importAssertions(parser.getMyAsserts());
     }
         
     

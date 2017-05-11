@@ -123,21 +123,15 @@ public class FXMLController implements Initializable {
         });
     }
     
-    private void importMainAssertions(List<AssertionRep> reps){
+    private void importAssertions(List<AssertionRep> reps){
         
         for(AssertionRep a: reps){
             BaseAssertionRep baseAssertion = new BaseAssertionRep();
             baseAssertion.setAssertionComboValue(a.getName());
             this.assertions.getChildren().add(baseAssertion.getHPane());
-            
-            //set
-            //set
-            //set
             Bindings.bindContentBidirectional(a.getObservableFunctions(),specification.getObservableFunctions());
             Bindings.bindContentBidirectional(a.getObservablePredicates(),specification.getObservablePredicates());
             specification.addAssertion(a);
-            
-            
             baseAssertion.setAssertion(a);
             
             //para futuros cambios del usuario

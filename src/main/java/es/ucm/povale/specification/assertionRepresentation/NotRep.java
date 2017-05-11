@@ -42,7 +42,7 @@ public class NotRep extends AssertionRep {
         super(parent, index);
         this.assertionLbl.setText("NOT:");
         
-       a1 = new VBox();
+        a1 = new VBox();
         this.assertion = this.addAssertion(a1);
         
         this.pane.add(this.assertion.getAssertLbl(), 0, 3);
@@ -77,5 +77,9 @@ public class NotRep extends AssertionRep {
     @Override
     public String getName() {
         return "Not";
+    }
+    
+    public VBox getABox1(){
+        return this.a1;
     }
 }
