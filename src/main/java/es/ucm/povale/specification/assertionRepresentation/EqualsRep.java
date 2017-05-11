@@ -87,4 +87,5 @@ public class EqualsRep extends AssertionRep {
     public String getName() {
         return "Equals";
     }
+
 }

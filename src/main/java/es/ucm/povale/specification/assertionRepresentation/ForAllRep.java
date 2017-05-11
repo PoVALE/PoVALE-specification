@@ -106,4 +106,5 @@ public class ForAllRep extends AssertionRep {
     public String getName() {
         return "For All";
     }
+
 }

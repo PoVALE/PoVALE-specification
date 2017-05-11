@@ -66,6 +66,7 @@ public abstract class AssertionRep {
     protected List<TermRep> termReps;
     protected int index;
     protected Separator line;
+    protected int baseIndex;
    
     public AssertionRep(VBox parent, int index) {
         this.parent = parent;
@@ -177,5 +178,13 @@ public abstract class AssertionRep {
 
     public List<BaseAssertionRep> getAssertions() {
         return assertions;
+    }
+    
+    public void setBaseIndex(int index){
+        this.baseIndex = index;
+    }    
+    
+    public int getBaseIndex(){
+        return this.baseIndex;
     }
 }

@@ -82,4 +82,5 @@ public class NotRep extends AssertionRep {
     public VBox getABox1(){
         return this.a1;
     }
+
 }

@@ -97,4 +97,5 @@ public class EntailRep extends AssertionRep {
     public String getName() {
         return "Entails";
     }
+
 }

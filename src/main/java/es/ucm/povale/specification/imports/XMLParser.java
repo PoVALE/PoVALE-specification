@@ -24,12 +24,11 @@ import org.w3c.dom.NodeList;
 
 import org.xml.sax.SAXException;
 
-import es.ucm.povale.environment.Environment;
-import es.ucm.povale.plugin.Import;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
 import es.ucm.povale.specification.variables.VarRep;
 import java.io.InputStream;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
@@ -48,6 +47,7 @@ public class XMLParser {
     
     private Map<String, Function<Element, TermRep>> termsMap;
     private Map<String, Function<List<Object>, AssertionRep>> assertsMap;
+    private Map<String,String> assertionNames;
     private String mySpecName;
     
     public XMLParser() {
@@ -58,6 +58,7 @@ public class XMLParser {
         this.rootFile = "";
         this.mySpecName="";
         this.termsMap = new HashMap<>();
+        this.assertionNames = new HashMap<>();
         TermParser termParser = new TermParser();
         termsMap.put("variable", termParser::createVariable);
         termsMap.put("literalString", termParser::createLiteralString);
@@ -78,6 +79,18 @@ public class XMLParser {
         //assertsMap.put("existOne", assertParser::createExistOneAssert);
         //assertsMap.put("forAll", assertParser::createForAllAssert);
         //assertsMap.put("predicateApplication", assertParser::createPredicateApplication);
+        assertionNames.put("assertTrue", "Assert True");
+        assertionNames.put("assertFalse", "Assert False");
+        assertionNames.put("not", "Not");
+        assertionNames.put("and", "And");
+        assertionNames.put("or", "Or");
+        assertionNames.put("entail", "Entails");
+        assertionNames.put("exist", "Exist");
+        assertionNames.put("existOne", "Exist One");
+        assertionNames.put("forAll", "For All");
+        assertionNames.put("equals", "Equals");
+        assertionNames.put("predicateApplication", "Predicate Application");
+        
     }
 
     public void parseXMLFile(InputStream is, VBox parent) {
@@ -119,16 +132,20 @@ public class XMLParser {
     }
 
     private void readRootAssertion(Element document, VBox parent) {
-        int index = 1;
+        //int index = 1;
         NodeList nl = document.getElementsByTagName("assert");
         if (nl != null && nl.getLength() > 0) {
             for (int i = 0; i < nl.getLength(); i++) {
                 NodeList nol = nl.item(i).getChildNodes();
                 for (int j = 0; j < nol.getLength(); j++) {
                     if (!nol.item(j).getNodeName().equalsIgnoreCase("#text")) {
-                        Element el = (Element) nol.item(j);       
-                        AssertionRep assertNode = getAssertion(el, parent, index);
-                        index +=2;
+                        Element el = (Element) nol.item(j);
+                        Label label = new Label("");
+                        parent.getChildren().add(label);
+                        int x = parent.getChildren().indexOf(label);
+                        AssertionRep assertNode = getAssertion(el, parent, x+1);
+                        assertNode.setBaseIndex(x);
+                        //index +=assertNode.getOccupiedSpace();
                         myAsserts.add(assertNode);
                     }
                 }
@@ -197,6 +214,10 @@ public class XMLParser {
     
     public String getRootFile(){
         return this.rootFile;
+    }
+    
+    public String getAssertionName(String a){
+        return this.assertionNames.get(a);
     }
 
 }

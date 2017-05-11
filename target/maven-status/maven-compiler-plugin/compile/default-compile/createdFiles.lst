@@ -8,10 +8,12 @@ es/ucm/povale/specification/assertionRepresentation/EqualsRep.class
 es/ucm/povale/specification/termRepresentation/LiteralStringRep.class
 es/ucm/povale/specification/assertionRepresentation/AndRep$1.class
 es/ucm/povale/specification/termRepresentation/ListTermRep.class
+es/ucm/povale/specification/FXMLController$4.class
 es/ucm/povale/specification/assertionRepresentation/AssertionRep.class
 es/ucm/povale/specification/MainApp.class
 es/ucm/povale/specification/Specification.class
 es/ucm/povale/specification/assertionRepresentation/NotRep.class
+es/ucm/povale/specification/FXMLController$3.class
 es/ucm/povale/specification/termRepresentation/BaseTermRep$1.class
 es/ucm/povale/specification/assertionRepresentation/AndRep.class
 es/ucm/povale/specification/assertionRepresentation/ExistRep.class

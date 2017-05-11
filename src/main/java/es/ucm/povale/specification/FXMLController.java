@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -123,17 +124,18 @@ public class FXMLController implements Initializable {
         });
     }
     
-    private void importAssertions(List<AssertionRep> reps){
-        
+    public void importAssertions(List<AssertionRep> reps){
         for(AssertionRep a: reps){
+            //this.assertions.getChildren().
             BaseAssertionRep baseAssertion = new BaseAssertionRep();
-            baseAssertion.setAssertionComboValue(a.getName());
-            this.assertions.getChildren().add(baseAssertion.getHPane());
+            this.assertions.getChildren().add(a.getBaseIndex(),baseAssertion.getHPane());
             Bindings.bindContentBidirectional(a.getObservableFunctions(),specification.getObservableFunctions());
             Bindings.bindContentBidirectional(a.getObservablePredicates(),specification.getObservablePredicates());
             specification.addAssertion(a);
             baseAssertion.setAssertion(a);
-            
+            baseAssertion.setAssertionComboValue(a.getName());
+            this.assertions.getChildren().remove(1);
+                    
             //para futuros cambios del usuario
             baseAssertion.getAssertionCombo().valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue observable, String oldValue, String newValue) {
@@ -148,6 +150,18 @@ public class FXMLController implements Initializable {
                 baseAssertion.setAssertion(assertion);
                 }    
             });
+            baseAssertion.getRemoveBtn().setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                int index = assertions.getChildren().indexOf(baseAssertion.getHPane());
+                assertions.getChildren().remove(index);
+                if(baseAssertion.getAssertionCombo().getValue()!=null){
+                    assertions.getChildren().remove(index);
+                }
+                specification.removeAssertion(baseAssertion.getAssertion());
+                
+                
+            }
+        });
         }
     }
     
@@ -340,7 +354,6 @@ public class FXMLController implements Initializable {
     void setStage(Stage mainStage) {
         this.stage = mainStage;
     }
-    
 }
 
 

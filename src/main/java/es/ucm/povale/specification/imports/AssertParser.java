@@ -58,16 +58,16 @@ public class AssertParser {
         String message = getMessage(el);
         NotRep nr = new NotRep(parent, index);
         nr.setMessage(message);
-        
-        BaseAssertionRep base = nr.getAssertions().get(0);
         AssertionRep child;
         
         if (nl != null && nl.getLength() > 0) {
             for (int i = 0; i < nl.getLength(); i++) {
                 if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
+                    Element e = (Element)nl.item(i);
                     child = parser.getAssertion((Element) nl.item(i), nr.getABox1(), 0);
-                    base.setAssertion(child);
-                    
+                    nr.getAssertions().get(0).setAssertion(child);
+                    nr.getAssertions().get(0).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                    nr.getABox1().getChildren().remove(0);
                 }
             }
         }
