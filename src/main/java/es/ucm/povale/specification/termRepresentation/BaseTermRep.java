@@ -97,6 +97,10 @@ public class BaseTermRep{
     public TermRep getTerm() {
         return term;
     }
+
+    public void setTerm(TermRep term) {
+        this.term = term;
+    }
     
     public boolean isValid(){
         return !this.termCombo.getValue().toString().isEmpty();
@@ -109,4 +113,10 @@ public class BaseTermRep{
     public ComboBox getTermCombo() {
         return termCombo;
     }
+    
+    public void setTermComboValue(String s){
+        this.termCombo.setValue(s);
+    }
+    
+    
 }

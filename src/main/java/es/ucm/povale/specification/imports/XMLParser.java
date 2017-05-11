@@ -45,9 +45,10 @@ public class XMLParser {
     //estos maps van a ir en vez de element a su rep, de una lista de objetos
     //formada por: VBox parent, int index y Element el;
     
-    private Map<String, Function<Element, TermRep>> termsMap;
+    private Map<String, Function<List<Object>, TermRep>> termsMap;
     private Map<String, Function<List<Object>, AssertionRep>> assertsMap;
     private Map<String,String> assertionNames;
+    private Map<String,String> termNames;
     private String mySpecName;
     
     public XMLParser() {
@@ -59,12 +60,20 @@ public class XMLParser {
         this.mySpecName="";
         this.termsMap = new HashMap<>();
         this.assertionNames = new HashMap<>();
+        this.termNames = new HashMap<>();
         TermParser termParser = new TermParser();
         termsMap.put("variable", termParser::createVariable);
         termsMap.put("literalString", termParser::createLiteralString);
         termsMap.put("literalInteger", termParser::createLiteralInteger);
         termsMap.put("listTerm", termParser::createListTerm);
         termsMap.put("functionApplication", termParser::createFunctionApplication);
+        
+        
+        termNames.put("variable", "Variable");
+        termNames.put("literalString", "String");
+        termNames.put("literalInteger", "Integer");
+        termNames.put("listTerm", "List Term");
+        termNames.put("functionApplication", "Function Application");
 
         this.assertsMap = new HashMap<>();
         AssertParser assertParser = new AssertParser();
@@ -72,9 +81,9 @@ public class XMLParser {
         assertsMap.put("assertTrue", assertParser::createAssertTrue);
         assertsMap.put("not", assertParser::createNotAssert);
         assertsMap.put("and", assertParser::createAndAssert);
-        //assertsMap.put("or", assertParser::createOrAssert);
+        assertsMap.put("or", assertParser::createOrAssert);
         assertsMap.put("entail", assertParser::createEntailAssert);
-        //assertsMap.put("equals", assertParser::createEqualsAssert);
+        assertsMap.put("equals", assertParser::createEqualsAssert);
         //assertsMap.put("exist", assertParser::createExistAssert);
         //assertsMap.put("existOne", assertParser::createExistOneAssert);
         //assertsMap.put("forAll", assertParser::createForAllAssert);
@@ -111,10 +120,13 @@ public class XMLParser {
         }
     }
 
-    protected TermRep getTerm(Element element) {
+    protected TermRep getTerm(Element element, VBox parent) {
         String term = element.getTagName();
-        Function<Element, TermRep> termParserFunction = this.termsMap.get(term);
-        TermRep t = termParserFunction.apply(element);
+        List<Object> list = new LinkedList();
+        list.add(0, element);
+        list.add(1, parent);
+        Function<List<Object>, TermRep> termParserFunction = this.termsMap.get(term);
+        TermRep t = termParserFunction.apply(list);
         return t;
     }
 
@@ -218,6 +230,10 @@ public class XMLParser {
     
     public String getAssertionName(String a){
         return this.assertionNames.get(a);
+    }
+    
+    public String getTermName(String a){
+        return this.termNames.get(a);
     }
 
 }

@@ -9,10 +9,9 @@ import es.ucm.povale.specification.termRepresentation.LiteralIntegerRep;
 import es.ucm.povale.specification.termRepresentation.LiteralStringRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
 import es.ucm.povale.specification.termRepresentation.VariableRep;
-import java.util.LinkedList;
 import java.util.List;
+import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 /**
  *
@@ -20,28 +19,34 @@ import org.w3c.dom.NodeList;
  */
 
 
-
 public class TermParser {
     
-    public VariableRep createVariable(Element el){
-        return null;
-        //return new VariableRep(el.getTextContent());
+    public VariableRep createVariable(List<Object> list){
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        VariableRep vr = new VariableRep(parent);
+        vr.setTermValue(el.getTextContent());
+        return vr;
     }
     
-    public LiteralStringRep createLiteralString(Element el){
-        String s = el.getTextContent();
-        return null;
-        //return new LiteralStringRep(s);
+    public LiteralStringRep createLiteralString(List<Object> list){
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        LiteralStringRep lsr = new LiteralStringRep(parent);
+        lsr.setTermValue(el.getTextContent());
+        return lsr;
     }
     
-    public LiteralIntegerRep createLiteralInteger(Element el){
-        String integer = el.getTextContent();
-        return null;
-        //return new LiteralIntegerRep(integer);
+    public LiteralIntegerRep createLiteralInteger(List<Object> list){
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        LiteralIntegerRep lir = new LiteralIntegerRep(parent);
+        lir.setTermValue(el.getTextContent());
+        return lir;
     }
     
-    public TermRep createListTerm(Element el){
-        XMLParser parser = new XMLParser();
+    public TermRep createListTerm(List<Object> list){
+        /*XMLParser parser = new XMLParser();
         List<TermRep> terms = new LinkedList();
         NodeList nl = el.getChildNodes();
         if(nl != null && nl.getLength() > 0) 
@@ -49,13 +54,13 @@ public class TermParser {
                 if(!nl.item(i).getNodeName().equalsIgnoreCase("#text")){
                     Element e = (Element)nl.item(i);
                     terms.add(parser.getTerm(e));
-                }
+                }*/
         return null;
         //return new ListTermRep(terms);
     }
     
-    public TermRep createFunctionApplication(Element el){
-        XMLParser parser = new XMLParser();
+    public TermRep createFunctionApplication(List<Object> list){
+        /*XMLParser parser = new XMLParser();
         String function = null;
         List<TermRep> terms = new LinkedList();
         NodeList nodeList = el.getChildNodes();
@@ -70,7 +75,7 @@ public class TermParser {
                             for(int j = 0; j < termList.getLength(); j++)
                                 if(!termList.item(j).getNodeName().equalsIgnoreCase("#text"))
                                     terms.add(parser.getTerm((Element)termList.item(j)));
-                    }
+                    }*/
         return null;
         //return new FunctionApplicationRep(function, terms);
     }

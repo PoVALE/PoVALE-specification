@@ -10,8 +10,10 @@ import es.ucm.povale.specification.assertionRepresentation.AssertFalseRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertTrueRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
 import es.ucm.povale.specification.assertionRepresentation.EntailRep;
+import es.ucm.povale.specification.assertionRepresentation.EqualsRep;
 import es.ucm.povale.specification.assertionRepresentation.NotRep;
 import es.ucm.povale.specification.assertionRepresentation.OrRep;
+import es.ucm.povale.specification.termRepresentation.TermRep;
 import java.util.List;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
@@ -173,16 +175,18 @@ public class AssertParser {
     }
 
 
-/*
-    public AssertionRep createEqualsAssert(Element el) {
-        /*
+
+    public EqualsRep createEqualsAssert(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
+        
         XMLParser parser = new XMLParser();
         NodeList nodeList = el.getChildNodes();
         Element element = null;
         TermRep leftTerm = null, rightTerm = null;
         String message = getMessage(el);
-        
-        AssertionRep equalsAssertion;
+        EqualsRep er = new EqualsRep(parent, index);
        
         if (nodeList != null && nodeList.getLength() > 0) {
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -192,10 +196,17 @@ public class AssertParser {
                     if (terms != null && terms.getLength() > 0) {
                         for (int j = 0; j < terms.getLength(); j++) {
                             if (!terms.item(j).getNodeName().equalsIgnoreCase("#text")) {
+                                Element e = (Element) terms.item(j);
                                 if (leftTerm == null) {
-                                    leftTerm = parser.getTerm((Element) terms.item(j));
+                                    leftTerm = parser.getTerm((Element) terms.item(j), er.getTermReps().get(0).getTermBox());
+                                    er.getTermReps().get(0).setTerm(leftTerm);
+                                    er.getTermReps().get(0).setTermComboValue(parser.getTermName(e.getTagName()));
+                                    er.getTermReps().get(0).getTermBox().getChildren().remove(0);
                                 } else {
-                                    rightTerm = parser.getTerm((Element) terms.item(j));
+                                    rightTerm = parser.getTerm((Element) terms.item(j), er.getTermReps().get(1).getTermBox());
+                                    er.getTermReps().get(1).setTerm(rightTerm);
+                                    er.getTermReps().get(1).setTermComboValue(parser.getTermName(e.getTagName()));
+                                    er.getTermReps().get(1).getTermBox().getChildren().remove(0);
                                 }
                             }
                         }
@@ -203,14 +214,9 @@ public class AssertParser {
                 }
             }
         }
-        
-        EqualsImport equalsNode = new EqualsImport(leftTerm, rightTerm, message); 
-        return equalsNode;
-
-        return null;
-        //
+        return er;
     }
-
+/*
     public AssertionRep createExistAssert(Element el) {
         /*
         XMLParser parser = new XMLParser();
