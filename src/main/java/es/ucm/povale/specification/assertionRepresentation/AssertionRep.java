@@ -102,7 +102,7 @@ public abstract class AssertionRep {
     private void initialize(){
         this.pane = new GridPane();
         this.pane.setPadding(new Insets(0, 10, 10, 10));
-        
+        this.termReps = new LinkedList<>();
         
         this.assertionLbl = new Label();
         line = new Separator();

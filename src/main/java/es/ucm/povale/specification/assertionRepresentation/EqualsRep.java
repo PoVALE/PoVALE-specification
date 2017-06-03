@@ -45,14 +45,16 @@ public class EqualsRep extends AssertionRep {
         
         this.term1 = new BaseTermRep(this.observableFunctions);
         this.term2 = new BaseTermRep(this.observableFunctions);
-        this.termReps.add(term1);
-        this.termReps.add(term2);
+        
         
         this.pane.add(term1.getTermBox(),0, 3);
         GridPane.setColumnSpan(term1.getTermBox(), 2);
         
         this.pane.add(term2.getTermBox(),0, 4);
         GridPane.setColumnSpan(term2.getTermBox(), 2);
+        
+        this.termReps.add(term1);
+        this.termReps.add(term2);
     }
 
     @Override
@@ -66,11 +68,10 @@ public class EqualsRep extends AssertionRep {
             
             Element lhs = document.createElement("lhs");
             lhs.appendChild(this.term1.getTerm().exportTerm(document));
-             
+            assertionElement.appendChild(lhs);
+            
             Element rhs = document.createElement("rhs");
             lhs.appendChild(this.term2.getTerm().exportTerm(document));
-            
-            assertionElement.appendChild(lhs);
             assertionElement.appendChild(rhs);
             
             return assertionElement;

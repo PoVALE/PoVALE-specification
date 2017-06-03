@@ -87,7 +87,6 @@ public class VarRep {
     
     public VarRep(String id, String name, String desc, String type) {
         this.pane = new GridPane();
-        //this.controller = controller;
         that = this;
 
         pane.setPadding(new Insets(0, 10, 10, 10));
