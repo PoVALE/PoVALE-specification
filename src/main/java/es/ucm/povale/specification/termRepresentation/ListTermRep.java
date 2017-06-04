@@ -25,16 +25,9 @@ package es.ucm.povale.specification.termRepresentation;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -58,7 +51,6 @@ public class ListTermRep extends TermRep {
         imgAdd.setFitHeight(16);
         imgAdd.setFitWidth(16);
         imgAdd.setPreserveRatio(true);
-        //add.setGraphic(imgAdd);
         pane.add(add, 1, 0);
         
         add.setOnAction((ActionEvent event) -> {

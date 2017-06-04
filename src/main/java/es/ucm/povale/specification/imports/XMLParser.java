@@ -84,10 +84,10 @@ public class XMLParser {
         assertsMap.put("or", assertParser::createOrAssert);
         assertsMap.put("entail", assertParser::createEntailAssert);
         assertsMap.put("equals", assertParser::createEqualsAssert);
-        //assertsMap.put("exist", assertParser::createExistAssert);
-        //assertsMap.put("existOne", assertParser::createExistOneAssert);
-        //assertsMap.put("forAll", assertParser::createForAllAssert);
-        //assertsMap.put("predicateApplication", assertParser::createPredicateApplication);
+        assertsMap.put("exist", assertParser::createExistAssert);
+        assertsMap.put("existOne", assertParser::createExistOneAssert);
+        assertsMap.put("forAll", assertParser::createForAllAssert);
+        assertsMap.put("predicateApplication", assertParser::createPredicateApplication);
         assertionNames.put("assertTrue", "Assert True");
         assertionNames.put("assertFalse", "Assert False");
         assertionNames.put("not", "Not");

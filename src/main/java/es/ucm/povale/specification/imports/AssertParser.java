@@ -11,9 +11,15 @@ import es.ucm.povale.specification.assertionRepresentation.AssertTrueRep;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
 import es.ucm.povale.specification.assertionRepresentation.EntailRep;
 import es.ucm.povale.specification.assertionRepresentation.EqualsRep;
+import es.ucm.povale.specification.assertionRepresentation.ExistOneRep;
+import es.ucm.povale.specification.assertionRepresentation.ExistRep;
+import es.ucm.povale.specification.assertionRepresentation.ForAllRep;
 import es.ucm.povale.specification.assertionRepresentation.NotRep;
 import es.ucm.povale.specification.assertionRepresentation.OrRep;
+import es.ucm.povale.specification.assertionRepresentation.PredicateApplicationRep;
+import es.ucm.povale.specification.termRepresentation.BaseTermRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
@@ -216,177 +222,155 @@ public class AssertParser {
         }
         return er;
     }
-/*
-    public AssertionRep createExistAssert(Element el) {
-        /*
+
+    public ExistRep createExistAssert(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
         XMLParser parser = new XMLParser();
-        NodeList existElements = el.getChildNodes();
-        String variable = null;
-        TermRep term = null;
-        AssertionRep assertion = null;
-        ArrayList<Integer> existPos = new ArrayList<>();
+        NodeList nl = el.getChildNodes();
         String message = getMessage(el);
-        AssertImport existNode = new AssertImport(null,message);
-        AssertionRep child; 
-        Assertion existAssertion;
+        ExistRep er = new ExistRep(parent, index);
+        er.setMessage(message);
+        AssertionRep child;
+        ArrayList<Integer> existElementPos = new ArrayList<>();
         
-        if (existElements != null && existElements.getLength() > 0) {
-            for (int i = 0; i < existElements.getLength(); i++) {
-                if (!existElements.item(i).getNodeName().equalsIgnoreCase("#text")) {
-                    existPos.add(i);
+        if (nl != null && nl.getLength() > 0) {
+            for (int i = 0; i < nl.getLength(); i++) {
+                if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
+                    existElementPos.add(i);
                 }
             }
-            variable = existElements.item(existPos.get(0)).getTextContent();
-            term = parser.getTerm((Element) existElements.item(existPos.get(1)));
-            child = parser.getAssertion((Element) existElements.item(existPos.get(2)), env);
-            assertion = child.getAssertion();
-            existNode.addChild(child);
+            if(existElementPos.size()==3)
+            {
+                Element vr = (Element)nl.item(existElementPos.get(0));
+                er.setVariable(vr.getTextContent());
+                
+                Element tm = (Element)nl.item(existElementPos.get(1));
+                TermRep term = parser.getTerm(tm, er.getTermReps().get(0).getTermBox());
+                er.getTermReps().get(0).setTerm(term);
+                er.getTermReps().get(0).setTermComboValue(parser.getTermName(tm.getTagName()));
+                er.getTermReps().get(0).getTermBox().getChildren().remove(2);
+                
+                Element e = (Element)nl.item(existElementPos.get(2));
+                child = parser.getAssertion(e, er.getABox1(), 0);
+                er.getAssertions().get(0).setAssertion(child);
+                er.getAssertions().get(0).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                er.getABox1().getChildren().remove(0);
+            }
         }
+        return er;
+    }
+    
+    public ExistOneRep createExistOneAssert(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
+        XMLParser parser = new XMLParser();
+        NodeList nl = el.getChildNodes();
+        String message = getMessage(el);
+        ExistOneRep er = new ExistOneRep(parent, index);
+        er.setMessage(message);
+        AssertionRep child;
+        ArrayList<Integer> existElementPos = new ArrayList<>();
         
-        existAssertion = new Exist(variable, term, assertion, message);
-        existNode.setAssertion(existAssertion);
-        if(message == null){
-            String stringTerm = getStringTerm(term, env);
-            existNode.setMessage("Existe un elemento " + variable + " en " + stringTerm +
-                " tal que cumple: ");
+        if (nl != null && nl.getLength() > 0) {
+            for (int i = 0; i < nl.getLength(); i++) {
+                if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
+                    existElementPos.add(i);
+                }
+            }
+            if(existElementPos.size()==3)
+            {
+                Element vr = (Element)nl.item(existElementPos.get(0));
+                er.setVariable(vr.getTextContent());
+                
+                Element tm = (Element)nl.item(existElementPos.get(1));
+                TermRep term = parser.getTerm(tm, er.getTermReps().get(0).getTermBox());
+                er.getTermReps().get(0).setTerm(term);
+                er.getTermReps().get(0).setTermComboValue(parser.getTermName(tm.getTagName()));
+                er.getTermReps().get(0).getTermBox().getChildren().remove(2);
+                
+                Element e = (Element)nl.item(existElementPos.get(2));
+                child = parser.getAssertion(e, er.getABox1(), 0);
+                er.getAssertions().get(0).setAssertion(child);
+                er.getAssertions().get(0).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                er.getABox1().getChildren().remove(0);
+            }
         }
-        return existNode;
-
-        return null;
-        //
+        return er;
     }
 
-    public AssertionRep createExistOneAssert(Element el) {
-        /*
+    public ForAllRep createForAllAssert(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
         XMLParser parser = new XMLParser();
-        NodeList existElements = el.getChildNodes();
-        String variable = null;
-        TermRep term = null;
-        Assertion assertion = null;
-        ArrayList<Integer> existPos = new ArrayList<>();
+        NodeList nl = el.getChildNodes();
         String message = getMessage(el);
-        AssertImport existOneNode = new AssertImport(null,message);
-        AssertImport child; 
-        Assertion existOneAssertion;
+        ForAllRep er = new ForAllRep(parent, index);
+        er.setMessage(message);
+        AssertionRep child;
+        ArrayList<Integer> ElementPos = new ArrayList<>();
         
-        if (existElements != null && existElements.getLength() > 0) {
-            for (int i = 0; i < existElements.getLength(); i++) {
-                if (!existElements.item(i).getNodeName().equalsIgnoreCase("#text")) {
-                    existPos.add(i);
+        if (nl != null && nl.getLength() > 0) {
+            for (int i = 0; i < nl.getLength(); i++) {
+                if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
+                    ElementPos.add(i);
                 }
             }
-            variable = existElements.item(existPos.get(0)).getTextContent();
-            term = parser.getTerm((Element) existElements.item(existPos.get(1)));
-            child = parser.getAssertion((Element) existElements.item(existPos.get(2)), env);
-            assertion = child.getAssertion();
-            existOneNode.addChild(child);
+            if(ElementPos.size()==3)
+            {
+                Element vr = (Element)nl.item(ElementPos.get(0));
+                er.setVariable(vr.getTextContent());
+                
+                Element tm = (Element)nl.item(ElementPos.get(1));
+                TermRep term = parser.getTerm(tm, er.getTermReps().get(0).getTermBox());
+                er.getTermReps().get(0).setTerm(term);
+                er.getTermReps().get(0).setTermComboValue(parser.getTermName(tm.getTagName()));
+                er.getTermReps().get(0).getTermBox().getChildren().remove(2);
+                
+                Element e = (Element)nl.item(ElementPos.get(2));
+                child = parser.getAssertion(e, er.getABox1(), 0);
+                er.getAssertions().get(0).setAssertion(child);
+                er.getAssertions().get(0).setAssertionComboValue(parser.getAssertionName(e.getTagName()));
+                er.getABox1().getChildren().remove(0);
+            }
         }
-        existOneAssertion = new ExistOne(variable, term, assertion, message);
-        existOneNode.setAssertion(existOneAssertion);
-        
-        if(message == null){
-            String stringTerm = getStringTerm(term, env);
-            existOneNode.setMessage("Existe solo un elemento " + variable + " en " + stringTerm +
-                " tal que cumple: ");
-        }
-        return existOneNode;
-
-        return null;
-        //
+        return er;
     }
 
-    public AssertionRep createForAllAssert(Element el) {
-        /*
+    public PredicateApplicationRep createPredicateApplication(List<Object> list) {
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        int index = (int)list.get(2);
         XMLParser parser = new XMLParser();
-        NodeList forAllElements = el.getChildNodes();
-        String variable = null;
-        Term term = null;
-        Assertion assertion = null;
-        ArrayList<Integer> existPos = new ArrayList<>();
+        NodeList nl = el.getChildNodes();
         String message = getMessage(el);
-        AssertImport forAllNode = new AssertImport(null,message);
-        AssertImport child; 
-        Assertion forAllAssertion;
+        PredicateApplicationRep er = new PredicateApplicationRep(parent, index);
+        er.setMessage(message);
+        AssertionRep child;
+        ArrayList<Integer> ElementPos = new ArrayList<>();
         
-        if (forAllElements != null && forAllElements.getLength() > 0) {
-            for (int j = 0; j < forAllElements.getLength(); j++) {
-                if (!forAllElements.item(j).getNodeName().equalsIgnoreCase("#text")) {
-                    existPos.add(j);
+        if (nl != null && nl.getLength() > 0) {
+            for (int i = 0; i < nl.getLength(); i++) {
+                if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
+                    ElementPos.add(i);
                 }
             }
-            variable = forAllElements.item(existPos.get(0)).getTextContent();
-            term = parser.getTerm((Element) forAllElements.item(existPos.get(1)));
-            child = parser.getAssertion((Element) forAllElements.item(existPos.get(2)), env);
-            assertion = child.getAssertion();
-            forAllNode.addChild(child);
+            if(ElementPos.size()==2)
+            {
+                Element vr = (Element)nl.item(ElementPos.get(0));
+                er.setPredicateComboValue(vr.getTextContent());
+                
+                Element tm = (Element)nl.item(ElementPos.get(1));
+                TermRep term = parser.getTerm(tm, er.getTermReps().get(0).getTermBox());
+                er.getTermReps().get(0).setTerm(term);
+                er.getTermReps().get(0).setTermComboValue(parser.getTermName(tm.getTagName()));
+                er.getTermReps().get(0).getTermBox().getChildren().remove(2);
+            }
         }
-        
-        forAllAssertion = new ForAll(variable, term, assertion, message);
-        forAllNode.setAssertion(forAllAssertion);
-
-        if(message == null){
-            String stringTerm = getStringTerm(term, env);
-            forAllNode.setMessage("Para todo elemento " + variable + " en " + stringTerm +
-                " cumple: ");
-        }
-        return forAllNode;
-
-        return null;
-        //
+        return er;
     }
 
-    public AssertionRep createPredicateApplication(Element el) {
-/*
-        XMLParser parser = new XMLParser();
-        String predicate = null;
-        List<TermRep> predicateTerms = new LinkedList();
-        NodeList nodeList = el.getChildNodes();
-        String message = getMessage(el);
-        AssertImport predicateApplicationNode = new AssertImport(null,message);
-        Assertion predicateApplicationAssertion;
-        
-        if (nodeList != null && nodeList.getLength() > 0) {
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                if (!nodeList.item(i).getNodeName().equalsIgnoreCase("#text")) {
-                    if (predicate == null) {
-                        predicate = nodeList.item(i).getTextContent();
-                    } else {
-                        NodeList termList = nodeList.item(i).getChildNodes();
-                        if (termList != null && termList.getLength() > 0) {
-                            for (int j = 0; j < termList.getLength(); j++) {
-                                if (!termList.item(j).getNodeName().equalsIgnoreCase("#text")) {
-                                    predicateTerms.add(parser.getTerm((Element) termList.item(j)));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        predicateApplicationAssertion = new PredicateApplication(predicate, predicateTerms, message);
-        predicateApplicationNode.setAssertion(predicateApplicationAssertion);
-        if(message == null){
-            Predicate p = env.getPredicate(predicate);
-            message="";
-            for(Term t: predicateTerms){
-                if(predicateTerms.size()==1){
-                    message+=predicateTerms.get(0).toString()+" ";
-                }
-                message+=t.toString()+", ";
-            }
-            String aux[] = p.getParamDescriptions();
-            for(String s: aux){
-                if(s != null){
-                    message+=s;
-                }
-            }
-        }
-        predicateApplicationNode.setMessage(message);
-        return predicateApplicationNode;
-
-return null;
-        //
-    }
-*/
 }

@@ -154,11 +154,10 @@ public class PluginActions {
     }
     
     public List<Element> exportPlugins(Document document){
-        
+        reloadCurrentPlugins();
         List<Element> plugins = new LinkedList<>();
         
         if (!this.currentPlugins.isEmpty()){
-            
             for(String s: this.currentPlugins.values()){
                 Element plugin = document.createElement("import");
                 plugin.appendChild(document.createTextNode(s));

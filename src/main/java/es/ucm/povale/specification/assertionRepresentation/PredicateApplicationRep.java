@@ -58,10 +58,9 @@ public class PredicateApplicationRep extends AssertionRep {
         this.pane.add(this.predicateCombo, 1, 3);
         
         this.baseTerm = new BaseTermRep(this.observableFunctions);
-        
-        this.pane.add(this.baseTerm.getTermLbl(), 0, 4);
-        this.pane.add(this.baseTerm.getTermCombo(), 1, 4);
-        this.pane.add(this.baseTerm.getTermBox(), 1, 5);
+        this.termReps.add(baseTerm);
+        this.pane.add(baseTerm.getTermBox(),0, 4);
+        GridPane.setColumnSpan(baseTerm.getTermBox(), 2);
         
     }
 
@@ -78,9 +77,7 @@ public class PredicateApplicationRep extends AssertionRep {
            pred.appendChild(document.createTextNode(this.predicateCombo.getValue().toString()));
            assertionElement.appendChild(pred);
            
-           Element term = document.createElement("term");
-           term.appendChild(this.baseTerm.getTerm().exportTerm(document));
-           assertionElement.appendChild(term);
+           assertionElement.appendChild(this.baseTerm.getTerm().exportTerm(document));
             
            return assertionElement;
             
@@ -92,7 +89,7 @@ public class PredicateApplicationRep extends AssertionRep {
 
     @Override
     public Boolean isValid() {
-        return  !this.baseTerm.isValid() &&
+        return  this.baseTerm.isValid() &&
                 !this.predicateCombo.getValue().toString().isEmpty();
                 
     }
@@ -101,5 +98,10 @@ public class PredicateApplicationRep extends AssertionRep {
     public String getName() {
         return "Predicate Application";
     }
+
+    public void setPredicateComboValue(String value) {
+        this.predicateCombo.setValue(value);
+    }
+    
 
 }

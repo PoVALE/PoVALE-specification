@@ -42,6 +42,7 @@ public class ForAllRep extends AssertionRep {
     private TextField variableTxt;
     private BaseAssertionRep assertion;
     private BaseTermRep baseTerm;
+    private VBox a1;
     
 
     public ForAllRep(VBox parent, int index) {
@@ -55,10 +56,11 @@ public class ForAllRep extends AssertionRep {
         this.pane.add(variableTxt, 1, 3);
         
         this.baseTerm = new BaseTermRep(this.observableFunctions);
+        this.termReps.add(baseTerm);
         this.pane.add(baseTerm.getTermBox(),0, 4);
         GridPane.setColumnSpan(baseTerm.getTermBox(), 2);
         
-        VBox a1 = new VBox();
+        a1 = new VBox();
         this.assertion = this.addAssertion(a1);
         
         this.pane.add(this.assertion.getAssertLbl(), 0, 5);
@@ -82,9 +84,7 @@ public class ForAllRep extends AssertionRep {
             variable.appendChild(document.createTextNode(this.variableTxt.getText()));
             assertionElement.appendChild(variable);
              
-            Element term = document.createElement("term");
-            term.appendChild(this.baseTerm.getTerm().exportTerm(document));
-            assertionElement.appendChild(term);
+            assertionElement.appendChild(this.baseTerm.getTerm().exportTerm(document));
            
             assertionElement.appendChild(this.assertion.getAssertion().exportAssertion(document));
             
@@ -98,13 +98,22 @@ public class ForAllRep extends AssertionRep {
     @Override
     public Boolean isValid() {
         return !this.variableTxt.getText().isEmpty() &&
-               !this.baseTerm.isValid() &&
-               !this.assertion.getAssertionCombo().getValue().toString().isEmpty();
+               this.baseTerm.isValid() &&
+               !this.assertion.getAssertionCombo().getValue().toString().isEmpty() &&
+                this.assertion.getAssertion().isValid();
     }
     
     @Override
     public String getName() {
         return "For All";
+    }
+    
+    public void setVariable(String value){
+        this.variableTxt.setText(value);
+    }
+    
+    public VBox getABox1(){
+        return this.a1;
     }
 
 }

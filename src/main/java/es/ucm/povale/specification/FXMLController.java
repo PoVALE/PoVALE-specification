@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -47,7 +48,8 @@ public class FXMLController implements Initializable {
     private Boolean incomplete;
     private String path;
     private PluginActions pluginActions;
-    
+    @FXML
+    private GridPane id;
     @FXML
     private VBox variables;
     @FXML
@@ -62,6 +64,7 @@ public class FXMLController implements Initializable {
         this.pluginActions = new PluginActions(this.specification);
         this.path = null;
         this.imp = new Import(this);
+        
     }    
     
     public void handleRemoveVariable(VarRep variable){
@@ -283,7 +286,7 @@ public class FXMLController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Directorio no existente, la entrega no fue enviada");
+            alert.setContentText("Fichero no seleccionado");
             alert.showAndWait();
         }
         else{
@@ -351,8 +354,9 @@ public class FXMLController implements Initializable {
             this.incomplete = false;
     }
 
-    void setStage(Stage mainStage) {
+    public void setStage(Stage mainStage) {
         this.stage = mainStage;
+       
     }
 }
 

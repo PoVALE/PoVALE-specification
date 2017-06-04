@@ -192,6 +192,9 @@ public abstract class AssertionRep {
     public List<BaseTermRep> getTermReps() {
         return termReps;
     }
-    
+
+    public void setTermRep(int index, BaseTermRep term) {
+        this.termReps.set(index, term);
+    }    
     
 }
