@@ -53,7 +53,7 @@ public abstract class BasePluginDialog extends Dialog {
         this.grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
+        grid.setPadding(new Insets(10, 10, 10, 10));
         grid.add(this.informationMessage,0,0);
         grid.add(pluginList, 0, 1);
         

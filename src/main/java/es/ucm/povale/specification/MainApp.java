@@ -16,7 +16,7 @@ public class MainApp extends Application {
         FXMLController controller = new FXMLController();
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("PoVALE");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();

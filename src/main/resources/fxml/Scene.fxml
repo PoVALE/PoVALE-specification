@@ -22,7 +22,6 @@
               <MenuItem mnemonicParsing="false" onAction="#handleOnAbrir" text="Abrir" />
                   <MenuItem mnemonicParsing="false" onAction="#handleOnSaveFile" text="Guardar" />
                   <MenuItem mnemonicParsing="false" onAction="#handleOnSaveAsFile" text="Guardar como..." />
-                  <MenuItem mnemonicParsing="false" text="Cerrar" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Plugins">
@@ -41,7 +40,7 @@
    <center>
       <ScrollPane BorderPane.alignment="CENTER">
          <content>
-            <GridPane fx:id="id" prefHeight="617.0" prefWidth="1400.0">
+            <GridPane fx:id="id" prefHeight="617.0" prefWidth="1270.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>

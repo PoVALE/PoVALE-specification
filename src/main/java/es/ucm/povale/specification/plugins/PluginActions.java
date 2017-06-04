@@ -40,7 +40,7 @@ public class PluginActions {
         availablePlugins.put("CorePlugin", "es.ucm.povale.plugin.CorePlugin");
         availablePlugins.put("FilesPlugin", "es.ucm.povaleFiles.FilesPlugin");
         availablePlugins.put("LinesPlugin", "es.ucm.povaleLines.LinesPlugin");
-        
+        addPlugin("es.ucm.povale.plugin.CorePlugin");
         this.reloadCurrentPlugins();
     }
 

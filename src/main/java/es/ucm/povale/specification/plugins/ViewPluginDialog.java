@@ -19,6 +19,7 @@ public class ViewPluginDialog extends BasePluginDialog{
         super(pluginSet);
         this.informationMessage.setText("Aquí puedes ver los plugins ya añadidos:");
         ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
+      
         this.getDialogPane().getButtonTypes().addAll(okButton);
         
         this.setResultConverter(dialogButton -> {

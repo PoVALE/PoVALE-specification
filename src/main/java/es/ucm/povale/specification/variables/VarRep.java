@@ -52,16 +52,19 @@ public class VarRep {
         Label idLbl = new Label("Identificador:");
         pane.add(idLbl, 0, 1);
         this.idTxt = new TextField();
+        this.idTxt.setPrefColumnCount(50);
         pane.add(idTxt, 1, 1);
 
         Label nameLbl = new Label("Nombre:");
         pane.add(nameLbl, 0, 2);
         this.nameTxt = new TextField();
+        this.nameTxt.setPrefColumnCount(50);
         pane.add(nameTxt, 1, 2);
         
         Label descLbl = new Label("Descripción:");
         pane.add(descLbl, 0, 3);
         this.descTxt = new TextField();
+        this.descTxt.setPrefColumnCount(50);
         pane.add(descTxt, 1, 3);
         
         Label typeLbl = new Label("Tipo:");
