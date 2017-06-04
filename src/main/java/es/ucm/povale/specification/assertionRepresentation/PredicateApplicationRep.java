@@ -45,9 +45,9 @@ public class PredicateApplicationRep extends AssertionRep {
     
     public PredicateApplicationRep(VBox parent, int index) {
         super(parent, index);
-        this.assertionLbl.setText("PREDICATE APPLICATION:");
+        this.assertionLbl.setText("APLICACIÓN DE PREDICADO:");
         
-        predicate = new Label("Predicate : ");
+        predicate = new Label("Predicado: ");
         this.predicateCombo = new ComboBox();
         predicateCombo.setItems(this.observablePredicates);
         
@@ -96,7 +96,7 @@ public class PredicateApplicationRep extends AssertionRep {
     
     @Override
     public String getName() {
-        return "Predicate Application";
+        return "Aplicación de predicado";
     }
 
     public void setPredicateComboValue(String value) {

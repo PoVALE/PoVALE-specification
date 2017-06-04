@@ -44,11 +44,11 @@ public class LiteralStringRep extends TermRep {
     public LiteralStringRep(VBox parent) {
         super(parent);
         
-        this.termLbl.setText("LITERAL STRING");
+        this.termLbl.setText("CADENA");
         GridPane.setColumnSpan(this.termLbl,2);
         GridPane.setColumnSpan(this.line,2);
         
-        literalStringLbl = new Label("String:");
+        literalStringLbl = new Label("Cadena:");
         this.literalStringTxt = new TextField();
         this.literalStringTxt.setMaxWidth(115);
         this.literalStringTxt.setMinWidth(115);

@@ -23,9 +23,6 @@
  */
 package es.ucm.povale.specification.assertionRepresentation;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -44,7 +41,7 @@ public class EntailRep extends AssertionRep {
     public EntailRep(VBox parent, int index) {
         super(parent, index);
         this.parent = parent;
-        this.assertionLbl.setText("ENTAILS:");
+        this.assertionLbl.setText("IMPLICACIÓN:");
         
         this.a1 = new VBox();
         this.assertion1 = this.addAssertion(a1);
@@ -97,7 +94,7 @@ public class EntailRep extends AssertionRep {
     
     @Override
     public String getName() {
-        return "Entails";
+        return "Implicación";
     }
 
     public VBox getABox1() {

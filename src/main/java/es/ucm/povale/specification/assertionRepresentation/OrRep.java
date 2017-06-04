@@ -24,8 +24,6 @@
 package es.ucm.povale.specification.assertionRepresentation;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -49,7 +47,7 @@ public class OrRep extends AssertionRep {
         super(parent, index);
         this.boxes = new ArrayList<>();
         this.parent = parent;
-        this.assertionLbl.setText("OR:");
+        this.assertionLbl.setText("DISYUNCIÓN:");
         
         this.addButton = new Button("+");
         this.pane.add(addButton, 1, 0);
@@ -125,7 +123,7 @@ public class OrRep extends AssertionRep {
 
     @Override
     public String getName() {
-        return "Or";
+        return "Disyunción";
     }
     
     public ArrayList<VBox> getBoxes() {

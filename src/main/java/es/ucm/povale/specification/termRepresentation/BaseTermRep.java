@@ -5,17 +5,11 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
-import es.ucm.povale.specification.assertionRepresentation.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -23,8 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  *
@@ -49,10 +41,10 @@ public class BaseTermRep{
         
         this.termLbl = new Label("Término:     ");
         this.terms = FXCollections.observableArrayList(
-            "Function Application",
-            "List Term",
-            "Integer",
-            "String",
+            "Función de aplicación",
+            "Lista de términos",
+            "Entero",
+            "Cadena",
             "Variable"
         );
         

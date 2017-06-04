@@ -34,17 +34,17 @@ public class BaseAssertionRep {
         this.assertLbl = new Label("Aserto: ");
         
         this.assertionObsList = FXCollections.observableArrayList(
-            "And",
-            "Assert False",
-            "Assert True",
-            "Entails",
-            "Equals",
-            "Exist One",
-            "Exist",
-            "For All",
-            "Not",
-            "Or",
-            "Predicate Application"
+            "Conjunción",
+            "Falsedad",
+            "Verdad",
+            "Implicación",
+            "Igualdad",
+            "Existe un",
+            "Existe",
+            "Para todo",
+            "Negación",
+            "Disyunción",
+            "Aplicación de predicado"
         );
         
         this.assertionCombo = new ComboBox(assertionObsList);
