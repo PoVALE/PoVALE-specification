@@ -116,8 +116,8 @@ public class PluginActions {
           
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning ");
-            alert.setHeaderText("Could not import plugin");
+            alert.setTitle("Atención");
+            alert.setHeaderText("No se pudo importar el plugin");
             alert.showAndWait();
         }
     }
@@ -130,8 +130,8 @@ public class PluginActions {
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning ");
-                alert.setHeaderText("Could not find plugin");
+                alert.setTitle("Atención");
+                alert.setHeaderText("No se pudo encontrar el plugin");
                 alert.showAndWait();
             }
         }

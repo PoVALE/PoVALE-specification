@@ -42,11 +42,11 @@ public class LiteralIntegerRep extends TermRep {
     public LiteralIntegerRep(VBox parent) {
         super(parent);
         
-        this.termLbl.setText("LITERAL INTEGER");
+        this.termLbl.setText("ENTERO");
         GridPane.setColumnSpan(this.termLbl,2);
         GridPane.setColumnSpan(this.line,2);
         
-        literalIntegerLbl = new Label("Integer:");
+        literalIntegerLbl = new Label("Entero:");
         this.literalIntegerTxt = new TextField();
         this.literalIntegerTxt.setMaxWidth(115);
         this.literalIntegerTxt.setMinWidth(115);

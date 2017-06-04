@@ -46,7 +46,7 @@ public class AndRep extends AssertionRep {
         super(parent, index);
         this.boxes = new ArrayList<>();
         this.parent = parent;
-        this.assertionLbl.setText("AND:");
+        this.assertionLbl.setText("CONJUNCIÓN:");
         
         this.addButton = new Button("+");
         this.pane.add(addButton, 1, 0);
@@ -120,7 +120,7 @@ public class AndRep extends AssertionRep {
 
     @Override
     public String getName() {
-        return "And";
+        return "Conjunción";
     }
 
     

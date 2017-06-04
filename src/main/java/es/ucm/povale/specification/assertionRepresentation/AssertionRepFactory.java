@@ -16,27 +16,27 @@ public class AssertionRepFactory {
     public static AssertionRep createAssertionRep(String assertionRep, VBox parent, int index) {//predicados
         
         switch (assertionRep) {
-            case "And":
+            case "Conjunción":
                 return new AndRep(parent, index);
-            case "Assert False":
+            case "Falsedad":
                 return new AssertFalseRep(parent, index);
-            case "Assert True":
+            case "Verdad":
                 return new AssertTrueRep(parent, index);
-            case "Entails":
+            case "Implicación":
                 return new EntailRep(parent, index);
-            case "Equals":
+            case "Igualdad":
                 return new EqualsRep(parent, index);
-            case "Exist One":
+            case "Existe un":
                 return new ExistOneRep(parent, index);
-            case "Exist":
+            case "Existe":
                 return new ExistRep(parent, index);
-            case "For All":
+            case "Para todo":
                 return new ForAllRep(parent, index);
-            case "Not":
+            case "Negación":
                 return new NotRep(parent, index);
-            case "Or":
+            case "Disyunción":
                 return new OrRep(parent, index);
-            case "Predicate Application":
+            case "Aplicación de predicado":
                 return new PredicateApplicationRep(parent, index);    
             default:
                 return new AndRep(parent, index);

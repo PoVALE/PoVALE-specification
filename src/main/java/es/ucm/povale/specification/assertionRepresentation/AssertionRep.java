@@ -24,8 +24,6 @@
 package es.ucm.povale.specification.assertionRepresentation;
 
 import es.ucm.povale.specification.termRepresentation.BaseTermRep;
-import es.ucm.povale.specification.termRepresentation.TermRep;
-import es.ucm.povale.specification.termRepresentation.TermRepFactory;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.beans.binding.Bindings;
@@ -34,15 +32,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

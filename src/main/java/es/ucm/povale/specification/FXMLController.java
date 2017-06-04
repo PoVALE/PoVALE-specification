@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -189,8 +188,8 @@ public class FXMLController implements Initializable {
             imp.importFile(targetStream, assertions);
         } catch (FileNotFoundException ex) {
             Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning ");
-            alert.setHeaderText("File does not exist");
+            alert.setTitle("Atención");
+            alert.setHeaderText("El fichero no existe");
             alert.showAndWait();
         }
        

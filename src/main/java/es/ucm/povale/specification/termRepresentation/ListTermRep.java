@@ -43,7 +43,7 @@ public class ListTermRep extends TermRep {
 
     public ListTermRep(VBox parent) {
         super(parent);
-        this.termLbl.setText("LIST OF TERMS: ");
+        this.termLbl.setText("LISTA DE TÉRMINOS: ");
         termReps = new ArrayList<>();
        
         ImageView imgAdd = new ImageView(new Image("file:src/main/resources/correct.png"));

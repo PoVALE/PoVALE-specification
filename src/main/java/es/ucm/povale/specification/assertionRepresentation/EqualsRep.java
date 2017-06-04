@@ -41,7 +41,7 @@ public class EqualsRep extends AssertionRep {
     public EqualsRep(VBox parent, int index) {
         super(parent, index);
         this.parent = parent;
-        this.assertionLbl.setText("EQUALS:");
+        this.assertionLbl.setText("Igualdad:");
         
         this.term1 = new BaseTermRep(this.observableFunctions);
         this.term2 = new BaseTermRep(this.observableFunctions);
@@ -89,7 +89,7 @@ public class EqualsRep extends AssertionRep {
     
     @Override
     public String getName() {
-        return "Equals";
+        return "Igualdad";
     }
 
 }

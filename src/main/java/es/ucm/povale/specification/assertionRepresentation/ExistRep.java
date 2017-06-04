@@ -46,7 +46,7 @@ public class ExistRep extends AssertionRep {
     public ExistRep(VBox parent, int index) {
         super(parent, index);
         this.parent = parent;
-        this.assertionLbl.setText("EXIST:");
+        this.assertionLbl.setText("EXISTE:");
         
         Label variableLbl = new Label("Variable:");
         this.variableTxt = new TextField();
@@ -103,7 +103,7 @@ public class ExistRep extends AssertionRep {
     
     @Override
     public String getName() {
-        return "Exist";
+        return "Existe";
     }
     
     public VBox getABox1(){

@@ -35,7 +35,7 @@ public class AssertFalseRep extends AssertionRep {
 
     public AssertFalseRep(VBox parent, int index) {
         super(parent, index);
-        this.assertionLbl.setText("ASSERT FALSE:");
+        this.assertionLbl.setText("FALSEDAD:");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AssertFalseRep extends AssertionRep {
 
     @Override
     public String getName() {
-        return "Assert False";
+        return "Falsedad";
     }
 
 }

@@ -17,13 +17,13 @@ public class TermRepFactory {
     public static TermRep createTermRep(String termRep, VBox parent) {//predicados
         
         switch (termRep) {
-            case "Function Application":
+            case "Función de aplicación":
                 return new FunctionApplicationRep(parent);
-            case "List Term":
+            case "Lista de términos":
                 return new ListTermRep(parent);
-            case "Integer":
+            case "Entero":
                 return new LiteralIntegerRep(parent);
-            case "String":
+            case "Cadena":
                 return new LiteralStringRep(parent);
             case "Variable":
                 return new VariableRep(parent);

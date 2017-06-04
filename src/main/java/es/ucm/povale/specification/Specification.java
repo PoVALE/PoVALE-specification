@@ -5,7 +5,6 @@
  */
 package es.ucm.povale.specification;
 
-import es.ucm.povale.entity.Entity;
 import es.ucm.povale.specification.variables.VarRep;
 import java.util.List;
 import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
@@ -17,8 +16,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

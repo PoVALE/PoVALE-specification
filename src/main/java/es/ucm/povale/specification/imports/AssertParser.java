@@ -17,7 +17,6 @@ import es.ucm.povale.specification.assertionRepresentation.ForAllRep;
 import es.ucm.povale.specification.assertionRepresentation.NotRep;
 import es.ucm.povale.specification.assertionRepresentation.OrRep;
 import es.ucm.povale.specification.assertionRepresentation.PredicateApplicationRep;
-import es.ucm.povale.specification.termRepresentation.BaseTermRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +90,6 @@ public class AssertParser {
         String message = getMessage(el);
         EntailRep er = new EntailRep(parent, index);
         er.setMessage(message);
-        AssertionRep child;
         AssertionRep leftAssert = null, rightAssert = null; 
         
         if (nodeList != null && nodeList.getLength() > 0) {

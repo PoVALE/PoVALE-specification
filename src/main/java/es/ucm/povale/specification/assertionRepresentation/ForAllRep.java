@@ -47,7 +47,7 @@ public class ForAllRep extends AssertionRep {
 
     public ForAllRep(VBox parent, int index) {
         super(parent, index);
-        this.assertionLbl.setText("FOR ALL:");
+        this.assertionLbl.setText("PARA TODO:");
         
         Label variableLbl = new Label("Variable:");
         this.variableTxt = new TextField();
@@ -105,7 +105,7 @@ public class ForAllRep extends AssertionRep {
     
     @Override
     public String getName() {
-        return "For All";
+        return "Para todo";
     }
     
     public void setVariable(String value){

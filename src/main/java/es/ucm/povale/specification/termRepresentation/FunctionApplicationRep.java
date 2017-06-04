@@ -40,7 +40,7 @@ public class FunctionApplicationRep extends TermRep {
     public FunctionApplicationRep(VBox parent) {
         super(parent);
         
-        this.termLbl.setText("FUNCTION APPLICATION");
+        this.termLbl.setText("FUNCIÓN DE APLICACIÓN");
         GridPane.setColumnSpan(this.termLbl,2);
         GridPane.setColumnSpan(this.line,2);
         
