@@ -189,5 +189,11 @@ public abstract class AssertionRep {
     public void setTermRep(int index, BaseTermRep term) {
         this.termReps.set(index, term);
     }    
+
+    public void setObservableFunctions(ObservableList<String> observableFunctions) {
+        this.observableFunctions = observableFunctions;
+    }
+    
+    
     
 }

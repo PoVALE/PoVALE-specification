@@ -71,7 +71,7 @@ public class EqualsRep extends AssertionRep {
             assertionElement.appendChild(lhs);
             
             Element rhs = document.createElement("rhs");
-            lhs.appendChild(this.term2.getTerm().exportTerm(document));
+            rhs.appendChild(this.term2.getTerm().exportTerm(document));
             assertionElement.appendChild(rhs);
             
             return assertionElement;
@@ -83,8 +83,8 @@ public class EqualsRep extends AssertionRep {
 
     @Override
     public Boolean isValid() {
-        return this.term1.isValid() && this.term1.getTerm().isValid()
-                && this.term2.isValid() && this.term2.getTerm().isValid();
+        return this.term1.getTerm().isValid()
+               && this.term2.getTerm().isValid();
     }
     
     @Override

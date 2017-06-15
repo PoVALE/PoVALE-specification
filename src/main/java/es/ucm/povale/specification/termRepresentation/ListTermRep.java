@@ -23,6 +23,7 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
+import es.ucm.povale.specification.assertionRepresentation.BaseAssertionRep;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -38,6 +39,7 @@ import org.w3c.dom.Element;
 public class ListTermRep extends TermRep {
     
     private List<TermRep> termReps;
+    private ArrayList<VBox> boxes;
     private int index;
     private VBox box;
 
@@ -45,7 +47,7 @@ public class ListTermRep extends TermRep {
         super(parent);
         this.termLbl.setText("LISTA DE TÉRMINOS: ");
         termReps = new ArrayList<>();
-       
+        this.boxes = new ArrayList<>();
         ImageView imgAdd = new ImageView(new Image("file:src/main/resources/correct.png"));
         Button add = new Button("+");
         imgAdd.setFitHeight(16);
@@ -58,8 +60,10 @@ public class ListTermRep extends TermRep {
         });
         
         BaseTermRep term = new BaseTermRep(this.observableFunctions);
+        terms.add(term);
         termReps.add(term.getTerm());
         this.pane.add(term.getTermBox(),0, 3);
+        boxes.add(term.getTermBox());
         GridPane.setColumnSpan(term.getTermBox(), 2);
         term.addRemoveButton();
         
@@ -67,6 +71,7 @@ public class ListTermRep extends TermRep {
         
         term.getRemoveBtn().setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
+                terms.remove(term);
                 pane.getChildren().remove(term.getTermBox());
                 termReps.remove(term.getTerm());
                 index--;
@@ -76,6 +81,8 @@ public class ListTermRep extends TermRep {
     
     public void addTerm(){
         BaseTermRep term = new BaseTermRep(this.observableFunctions);
+        terms.add(term);
+        boxes.add(term.getTermBox());
         termReps.add(term.getTerm());
         this.pane.add(term.getTermBox(),0, index);
         GridPane.setColumnSpan(term.getTermBox(), 2);
@@ -84,6 +91,7 @@ public class ListTermRep extends TermRep {
         
         term.getRemoveBtn().setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
+                terms.remove(term);
                 pane.getChildren().remove(term.getTermBox());
                 termReps.remove(term.getTerm());
                 index--;
@@ -93,25 +101,28 @@ public class ListTermRep extends TermRep {
     
     @Override
     public Element exportTerm(Document document) {
-        
-        if (this.isValid()){
-            Element termElement = document.createElement("listTerm");
-            for(TermRep a : this.termReps){
-               termElement.appendChild(a.exportTerm(document));
+    if (this.isValid()){
+            Element listTermElement = document.createElement("listTerm");
+            for(BaseTermRep a : this.terms){
+                listTermElement.appendChild(a.getTerm().exportTerm(document));
             }
-            return termElement;
+            return listTermElement;
+            
         } else {
             return null;
-        }
+        }    
     }
 
     @Override
     public Boolean isValid() {
        Boolean valid = true;
-        for(TermRep a : this.termReps){
-           if(a == null || !a.isValid()){
-               return false;
-           }
+        for(BaseTermRep a : this.terms){
+           if(a.getTermCombo().getValue().toString().isEmpty()){
+                return false;
+            }
+            if(!a.getTerm().isValid()){
+                return false;
+            }
         }
        return valid && this.termReps.size()>0;
     }
@@ -120,5 +131,13 @@ public class ListTermRep extends TermRep {
     public void setTermValue(String value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-  
+
+    public List<BaseTermRep> getTerms() {
+        return terms;
+    }
+    
+    public ArrayList<VBox> getBoxes() {
+        return boxes;
+    }
+
 }

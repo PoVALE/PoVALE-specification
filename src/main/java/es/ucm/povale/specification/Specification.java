@@ -161,6 +161,4 @@ public class Specification{
         this.assertions.remove(assertion);
     }
 
-    
-     
 }

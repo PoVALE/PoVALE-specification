@@ -70,10 +70,10 @@ public class XMLParser {
         
         
         termNames.put("variable", "Variable");
-        termNames.put("literalString", "String");
-        termNames.put("literalInteger", "Integer");
-        termNames.put("listTerm", "List Term");
-        termNames.put("functionApplication", "Function Application");
+        termNames.put("literalString", "Cadena");
+        termNames.put("literalInteger", "Entero");
+        termNames.put("listTerm", "Lista de términos");
+        termNames.put("functionApplication", "Función de aplicación");
 
         this.assertsMap = new HashMap<>();
         AssertParser assertParser = new AssertParser();
@@ -88,17 +88,17 @@ public class XMLParser {
         assertsMap.put("existOne", assertParser::createExistOneAssert);
         assertsMap.put("forAll", assertParser::createForAllAssert);
         assertsMap.put("predicateApplication", assertParser::createPredicateApplication);
-        assertionNames.put("assertTrue", "Assert True");
-        assertionNames.put("assertFalse", "Assert False");
-        assertionNames.put("not", "Not");
-        assertionNames.put("and", "And");
-        assertionNames.put("or", "Or");
-        assertionNames.put("entail", "Entails");
-        assertionNames.put("exist", "Exist");
-        assertionNames.put("existOne", "Exist One");
-        assertionNames.put("forAll", "For All");
-        assertionNames.put("equals", "Equals");
-        assertionNames.put("predicateApplication", "Predicate Application");
+        assertionNames.put("assertTrue", "Verdad");
+        assertionNames.put("assertFalse", "Falsedad");
+        assertionNames.put("not", "Negación");
+        assertionNames.put("and", "Conjunción");
+        assertionNames.put("or", "Disyunción");
+        assertionNames.put("entail", "Implicación");
+        assertionNames.put("exist", "Existe");
+        assertionNames.put("existOne", "Existe un");
+        assertionNames.put("forAll", "Para todo");
+        assertionNames.put("equals", "Igualdad");
+        assertionNames.put("predicateApplication", "Aplicación de predicado");
         
     }
 

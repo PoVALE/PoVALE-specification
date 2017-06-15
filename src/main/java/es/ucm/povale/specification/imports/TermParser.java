@@ -5,13 +5,18 @@
  */
 package es.ucm.povale.specification.imports;
 
+import es.ucm.povale.specification.assertionRepresentation.AssertionRep;
+import es.ucm.povale.specification.termRepresentation.FunctionApplicationRep;
+import es.ucm.povale.specification.termRepresentation.ListTermRep;
 import es.ucm.povale.specification.termRepresentation.LiteralIntegerRep;
 import es.ucm.povale.specification.termRepresentation.LiteralStringRep;
 import es.ucm.povale.specification.termRepresentation.TermRep;
 import es.ucm.povale.specification.termRepresentation.VariableRep;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -45,38 +50,47 @@ public class TermParser {
         return lir;
     }
     
-    public TermRep createListTerm(List<Object> list){
-        /*XMLParser parser = new XMLParser();
-        List<TermRep> terms = new LinkedList();
+    public ListTermRep createListTerm(List<Object> list){
+        int index=0;
+        XMLParser parser = new XMLParser();
+        Element el = (Element)list.get(0);
+        VBox parent = (VBox)list.get(1);
+        ListTermRep ltr = new ListTermRep(parent);
         NodeList nl = el.getChildNodes();
-        if(nl != null && nl.getLength() > 0) 
-            for(int i = 0 ; i < nl.getLength(); i++) 
-                if(!nl.item(i).getNodeName().equalsIgnoreCase("#text")){
-                    Element e = (Element)nl.item(i);
-                    terms.add(parser.getTerm(e));
-                }*/
-        return null;
-        //return new ListTermRep(terms);
+        if (nl != null && nl.getLength() > 0) {
+            for (int i = 0; i < nl.getLength(); i++) {
+                if (!nl.item(i).getNodeName().equalsIgnoreCase("#text")) {
+                    Element e = (Element) nl.item(i);
+                    if(index > 0){
+                        ltr.addTerm();
+                    }
+                    TermRep child = parser.getTerm(e, ltr.getBoxes().get(index));
+                    ltr.getTerms().get(index).setTerm(child);
+                    ltr.getTerms().get(index).setTermComboValue(parser.getTermName(e.getTagName()));
+                    ltr.getTerms().get(index).getTermBox().getChildren().remove(2);
+                    index++;
+                }
+            }
+        }
+        return ltr;
     }
     
-    public TermRep createFunctionApplication(List<Object> list){
-        /*XMLParser parser = new XMLParser();
-        String function = null;
-        List<TermRep> terms = new LinkedList();
-        NodeList nodeList = el.getChildNodes();
-        if(nodeList != null && nodeList.getLength()>0)
-            for(int i = 0; i < nodeList.getLength(); i++)
-                if(!nodeList.item(i).getNodeName().equalsIgnoreCase("#text"))
-                    if(function == null)
-                        function = nodeList.item(i).getTextContent();
-                    else{
-                        NodeList termList = nodeList.item(i).getChildNodes();
-                        if(termList != null && termList.getLength()>0)
-                            for(int j = 0; j < termList.getLength(); j++)
-                                if(!termList.item(j).getNodeName().equalsIgnoreCase("#text"))
-                                    terms.add(parser.getTerm((Element)termList.item(j)));
-                    }*/
-        return null;
-        //return new FunctionApplicationRep(function, terms);
+    public FunctionApplicationRep createFunctionApplication(List<Object> list){
+        XMLParser parser = new XMLParser();
+        
+        Element el = (Element)list.get(0);
+        NodeList nl = el.getChildNodes();
+        Element function = (Element) nl.item(0);
+        Element term = (Element) nl.item(1);
+        VBox parent = (VBox)list.get(1);
+        
+        FunctionApplicationRep far = new FunctionApplicationRep(parent);
+        far.setFunctionComboValue(function.getTextContent());
+        far.getBaseTerm().setTermComboValue(parser.getTermName(term.getTagName()));
+        TermRep child = parser.getTerm(term, far.getBaseTerm().getTermBox());
+        far.getBaseTerm().setTerm(child);
+        
+        far.getBaseTerm().getTermBox().getChildren().remove(1);
+        return far;
     }
 }

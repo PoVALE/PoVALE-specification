@@ -23,6 +23,7 @@
  */
 package es.ucm.povale.specification.termRepresentation;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,7 +53,7 @@ public abstract class TermRep {
         this.parent = parent;
         this.pane = new GridPane();
         this.pane.setPadding(new Insets(0, 10, 10, 10));
-        
+        this.terms = new ArrayList<>();
         observableFunctions = FXCollections.observableArrayList();
         
         this.termLbl = new Label();

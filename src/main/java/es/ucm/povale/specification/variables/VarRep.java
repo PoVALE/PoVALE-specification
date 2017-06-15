@@ -45,13 +45,13 @@ public class VarRep {
 
         pane.setPadding(new Insets(0, 10, 10, 10));
         
-        Label idLbl = new Label("Identificador:");
+        Label idLbl = new Label("Nombre:");
         pane.add(idLbl, 0, 1);
         this.idTxt = new TextField();
         this.idTxt.setPrefColumnCount(50);
         pane.add(idTxt, 1, 1);
 
-        Label nameLbl = new Label("Nombre:");
+        Label nameLbl = new Label("Identificador:");
         pane.add(nameLbl, 0, 2);
         this.nameTxt = new TextField();
         this.nameTxt.setPrefColumnCount(50);
@@ -90,12 +90,12 @@ public class VarRep {
 
         pane.setPadding(new Insets(0, 10, 10, 10));
         
-        Label idLbl = new Label("Identificador:");
+        Label idLbl = new Label("Nombre:");
         pane.add(idLbl, 0, 1);
         this.idTxt = new TextField(id);
         pane.add(idTxt, 1, 1);
 
-        Label nameLbl = new Label("Nombre:");
+        Label nameLbl = new Label("Identificador:");
         pane.add(nameLbl, 0, 2);
         this.nameTxt = new TextField(name);
         pane.add(nameTxt, 1, 2);

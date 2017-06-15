@@ -9,6 +9,7 @@ import es.ucm.povale.specification.imports.Import;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
@@ -131,6 +132,10 @@ public class FXMLController implements Initializable {
             //this.assertions.getChildren().
             BaseAssertionRep baseAssertion = new BaseAssertionRep();
             this.assertions.getChildren().add(a.getBaseIndex(),baseAssertion.getHPane());
+            specification.getObservableFunctions().subList(0, specification.getObservableFunctions().size()).stream().forEach((func) -> {
+                a.getObservableFunctions().add(func);
+                System.out.println(func);
+            });
             Bindings.bindContentBidirectional(a.getObservableFunctions(),specification.getObservableFunctions());
             Bindings.bindContentBidirectional(a.getObservablePredicates(),specification.getObservablePredicates());
             specification.addAssertion(a);
@@ -176,6 +181,16 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void  handleOnAbrir(ActionEvent event) {
+        while(this.variables.getChildren().size()>0){
+            this.variables.getChildren().remove(0);
+        }
+        while(this.assertions.getChildren().size()>0){
+            this.assertions.getChildren().remove(0);
+        }
+        this.specification = new Specification();
+        this.incomplete = false;
+        this.pluginActions = new PluginActions(this.specification);
+       
         FileChooser fileChooser = new FileChooser();
 
         File selectedFile = fileChooser.showOpenDialog(stage);

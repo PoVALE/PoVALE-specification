@@ -63,19 +63,23 @@ public class FunctionApplicationRep extends TermRep {
     @Override
     public Element exportTerm(Document document) {
         if (this.isValid()){
-            
-           Element termElement = document.createElement("functionApplication");
+           Element functionApp = document.createElement("functionApplication");
             
            Element function = document.createElement("function");
            function.appendChild(document.createTextNode(this.functionCombo.getValue().toString()));
-           termElement.appendChild(function);
+           functionApp.appendChild(function);
+           if(!baseTerm.getTermLbl().textProperty().getValue().equals("LISTA DE TÉRMINOS: ")){
+               System.out.println("yes");
+                Element list = document.createElement("listTerm");
+                list.appendChild(this.baseTerm.getTerm().exportTerm(document));
+                functionApp.appendChild(list);
+           }
+           else{
+                functionApp.appendChild(this.baseTerm.getTerm().exportTerm(document));
+           }
+         
            
-           Element term = document.createElement("term");
-           term.appendChild(this.baseTerm.getTerm().exportTerm(document));
-           
-           termElement.appendChild(term);
-            
-           return termElement;
+           return functionApp;
             
         } else {
             return null;
@@ -84,13 +88,21 @@ public class FunctionApplicationRep extends TermRep {
 
     @Override
     public Boolean isValid() {
-            return this.functionCombo.getValue().toString().isEmpty()
-                    && this.baseTerm.isValid() && this.baseTerm.getTerm().isValid();
+            return !this.functionCombo.getValue().toString().isEmpty()
+                    && this.baseTerm.getTerm().isValid();
+            
+    }
+
+    public void setFunctionComboValue(String function) {
+        this.functionCombo.setValue(function);
+    }
+
+    public BaseTermRep getBaseTerm() {
+        return baseTerm;
     }
 
     @Override
     public void setTermValue(String value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

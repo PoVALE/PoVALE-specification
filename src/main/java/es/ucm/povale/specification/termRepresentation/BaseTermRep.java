@@ -109,6 +109,11 @@ public class BaseTermRep{
     public void setTermComboValue(String s){
         this.termCombo.setValue(s);
     }
+
+    public void setObservableFunctions(ObservableList<String> observableFunctions) {
+        this.observableFunctions = observableFunctions;
+    }
+    
     
     
 }

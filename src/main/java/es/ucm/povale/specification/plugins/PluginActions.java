@@ -125,8 +125,11 @@ public class PluginActions {
     public void importPlugins(List<String> plugins){
        this.reloadAvailablePlugins();
        for(String s: plugins){
-            if(availablePlugins.containsValue(s)){
-                this.addPlugin(s);
+           
+            if(availablePlugins.containsValue(s)||currentPlugins.containsValue(s)){
+                if(!currentPlugins.containsValue(s)){
+                    this.addPlugin(s);
+                }
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);

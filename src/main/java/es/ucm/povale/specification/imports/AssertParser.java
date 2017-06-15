@@ -205,12 +205,12 @@ public class AssertParser {
                                     leftTerm = parser.getTerm((Element) terms.item(j), er.getTermReps().get(0).getTermBox());
                                     er.getTermReps().get(0).setTerm(leftTerm);
                                     er.getTermReps().get(0).setTermComboValue(parser.getTermName(e.getTagName()));
-                                    er.getTermReps().get(0).getTermBox().getChildren().remove(0);
+                                    er.getTermReps().get(0).getTermBox().getChildren().remove(2);
                                 } else {
                                     rightTerm = parser.getTerm((Element) terms.item(j), er.getTermReps().get(1).getTermBox());
                                     er.getTermReps().get(1).setTerm(rightTerm);
                                     er.getTermReps().get(1).setTermComboValue(parser.getTermName(e.getTagName()));
-                                    er.getTermReps().get(1).getTermBox().getChildren().remove(0);
+                                    er.getTermReps().get(1).getTermBox().getChildren().remove(2);
                                 }
                             }
                         }
